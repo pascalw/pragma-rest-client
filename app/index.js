@@ -6,7 +6,30 @@ import routes from './routes';
 import configureStore from './store/configureStore';
 import './app.scss';
 
-const store = configureStore();
+let initialState = {
+  requests: [
+    {
+      "id": "1",
+      "name": "version",
+      "method": "GET",
+      "url": "https://mds-moonshotdev.cloud.pcftest.com/api/version"
+    },
+    {
+      "id": "2",
+      "name": "services :-)",
+      "method": "GET",
+      "url": "https://mds-moonshotdev.cloud.pcftest.com/api/services"
+    },
+    {
+      "id": "3f4gd",
+      "name": "kabisa",
+      "method": "GET",
+      "url": "http://kabisa.nl"
+    }
+  ]
+};
+
+const store = configureStore(initialState);
 
 render(
   <Provider store={store}>
