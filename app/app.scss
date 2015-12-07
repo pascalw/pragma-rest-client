@@ -95,30 +95,6 @@ input[type=button], button {
 	overflow: hidden;
 	text-overflow: ellipsis;
 
-	&.get {
-	  .method {
-		background: lightgreen;
-	  }
-	}
-
-	&.post {
-	  .method {
-		background: lightyellow;
-	  }
-	}
-
-	&.delete {
-	  .method {
-		background: lightcoral;
-	  }
-	}
-
-	&.put, &.patch {
-	  .method {
-		background: lightblue;
-	  }
-	}
-
 	a {
 	  display: block;
 	  padding: $default-padding / 2 $default-padding / 2;
@@ -132,6 +108,22 @@ input[type=button], button {
 	padding: 3px;
 	font-size: 0.7em;
 	background: lightgray;
+
+	&.get {
+	  background: lightgreen;
+	}
+
+	&.post {
+	  background: lightyellow;
+	}
+
+	&.delete {
+	  background: lightcoral;
+	}
+
+	&.put, &.patch {
+	  background: lightblue;
+	}
   }
 }
 
