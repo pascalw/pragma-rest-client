@@ -9,17 +9,15 @@ export default class App extends Component {
     return (
       <div>
         <div id="header">Moon</div>
-        <div id="main">
-          {this.props.children}
-          {
-            (() => {
-              if (process.env.NODE_ENV !== 'production') {
-                const DevTools = require('./DevTools');
-                return <DevTools />;
-              }
-            })()
-          }
-        </div>
+        {this.props.children}
+        {
+          (() => {
+            if (process.env.NODE_ENV !== 'production') {
+              const DevTools = require('./DevTools');
+              return <DevTools />;
+            }
+          })()
+        }
       </div>
     );
   }
