@@ -1,0 +1,149 @@
+$header-height: 50px;
+$default-padding: 20px;
+$color-primary: #17212d;
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+html, body, #app-view, #main {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+label {
+  display: block;
+}
+
+body, input, option {
+  font-family: 'Open Sans', serif;
+}
+
+input[type=text], input[type=url] {
+  padding: 5px;
+  font-size: 1em;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #f1f0f0;
+}
+
+#header {
+  position: fixed;
+  width: 100%;
+  height: $header-height;
+  background: $color-primary;
+  padding: 15px;
+  box-sizing: border-box;
+  color: #fff;
+
+  a {
+	text-decoration: none;
+	color: #fff;
+  }
+}
+
+#main {
+  display: flex;
+  padding-top: $header-height;
+
+  .new-request {
+	position: absolute;
+	top: 0;
+	right: $default-padding;
+	font-size: 0.9em;
+  }
+}
+
+input[type=button], button {
+  appearance: none;
+  border: none;
+  padding: 5px 10px;
+  font-family: 'Open Sans', serif;
+  font-size: 1em;
+  border-radius: 5px;
+  margin: 10px 0;
+  background-color: $color-primary;
+  color: #fff;
+  outline: none;
+
+  &:hover {
+	cursor: pointer;
+  }
+
+  &:active, &:focus {
+	background-color: darken($color-primary, 10%);
+  }
+}
+
+#active-request {
+  flex: 1;
+  padding: $default-padding;
+}
+
+#requests {
+  border-right: 1px solid #e6e6e6;
+  width: 25%;
+  max-width: 250px;
+  min-width: 150px;
+
+  .request {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	&.get {
+	  .method {
+		background: lightgreen;
+	  }
+	}
+
+	&.post {
+	  .method {
+		background: lightyellow;
+	  }
+	}
+
+	&.delete {
+	  .method {
+		background: lightcoral;
+	  }
+	}
+
+	&.put, &.patch {
+	  .method {
+		background: lightblue;
+	  }
+	}
+
+	a {
+	  display: block;
+	  padding: $default-padding / 2 $default-padding / 2;
+	  color: #000;
+	  text-decoration: none;
+	}
+  }
+
+  .method {
+	border-radius: 1px;
+	padding: 3px;
+	font-size: 0.7em;
+	background: lightgray;
+  }
+}
+
+.request-editor {
+  .delete {
+	float: right;
+  }
+
+  .response {
+	background: #fff;
+	width: 100%;
+	height: 500px;
+	margin-top: 10px;
+  }
+}

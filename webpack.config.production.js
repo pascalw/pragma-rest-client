@@ -16,16 +16,18 @@ config.entry = './app/index';
 config.output.publicPath = '/dist/';
 
 config.module.loaders.push({
-  test: /^((?!\.module).)*\.css$/,
+  test: /^((?!\.module).)*\.scss$/,
   loader: ExtractTextPlugin.extract(
     'style-loader',
-    'css-loader'
+    'css-loader',
+    'sass'
   )
 }, {
-  test: /\.module\.css$/,
+  test: /\.module\.scss$/,
   loader: ExtractTextPlugin.extract(
     'style-loader',
-    'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+    'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+    'sass'
   )
 });
 
@@ -43,7 +45,7 @@ config.plugins.push(
       warnings: false
     }
   }),
-  new ExtractTextPlugin('style.css', { allChunks: true })
+  new ExtractTextPlugin('style.css', {allChunks: true})
 );
 
 config.target = webpackTargetElectronRenderer(config);
