@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
-export default class RequestEditor extends Component {
+class RequestEditor extends Component {
   render() {
     return (
       <div id="active-request">
-        active request here
+        active request here: { JSON.stringify(this.props.id) }
       </div>
     );
   }
 }
+
+export default RequestEditor;

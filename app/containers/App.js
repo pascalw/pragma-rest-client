@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 export default class App extends Component {
   static propTypes = {
@@ -8,7 +9,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <div id="header">Moon</div>
+        <div id="header"><Link to="/">Moon</Link></div>
         {this.props.children}
         {
           (() => {
