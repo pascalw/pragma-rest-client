@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import RequestsList from '../components/RequestsList';
 
 export default class App extends Component {
   static propTypes = {
@@ -10,7 +11,11 @@ export default class App extends Component {
     return (
       <div>
         <div id="header"><Link to="/">Moon</Link></div>
-        {this.props.children}
+        <div id="main">
+          <Link className="btn new-request" to='/new'>New request</Link>
+          <RequestsList/>
+          {this.props.children}
+        </div>
         {
           (() => {
             if (process.env.NODE_ENV !== 'production') {
