@@ -6,11 +6,7 @@ import { Link } from 'react-router'
 class EditRequestPage extends Component {
   render() {
     return (
-      <div id="main">
-        <Link className="btn new-request" to='/new'>New request</Link>
-        <RequestsList/>
-        <RequestEditor id={ this.props.params.id }/>
-      </div>
+      <RequestEditor id={ this.props.params.id }/>
     );
   }
 }
