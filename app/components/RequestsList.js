@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 class RequestsList extends Component {
   static propTypes = {
@@ -12,9 +13,9 @@ class RequestsList extends Component {
       <div id="requests">
         {this.props.requests.map((request, index) =>
           <article key={index} className="request">
-            <a href="#">
+            <Link to={`/requests/${request.id}`}>
               <span className={'method ' + request.method.toLowerCase() }>{ request.method }</span> { request.name }
-            </a>
+            </Link>
           </article>
         )}
       </div>
