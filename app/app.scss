@@ -58,7 +58,7 @@ body {
   }
 }
 
-input[type=button], button, a.btn {
+input[type=button], input[type=submit], button, a.btn {
   appearance: none;
   border: none;
   padding: 5px 10px;
@@ -78,11 +78,6 @@ input[type=button], button, a.btn {
   &:active, &:focus {
 	background-color: darken($color-primary, 10%);
   }
-}
-
-#active-request {
-  flex: 1;
-  padding: $default-padding;
 }
 
 #requests {
@@ -129,6 +124,9 @@ input[type=button], button, a.btn {
 }
 
 .request-editor {
+  flex: 1;
+  padding: $default-padding;
+
   .delete {
 	float: right;
   }

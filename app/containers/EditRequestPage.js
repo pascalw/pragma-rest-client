@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
-import RequestsList from '../components/RequestsList';
 import RequestEditor from '../components/RequestEditor';
-import { Link } from 'react-router'
+import { updateRequest } from '../actions/request';
+import { connect } from 'react-redux';
 
 class EditRequestPage extends Component {
+  onRequestChange(request) {
+    this.props.dispatch(updateRequest(request));
+  }
+
+  findRequest() {
+    return this.props.requests.filter((r) => r.id == this.props.params.id)[0]
+  }
+
   render() {
     return (
-      <RequestEditor id={ this.props.params.id }/>
+      <RequestEditor request={ this.findRequest() } onRequestChange={this.onRequestChange.bind(this) }/>
     );
   }
 }
 
-export default EditRequestPage;
+function select(state) {
+  return {
+    requests: state.requests
+  }
+}
+
+export default connect(select)(EditRequestPage);
