@@ -61,13 +61,21 @@ class RequestForm extends Component {
 class RequestEditor extends Component {
   static propTypes = {
     request: PropTypes.object.isRequired,
-    onRequestChange: PropTypes.func.isRequired
+    onRequestChange: PropTypes.func.isRequired,
+    onRequestDelete: PropTypes.func
   };
+
+  onDelete(e) {
+    e.preventDefault();
+
+    if (window.confirm("Are you sure you want to delete this request?"))
+      this.props.onRequestDelete && this.props.onRequestDelete(this.props.request);
+  }
 
   render() {
     return (
       <div className="request-editor">
-        <button className="delete">Delete</button>
+        <button className="delete" onClick={this.onDelete.bind(this)}>Delete</button>
 
         <RequestForm request={this.props.request} onSave={this.props.onRequestChange.bind(this)}/>
 

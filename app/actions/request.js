@@ -1,5 +1,6 @@
 export const ADD_REQUEST = 'ADD_REQUEST';
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';
+export const DELETE_REQUEST = 'DELETE_REQUEST';
 export const RELOAD_ALL = 'RELOAD_ALL';
 
 export function addRequest(request) {
@@ -15,6 +16,13 @@ export function addRequest(request) {
 export function updateRequest(request) {
   return {
     type: UPDATE_REQUEST,
+    request: request
+  };
+}
+
+export function deleteRequest(request) {
+  return {
+    type: DELETE_REQUEST,
     request: request
   };
 }

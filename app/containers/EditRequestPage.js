@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import RequestEditor from '../components/RequestEditor';
-import { updateRequest } from '../actions/request';
+import { updateRequest, deleteRequest } from '../actions/request';
 import { connect } from 'react-redux';
 
 class EditRequestPage extends Component {
   onRequestChange(request) {
     this.props.dispatch(updateRequest(request));
+  }
+
+  onRequestDelete(request) {
+    this.props.dispatch(deleteRequest(request));
+    this.props.history.pushState('/');
   }
 
   findRequest() {
@@ -18,7 +23,9 @@ class EditRequestPage extends Component {
       return (<div/>);
 
     return (
-      <RequestEditor request={ request } onRequestChange={this.onRequestChange.bind(this) }/>
+      <RequestEditor request={ request }
+                     onRequestChange={this.onRequestChange.bind(this) }
+                     onRequestDelete={this.onRequestDelete.bind(this)}/>
     );
   }
 }

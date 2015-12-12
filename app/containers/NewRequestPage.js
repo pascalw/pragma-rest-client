@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addRequest } from '../actions/request';
 
 class NewRequestPage extends Component {
-  onRequestChange(request) {
+  onRequestCreated(request) {
     this.props.dispatch(addRequest(request));
   }
 
@@ -14,7 +14,7 @@ class NewRequestPage extends Component {
 
   render() {
     return (
-      <RequestEditor request={this.newRequest()} onRequestChange={this.onRequestChange.bind(this) }/>
+      <RequestEditor request={this.newRequest()} onRequestChange={this.onRequestCreated.bind(this) }/>
     );
   }
 }
