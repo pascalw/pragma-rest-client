@@ -13,8 +13,12 @@ class EditRequestPage extends Component {
   }
 
   render() {
+    const request = this.findRequest();
+    if (request == null)
+      return (<div/>);
+
     return (
-      <RequestEditor request={ this.findRequest() } onRequestChange={this.onRequestChange.bind(this) }/>
+      <RequestEditor request={ request } onRequestChange={this.onRequestChange.bind(this) }/>
     );
   }
 }
