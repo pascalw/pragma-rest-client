@@ -1,4 +1,4 @@
-import { ADD_REQUEST, UPDATE_REQUEST } from '../actions/request';
+import { ADD_REQUEST, UPDATE_REQUEST, RELOAD_ALL } from '../actions/request';
 
 export default function requests(state = [], action) {
   switch (action.type) {
@@ -11,6 +11,8 @@ export default function requests(state = [], action) {
         action.request,
         ...state.slice(idx + 1)
       ];
+    case RELOAD_ALL:
+      return action.requests;
     default:
       return state;
   }

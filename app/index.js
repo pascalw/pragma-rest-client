@@ -4,32 +4,11 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import routes from './routes';
 import configureStore from './store/configureStore';
+import Project from './project';
 import './app.scss';
 
-let initialState = {
-  requests: [
-    {
-      "id": "1",
-      "name": "version",
-      "method": "GET",
-      "url": "https://mds-moonshotdev.cloud.pcftest.com/api/version"
-    },
-    {
-      "id": "2",
-      "name": "services :-)",
-      "method": "GET",
-      "url": "https://mds-moonshotdev.cloud.pcftest.com/api/services"
-    },
-    {
-      "id": "3f4gd",
-      "name": "kabisa",
-      "method": "PUT",
-      "url": "http://kabisa.nl"
-    }
-  ]
-};
-
-const store = configureStore(initialState);
+const store = configureStore();
+new Project(store).keepInSync();
 
 render(
   <Provider store={store}>

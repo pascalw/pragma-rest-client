@@ -43,7 +43,7 @@ class RequestForm extends Component {
                   selected={this.state.request.method}
                   options={ METHODS.map((m) => { return { value: m, label: m } } ) }/>
 
-          <input type="text" name="url" placeholder="url" value={ this.state.request.url }
+          <input type="url" name="url" placeholder="url" value={ this.state.request.url }
                  onChange={this.onChange.bind(this)}
                  required/>
         </div>
