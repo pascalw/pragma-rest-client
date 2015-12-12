@@ -23,7 +23,7 @@ let initialState = {
     {
       "id": "3f4gd",
       "name": "kabisa",
-      "method": "GET",
+      "method": "PUT",
       "url": "http://kabisa.nl"
     }
   ]

@@ -1,4 +1,5 @@
 export const ADD_REQUEST = 'ADD_REQUEST';
+export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 
 export function addRequest(request) {
   return {
@@ -7,3 +8,9 @@ export function addRequest(request) {
   };
 }
 
+export function updateRequest(request) {
+  return {
+    type: UPDATE_REQUEST,
+    request: request
+  };
+}
