@@ -125,16 +125,20 @@ input[type=button], input[type=submit], button, a.btn {
 
 .request-editor {
   flex: 1;
-  padding: $default-padding;
 
   .delete {
 	float: right;
   }
+}
 
-  .response {
-	background: #fff;
-	width: 100%;
-	height: 500px;
-	margin-top: 10px;
-  }
+.edit-request-page, .new-request-page {
+  flex: 1;
+  padding: $default-padding;
+}
+
+.response {
+  background: #fff;
+  width: 100%;
+  height: 500px;
+  margin-top: 10px;
 }

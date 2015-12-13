@@ -80,7 +80,6 @@ class RequestEditor extends Component {
         <RequestForm request={this.props.request} onSave={this.props.onRequestChange.bind(this)}/>
 
         <button>Execute</button>
-        <pre className="response"/>
       </div>
     );
   }

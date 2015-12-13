@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 import RequestEditor from '../components/RequestEditor';
-import { updateRequest, deleteRequest } from '../actions/request';
+import ResponseViewer from '../components/ResponseViewer';
+import * as actionCreators from '../actions/request';
 import { connect } from 'react-redux';
 
 class EditRequestPage extends Component {
-  onRequestChange(request) {
-    this.props.dispatch(updateRequest(request));
-  }
-
-  onRequestDelete(request) {
-    this.props.dispatch(deleteRequest(request));
-    this.props.history.pushState('/');
-  }
-
   findRequest() {
     return this.props.requests.filter((r) => r.id == this.props.params.id)[0]
   }
@@ -23,17 +15,20 @@ class EditRequestPage extends Component {
       return (<div/>);
 
     return (
-      <RequestEditor request={ request }
-                     onRequestChange={this.onRequestChange.bind(this) }
-                     onRequestDelete={this.onRequestDelete.bind(this)}/>
+      <div className="edit-request-page">
+        <RequestEditor request={ request }
+                       onRequestChange={this.props.updateRequest}
+                       onRequestDelete={this.props.deleteRequest}/>
+        <ResponseViewer/>
+      </div>
     );
   }
 }
 
-function select(state) {
+function mapStateToProps(state) {
   return {
     requests: state.requests
   }
 }
 
-export default connect(select)(EditRequestPage);
+export default connect(mapStateToProps, actionCreators)(EditRequestPage);
