@@ -1,6 +1,7 @@
 {
-  "name": "Gettable",
+  "name": "gettable-rest-client",
   "version": "0.0.1",
+  "productName": "Gettable",
   "main": "main.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers js:babel/register --recursive --require ./test/setup.js $(find test -name '*.spec.js')",
