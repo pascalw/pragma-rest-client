@@ -12,8 +12,11 @@ let template;
 let mainWindow = null;
 let appName = require('./package.json').name;
 
-require('electron-debug')();
 crashReporter.start();
+
+if (process.env.NODE_ENV === 'development') {
+  require('electron-debug')();
+}
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
@@ -119,7 +122,7 @@ app.on('ready', () => {
       }]
     }, {
       label: 'View',
-      submenu: [{
+      submenu: (process.env.NODE_ENV === 'development') ? [{
         label: 'Reload',
         accelerator: 'Command+R',
         click() {
@@ -136,6 +139,12 @@ app.on('ready', () => {
         accelerator: 'Alt+Command+I',
         click() {
           mainWindow.toggleDevTools();
+        }
+      }] : [{
+        label: 'Toggle Full Screen',
+        accelerator: 'Ctrl+Command+F',
+        click() {
+          mainWindow.setFullScreen(!mainWindow.isFullScreen());
         }
       }]
     }, {
@@ -173,7 +182,7 @@ app.on('ready', () => {
       }]
     }, {
       label: '&View',
-      submenu: [{
+      submenu: (process.env.NODE_ENV === 'development') ? [{
         label: '&Reload',
         accelerator: 'Ctrl+R',
         click() {
@@ -190,6 +199,12 @@ app.on('ready', () => {
         accelerator: 'Alt+Ctrl+I',
         click() {
           mainWindow.toggleDevTools();
+        }
+      }] : [{
+        label: 'Toggle &Full Screen',
+        accelerator: 'F11',
+        click() {
+          mainWindow.setFullScreen(!mainWindow.isFullScreen());
         }
       }]
     }];
