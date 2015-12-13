@@ -62,7 +62,8 @@ class RequestEditor extends Component {
   static propTypes = {
     request: PropTypes.object.isRequired,
     onRequestChange: PropTypes.func.isRequired,
-    onRequestDelete: PropTypes.func
+    onRequestDelete: PropTypes.func,
+    onRequestExecute: PropTypes.func,
   };
 
   onDelete(e) {
@@ -72,6 +73,11 @@ class RequestEditor extends Component {
       this.props.onRequestDelete && this.props.onRequestDelete(this.props.request);
   }
 
+  onExecute(e) {
+    e.preventDefault();
+    this.props.onRequestExecute(this.props.request);
+  }
+
   render() {
     return (
       <div className="request-editor">
@@ -79,7 +85,7 @@ class RequestEditor extends Component {
 
         <RequestForm request={this.props.request} onSave={this.props.onRequestChange.bind(this)}/>
 
-        <button>Execute</button>
+        <button onClick={ this.onExecute.bind(this) }>Execute</button>
       </div>
     );
   }

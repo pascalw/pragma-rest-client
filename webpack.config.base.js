@@ -22,6 +22,7 @@ module.exports = {
   },
   plugins: [],
   externals: [
-    'chokidar'
+    'chokidar',
+    'superagent'
   ]
 };
