@@ -7,11 +7,12 @@ const cfg = require('./webpack.config.production.js');
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
-const argv = require('minimist')(process.argv.slice(2));
-var packageJson = require('./package.json');
-const devDeps = Object.keys(packageJson.devDependencies);
 
-const appName = argv.name || argv.n || packageJson.name;
+const argv = require('minimist')(process.argv.slice(2));
+const pkg = require('./package.json');
+const devDeps = Object.keys(pkg.devDependencies);
+const appName = argv.name || argv.n || pkg.productName;
+
 const shouldUseAsar = argv.asar || argv.a || false;
 const shouldBuildAll = argv.all || false;
 
