@@ -1,7 +1,11 @@
+import RequestExecutor from '../RequestExecutor';
+import { receiveResponse } from './response';
+
 export const ADD_REQUEST = 'ADD_REQUEST';
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 export const DELETE_REQUEST = 'DELETE_REQUEST';
 export const RELOAD_ALL = 'RELOAD_ALL';
+
 
 export function addRequest(request) {
   if (request.id === undefined)
@@ -24,6 +28,14 @@ export function deleteRequest(request) {
   return {
     type: DELETE_REQUEST,
     request: request
+  };
+}
+
+export function executeRequest(request) {
+  return dispatch => {
+    new RequestExecutor().execute(request).then((result) => {
+      dispatch(receiveResponse(result.text, request));
+    });
   };
 }
 

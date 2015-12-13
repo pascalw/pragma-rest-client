@@ -18,8 +18,10 @@ class EditRequestPage extends Component {
       <div className="edit-request-page">
         <RequestEditor request={ request }
                        onRequestChange={this.props.updateRequest}
-                       onRequestDelete={this.props.deleteRequest}/>
-        <ResponseViewer/>
+                       onRequestDelete={this.props.deleteRequest}
+                       onRequestExecute={this.props.executeRequest}/>
+
+        <ResponseViewer response={ this.props.responses[request.id] }/>
       </div>
     );
   }
@@ -27,7 +29,8 @@ class EditRequestPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    requests: state.requests
+    requests: state.requests,
+    responses: state.responses
   }
 }
 
