@@ -4,17 +4,12 @@ import { connect } from 'react-redux';
 import { addRequest } from '../actions/request';
 
 class NewRequestPage extends Component {
-  onRequestCreated(request) {
-    this.props.dispatch(addRequest(request));
-  }
-
-  newRequest() {
-    return {method: 'GET'}
-  }
-
   render() {
     return (
-      <RequestEditor request={this.newRequest()} onRequestChange={this.onRequestCreated.bind(this) }/>
+      <div className="new-request-page">
+        <RequestEditor request={ { method: 'GET' } }
+                       onRequestChange={ this.props.addRequest }/>
+      </div>
     );
   }
 }
@@ -25,4 +20,4 @@ function select(state) {
   }
 }
 
-export default connect(select)(NewRequestPage);
+export default connect(select, {addRequest: addRequest})(NewRequestPage);
