@@ -74,6 +74,13 @@ app.on('ready', () => {
       label: 'File',
       submenu: [
         {
+          label: 'New project',
+          accelerator: 'Command+N',
+          click() {
+            mainWindow.webContents.executeJavaScript("window.location.hash = '/project/new';");
+          }
+        },
+        {
           label: 'Open project',
           accelerator: 'Command+O',
           click() {
