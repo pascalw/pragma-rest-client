@@ -6,7 +6,6 @@ export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 export const DELETE_REQUEST = 'DELETE_REQUEST';
 export const RELOAD_ALL = 'RELOAD_ALL';
 
-
 export function addRequest(request) {
   if (request.id === undefined)
     request.id = Math.random().toString(32).slice(2).substr(0, 5);

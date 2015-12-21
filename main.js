@@ -11,18 +11,16 @@ let menu;
 let template;
 let mainWindow = null;
 
-
 require('electron-debug')();
 crashReporter.start();
-
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
-
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({ width: 1024, height: 728 });
+  mainWindow = new BrowserWindow({width: 1024, height: 728});
+  mainWindow.maximize();
 
   if (process.env.HOT) {
     mainWindow.loadURL(`file://${__dirname}/app/hot-dev-app.html`);
@@ -71,6 +69,17 @@ app.on('ready', () => {
           app.quit();
         }
       }]
+    }, {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Open project',
+          accelerator: 'Command+O',
+          click() {
+            mainWindow.webContents.executeJavaScript("openProject();");
+          }
+        }
+      ]
     }, {
       label: 'Edit',
       submenu: [{

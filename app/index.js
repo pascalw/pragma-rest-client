@@ -4,17 +4,33 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { createHashHistory } from 'history';
 import { syncReduxAndRouter } from 'redux-simple-router';
+import { pushPath } from 'redux-simple-router';
 import routes from './routes';
 import configureStore from './store/configureStore';
-import Project from './project';
+import LocalStorageAdapter from './LocalStorageAdapter';
+import { openProject } from './actions/project';
+
 import './app.scss';
 
-const store = configureStore();
+const store = window.store = configureStore();
 const history = createHashHistory();
+
+const localStorageAdapter = new LocalStorageAdapter(store, localStorage);
+if (localStorageAdapter.getInitialState().project)
+  store.dispatch(openProject(localStorageAdapter.getInitialState().project));
 
 syncReduxAndRouter(history, store);
 
-new Project(store).keepInSync();
+window.openProject = () => {
+  const remote = require('electron').remote;
+  const dialog = remote.require('electron').dialog;
+  const browserWindow = require('electron').remote.BrowserWindow.getFocusedWindow();
+
+  const projectFile = dialog.showOpenDialog(browserWindow, {properties: ['openFile']})[0];
+
+  store.dispatch(openProject(projectFile));
+  store.dispatch(pushPath('/'));
+};
 
 render(
   <Provider store={store}>

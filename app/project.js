@@ -2,22 +2,30 @@ import { reloadAllRequests } from './actions/request';
 
 let fs = require('fs');
 var chokidar = require('chokidar');
-let PATH = '/Users/Pascal/Desktop/rest-tool-test/moon.json';
 
 class Project {
-  constructor(store) {
+  constructor(store, projectPath) {
     this.store = store;
+    this.projectPath = projectPath;
     this.previousState = {};
 
-    this.reloadState();
-    this.store.subscribe(this.writeState.bind(this));
+    this.reloadState().then(() => {
+      this.unsubscribeFromStore = this.store.subscribe(this.writeState.bind(this));
+    });
+  }
+
+  _log(message) {
+    console.log(`[${this.projectPath}] ${message}`)
   }
 
   reloadState() {
-    console.log('reloading state!');
-    this.readProject().then(({ requests }) => {
-      this.previousState = {requests: requests};
-      this.store.dispatch(reloadAllRequests(requests));
+    this._log('reloading state!');
+    return new Promise((resolve, reject) => {
+      this.readProject().then(({ requests }) => {
+        this.previousState = {requests: requests};
+        this.store.dispatch(reloadAllRequests(requests));
+        resolve();
+      });
     });
   }
 
@@ -29,7 +37,7 @@ class Project {
         this.stopWatching();
 
         this.writeProject(project).then(() => {
-          console.log("The file was saved!");
+          this._log("The file was saved!");
           this.watch();
         });
 
@@ -42,17 +50,22 @@ class Project {
 
   watch() {
     this.stopWatching();
-    this.watcher = chokidar.watch(PATH, {ignoreInitial: true}).on('all', this.reloadState.bind(this));
+    this.watcher = chokidar.watch(this.projectPath, {ignoreInitial: true}).on('all', this.reloadState.bind(this));
   }
 
   stopWatching() {
     this.watcher && this.watcher.close();
   }
 
+  close() {
+    this.unsubscribeFromStore();
+    this.stopWatching();
+  }
+
   readProject() {
     return new Promise(
       (resolve, reject) => {
-        fs.readFile(PATH, (err, data) => {
+        fs.readFile(this.projectPath, (err, data) => {
           let project = JSON.parse(data);
           resolve(project);
         });
@@ -63,7 +76,7 @@ class Project {
   writeProject(project) {
     return new Promise(
       (resolve, reject) => {
-        fs.writeFile(PATH, JSON.stringify(project, null, 4), (err) => {
+        fs.writeFile(this.projectPath, JSON.stringify(project, null, 4), (err) => {
           if (err)
             return reject(err);
 
