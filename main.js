@@ -6,10 +6,11 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const crashReporter = electron.crashReporter;
-const shell = electron.shell;
+
 let menu;
 let template;
 let mainWindow = null;
+let appName = require('./package.json').name;
 
 require('electron-debug')();
 crashReporter.start();
@@ -38,9 +39,9 @@ app.on('ready', () => {
 
   if (process.platform === 'darwin') {
     template = [{
-      label: 'Electron',
+      label: appName,
       submenu: [{
-        label: 'About ElectronReact',
+        label: 'About ' + appName,
         selector: 'orderFrontStandardAboutPanel:'
       }, {
         type: 'separator'
@@ -50,7 +51,7 @@ app.on('ready', () => {
       }, {
         type: 'separator'
       }, {
-        label: 'Hide ElectronReact',
+        label: 'Hide ' + appName,
         accelerator: 'Command+H',
         selector: 'hide:'
       }, {
@@ -146,29 +147,6 @@ app.on('ready', () => {
         label: 'Bring All to Front',
         selector: 'arrangeInFront:'
       }]
-    }, {
-      label: 'Help',
-      submenu: [{
-        label: 'Learn More',
-        click() {
-          shell.openExternal('http://electron.atom.io');
-        }
-      }, {
-        label: 'Documentation',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
-        }
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
-        }
-      }, {
-        label: 'Search Issues',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
-        }
-      }]
     }];
 
     menu = Menu.buildFromTemplate(template);
@@ -205,29 +183,6 @@ app.on('ready', () => {
         accelerator: 'Alt+Ctrl+I',
         click() {
           mainWindow.toggleDevTools();
-        }
-      }]
-    }, {
-      label: 'Help',
-      submenu: [{
-        label: 'Learn More',
-        click() {
-          shell.openExternal('http://electron.atom.io');
-        }
-      }, {
-        label: 'Documentation',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
-        }
-      }, {
-        label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
-        }
-      }, {
-        label: 'Search Issues',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
         }
       }]
     }];

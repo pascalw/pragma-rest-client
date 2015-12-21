@@ -8,13 +8,12 @@ const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
-const devDeps = Object.keys(require('./package.json').devDependencies);
+var packageJson = require('./package.json');
+const devDeps = Object.keys(packageJson.devDependencies);
 
-
-const appName = argv.name || argv.n || 'ElectronReact';
+const appName = argv.name || argv.n || packageJson.name;
 const shouldUseAsar = argv.asar || argv.a || false;
 const shouldBuildAll = argv.all || false;
-
 
 const DEFAULT_OPTS = {
   dir: './',
@@ -56,25 +55,25 @@ function startPack() {
   webpack(cfg, (err, stats) => {
     if (err) return console.error(err);
     del('release')
-    .then(paths => {
-      if (shouldBuildAll) {
-        // build for all platforms
-        const archs = ['ia32', 'x64'];
-        const platforms = ['linux', 'win32', 'darwin'];
+      .then(paths => {
+        if (shouldBuildAll) {
+          // build for all platforms
+          const archs = ['ia32', 'x64'];
+          const platforms = ['linux', 'win32', 'darwin'];
 
-        platforms.forEach(plat => {
-          archs.forEach(arch => {
-            pack(plat, arch, log(plat, arch));
+          platforms.forEach(plat => {
+            archs.forEach(arch => {
+              pack(plat, arch, log(plat, arch));
+            });
           });
-        });
-      } else {
-        // build for current platform only
-        pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
-      }
-    })
-    .catch(err => {
-      console.error(err);
-    });
+        } else {
+          // build for current platform only
+          pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   });
 }
 
