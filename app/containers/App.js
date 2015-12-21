@@ -10,7 +10,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <div id="header"><Link to="/">Moon</Link></div>
+        <div id="header"><Link to="/">Gettable</Link></div>
         <div id="main">
           <Link className="btn new-request" to='/new'>New request</Link>
           <RequestsList/>
