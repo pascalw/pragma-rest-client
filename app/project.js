@@ -4,14 +4,22 @@ let fs = require('fs');
 var chokidar = require('chokidar');
 
 class Project {
-  constructor(store, projectPath) {
+  constructor(store, projectPath, projectName) {
     this.store = store;
+    this.projectName = projectName;
     this.projectPath = projectPath;
     this.previousState = {};
+  }
 
-    this.reloadState().then(() => {
-      this.unsubscribeFromStore = this.store.subscribe(this.writeState.bind(this));
-    });
+  static create(store, projectPath, projectName) {
+    const project = new Project(store, projectPath, projectName);
+    project.init();
+
+    return project;
+  }
+
+  init() {
+    this.writeProject({name: this.projectName, requests: []});
   }
 
   _log(message) {
@@ -46,7 +54,13 @@ class Project {
     }
   }
 
-  keepInSync = this.watch;
+  keepInSync() {
+    this.reloadState().then(() => {
+      this.unsubscribeFromStore = this.store.subscribe(this.writeState.bind(this));
+    });
+
+    this.watch();
+  }
 
   watch() {
     this.stopWatching();
