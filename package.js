@@ -7,11 +7,12 @@ const cfg = require('./webpack.config.production.js');
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
-const argv = require('minimist')(process.argv.slice(2));
-var packageJson = require('./package.json');
-const devDeps = Object.keys(packageJson.devDependencies);
 
-const appName = argv.name || argv.n || packageJson.name;
+const argv = require('minimist')(process.argv.slice(2));
+const pkg = require('./package.json');
+const devDeps = Object.keys(pkg.devDependencies);
+const appName = argv.name || argv.n || pkg.productName;
+
 const shouldUseAsar = argv.asar || argv.a || false;
 const shouldBuildAll = argv.all || false;
 
@@ -39,12 +40,13 @@ if (version) {
   startPack();
 } else {
   // use the same version as the currently-installed electron-prebuilt
-  exec('npm list | grep electron-prebuilt', (err, stdout, stderr) => {
+  exec('npm list electron-prebuilt', (err, stdout) => {
     if (err) {
-      DEFAULT_OPTS.version = '0.35.2';
+      DEFAULT_OPTS.version = '0.36.0';
     } else {
-      DEFAULT_OPTS.version = stdout.split('@')[1].replace(/\s/g, '');
+      DEFAULT_OPTS.version = stdout.split('electron-prebuilt@')[1].replace(/\s/g, '');
     }
+
     startPack();
   });
 }
