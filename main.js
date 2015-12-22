@@ -10,7 +10,7 @@ const crashReporter = electron.crashReporter;
 let menu;
 let template;
 let mainWindow = null;
-let appName = require('./package.json').name;
+let appName = require('./package.json').productName;
 
 crashReporter.start();
 
