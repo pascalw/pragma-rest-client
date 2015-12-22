@@ -1,19 +1,51 @@
 {
-  "name": "Gettable",
+  "name": "gettable-rest-client",
   "version": "0.0.1",
+  "productName": "Gettable",
   "main": "main.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --compilers js:babel/register --recursive --require ./test/setup.js $(find test -name '*.spec.js')",
+    "test": "better-npm-run test",
     "test-watch": "npm test -- --watch",
     "test-e2e:crdv": "chromedriver",
-    "test-e2e": "NODE_ENV=test mocha --compilers js:babel/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
+    "test-e2e": "better-npm-run test-e2e",
     "lint": "eslint app test *.js",
     "hot-server": "node server.js",
-    "build": "NODE_ENV=production webpack --config webpack.config.production.js --progress --profile --colors",
-    "start": "electron .",
-    "start-hot": "HOT=1 NODE_ENV=development electron .",
-    "package": "NODE_ENV=production node package.js",
+    "build": "better-npm-run build",
+    "start": "better-npm-run start",
+    "start-hot": "better-npm-run start-hot",
+    "package": "better-npm-run package",
     "package-all": "npm run package -- --all"
+  },
+  "betterScripts": {
+    "start": {
+      "command": "electron ./",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "start-hot": {
+      "command": "electron ./",
+      "env": {
+        "HOT": 1,
+        "NODE_ENV": "development"
+      }
+    },
+    "package": {
+      "command": "node package.js",
+      "env": { "NODE_ENV": "production" }
+    },
+    "build": {
+      "command": "webpack --config webpack.config.production.js --progress --profile --colors",
+      "env": { "NODE_ENV": "production" }
+    },
+    "test": {
+      "command": "mocha --compilers js:babel/register --recursive --require ./test/setup.js test/**/*.spec.js",
+      "env": { "NODE_ENV": "test" }
+    },
+    "test-e2e": {
+      "command": "mocha --compilers js:babel/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
+      "env": { "NODE_ENV": "test" }
+    }
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -26,14 +58,15 @@
     "babel-eslint": "^4.1.1",
     "babel-loader": "^5.3.2",
     "babel-plugin-react-transform": "^1.1.1",
+    "better-npm-run": "0.0.5",
     "chai": "^3.3.0",
     "chromedriver": "^2.19.0",
     "co-mocha": "^1.1.2",
     "css-loader": "^0.23.0",
     "css-modules-require-hook": "^2.0.2",
     "del": "^2.0.1",
-    "electron-packager": "^5.0.2",
-    "electron-prebuilt": "^0.35.2",
+    "electron-packager": "^5.1.1",
+    "electron-prebuilt": "^0.36.0",
     "electron-rebuild": "^1.0.0",
     "eslint": "^1.3.1",
     "eslint-config-airbnb": "^1.0.2",
@@ -55,9 +88,9 @@
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.1.1",
-    "redux-devtools": "^3.0.0-beta-3",
-    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
-    "redux-devtools-log-monitor": "^1.0.0-beta-3",
+    "redux-devtools": "^3.0.0",
+    "redux-devtools-dock-monitor": "^1.0.1",
+    "redux-devtools-log-monitor": "^1.0.1",
     "redux-logger": "^2.0.4",
     "selenium-webdriver": "^2.48.2",
     "sinon": "^1.17.2",
@@ -65,10 +98,11 @@
     "webpack": "^1.12.1",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.4.1",
-    "webpack-target-electron-renderer": "^0.2.0"
+    "webpack-target-electron-renderer": "^0.3.0"
   },
   "dependencies": {
     "chokidar": "^1.4.1",
+    "better-npm-run": "0.0.4",
     "electron-debug": "^0.5.1",
     "history": "~1.13.0",
     "react": "^0.14.2",
