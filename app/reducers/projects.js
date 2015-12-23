@@ -10,7 +10,7 @@ export default function projects(state = [], action) {
 
   switch (action.type) {
     case UPSERT_PROJECT:
-      idx = findIndex(state, action.id);
+      idx = findIndex(state, action.project.id);
       return [
         ...state.slice(0, idx),
         action.project,
