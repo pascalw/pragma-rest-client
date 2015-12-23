@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import RequestEditor from '../components/RequestEditor';
 import ResponseViewer from '../components/ResponseViewer';
-import * as actionCreators from '../actions/request';
+import * as actionCreators from '../actions/project';
 import { connect } from 'react-redux';
 
 class EditRequestPage extends Component {
   findRequest() {
-    return this.props.requests.filter((r) => r.id == this.props.params.id)[0]
+    const project = this.props.projects.filter(p => p.id == this.props.params.projectId)[0];
+    if (!project)
+      return null;
+
+    return project.requests.filter(r => r.id == this.props.params.id)[0];
   }
 
   render() {
@@ -21,7 +25,7 @@ class EditRequestPage extends Component {
                        onRequestDelete={this.props.deleteRequest}
                        onRequestExecute={this.props.executeRequest}/>
 
-        <ResponseViewer response={ this.props.responses[request.id] }/>
+        <ResponseViewer response={ (this.props.responses[request.projectId] || {})[request.id] }/>
       </div>
     );
   }
@@ -29,7 +33,7 @@ class EditRequestPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    requests: state.requests,
+    projects: state.projects,
     responses: state.responses
   }
 }

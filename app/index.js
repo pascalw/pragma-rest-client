@@ -8,7 +8,7 @@ import { pushPath } from 'redux-simple-router';
 import routes from './routes';
 import configureStore from './store/configureStore';
 import LocalStorageAdapter from './LocalStorageAdapter';
-import { openProject } from './actions/project';
+import { upsertProject } from './actions/project';
 
 import './app.scss';
 
@@ -17,7 +17,7 @@ const history = createHashHistory();
 
 const localStorageAdapter = new LocalStorageAdapter(store, localStorage);
 if (localStorageAdapter.getInitialState().project)
-  store.dispatch(openProject(localStorageAdapter.getInitialState().project));
+  store.dispatch(upsertProject(localStorageAdapter.getInitialState().project));
 
 syncReduxAndRouter(history, store);
 
@@ -28,7 +28,7 @@ window.openProject = () => {
 
   const projectFile = dialog.showOpenDialog(browserWindow, {properties: ['openFile']})[0];
 
-  store.dispatch(openProject(projectFile));
+  store.dispatch(upsertProject(projectFile));
   store.dispatch(pushPath('/'));
 };
 
