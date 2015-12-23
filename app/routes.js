@@ -9,8 +9,8 @@ import NewProjectPage from './containers/NewProjectPage';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage}/>
-    <Route path="/new" component={NewRequestPage}/>
-    <Route path="/requests/:id" component={EditRequestPage}/>
+    <Route path="/projects/:projectId/requests/new" component={NewRequestPage}/>
+    <Route path="/projects/:projectId/requests/:id" component={EditRequestPage}/>
     <Route path="/project/new" component={NewProjectPage}/>
   </Route>
 );

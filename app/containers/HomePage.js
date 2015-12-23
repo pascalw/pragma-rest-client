@@ -6,7 +6,7 @@ import RequestEditor from '../components/RequestEditor';
 
 export class HomePage extends Component {
   render() {
-    if (this.props.project == null)
+    if (this.props.projects.length == 0)
       return (<div><a href="#" onClick={ () => window.openProject() }>Open</a> a project to get started</div>);
 
     return (
@@ -17,7 +17,7 @@ export class HomePage extends Component {
 
 function mapStateToProps(state) {
   return {
-    project: state.project
+    projects: state.projects
   }
 }
 
