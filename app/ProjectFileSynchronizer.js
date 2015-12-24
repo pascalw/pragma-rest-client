@@ -1,15 +1,20 @@
 import { writeProject } from './utils/projectUtils';
 import { upsertProject } from './actions/project';
+import { map } from 'lodash/collection';
+import { flatten } from 'lodash/array';
 var chokidar = require('chokidar');
 
 class ProjectFileSynchronizer {
   constructor(store) {
     this.store = store;
+    this.writeNextChange = true;
     this.watcher = chokidar.watch([], {ignoreInitial: true}).on('all', this.onFileChange.bind(this));
     this.previousState = null;
   }
 
   onFileChange(_, path) {
+    console.log(`detected change for ${path}`);
+    this.writeNextChange = false;
     this.store.dispatch(upsertProject(path));
   }
 
@@ -53,22 +58,49 @@ class ProjectFileSynchronizer {
   syncProjectsToDisk() {
     this.restoreProjects();
 
+    //FIXME: provide promise to know when restoreProjects is completed
+    setTimeout(() => {
+      this.subscribeToStore();
+      this.setupWatchers();
+    }, 2000);
+  }
+
+  setupWatchers() {
+    const projects = this.store.getState().projects;
+    const watchedPaths = flatten(map(this.watcher.getWatched(), (items, dir) => {
+      return items.map(i => dir + '/' + i);
+    }));
+
+    // stop watchers for removed projects
+    projects.filter(p => watchedPaths.indexOf(p.path) === -1)
+      .forEach(p => this.stopWatcher(p.path));
+
+    projects.forEach(p => {
+      if (watchedPaths.indexOf(p.path) === -1) {
+        console.log(`Setting up watcher for ${p.path}`);
+        this.initWatcher(p.path);
+      }
+    });
+  }
+
+  subscribeToStore() {
     this.store.subscribe(() => {
       const currentProjectsState = this.store.getState().projects;
 
       if (currentProjectsState !== this.previousState) {
         if (this.previousState !== null) {
           this.saveOpenProjects(currentProjectsState);
+          this.setupWatchers();
 
           currentProjectsState.forEach((project, index) => {
-            if (project !== this.previousState[index]) {
-              console.log('State change for ', project.path);
-
+            if (project !== this.previousState[index] && this.writeNextChange) {
+              console.log('Writing change for ', project.path);
               this.withWatcherPaused(project.path, writeProject(project));
             }
           });
         }
 
+        this.writeNextChange = true;
         this.previousState = currentProjectsState;
       }
     });
