@@ -2,13 +2,16 @@ import RequestExecutor from '../RequestExecutor';
 import { receiveResponse } from './response';
 import { readProject } from '../utils/projectUtils';
 
-export const NEW_PROJECT = 'NEW_PROJECT';
 export const UPSERT_PROJECT = 'UPSERT_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
 export const ADD_REQUEST = 'ADD_REQUEST';
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 export const DELETE_REQUEST = 'DELETE_REQUEST';
 export const EXECUTE_REQUEST = 'EXECUTE_REQUEST';
+
+function randomId() {
+  return Math.random().toString(32).slice(2).substr(0, 5);
+}
 
 export function upsertProject(projectPath) {
   return dispatch => {
@@ -31,9 +34,21 @@ export function upsertProject(projectPath) {
   };
 }
 
+export function newProject(path, name) {
+  return {
+    type: UPSERT_PROJECT,
+    project: {
+      id: randomId(),
+      path: `${path}/${name}.json`,
+      name: name,
+      requests: []
+    }
+  }
+}
+
 export function addRequest(request, projectId) {
   const newRequest = Object.assign({}, request, {
-    id: Math.random().toString(32).slice(2).substr(0, 5),
+    id: randomId(),
     projectId: projectId
   });
 
