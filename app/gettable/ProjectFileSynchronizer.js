@@ -1,5 +1,5 @@
-import { writeProject } from './utils/projectUtils';
-import { upsertProject } from './actions/project';
+import { writeProject } from '../utils/projectUtils';
+import { upsertProject } from '../actions/project';
 import { map } from 'lodash/collection';
 import { flatten } from 'lodash/array';
 var chokidar = require('chokidar');

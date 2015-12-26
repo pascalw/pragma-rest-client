@@ -1,4 +1,4 @@
-import RequestExecutor from '../RequestExecutor';
+import RequestExecutor from '../gettable/RequestExecutor';
 import { receiveResponse } from './response';
 import { readProject } from '../utils/projectUtils';
 
