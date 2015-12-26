@@ -4,6 +4,34 @@ import { map } from 'lodash/collection';
 import { flatten } from 'lodash/array';
 var chokidar = require('chokidar');
 
+class Request {
+  id:string;
+  name:string;
+  method:string;
+  url:string;
+
+  constructor(id, name, method, url) {
+    this.id = id;
+    this.name = name;
+    this.method = method;
+    this.url = url;
+  }
+}
+
+class Project {
+  id:string;
+  name:string;
+  path:string;
+  requests:Array<Request>;
+
+  constructor(id, name, path, requests) {
+    this.id = id;
+    this.name = name;
+    this.path = path;
+    this.requests = requests;
+  }
+}
+
 class ProjectFileSynchronizer {
   constructor(store) {
     this.store = store;
@@ -95,7 +123,8 @@ class ProjectFileSynchronizer {
           currentProjectsState.forEach((project, index) => {
             if (project !== this.previousState[index] && this.writeNextChange) {
               console.log('Writing change for ', project.path);
-              this.withWatcherPaused(project.path, writeProject(project));
+              const serializedProject = this.serialize(project);
+              this.withWatcherPaused(project.path, writeProject(serializedProject));
             }
           });
         }
@@ -104,6 +133,14 @@ class ProjectFileSynchronizer {
         this.previousState = currentProjectsState;
       }
     });
+  }
+
+  serialize(project) {
+    const requests = project.requests.map(r => {
+      return new Request(r.id, r.name, r.method, r.url);
+    });
+
+    return new Project(project.id, project.name, project.path, requests);
   }
 }
 
