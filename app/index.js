@@ -7,19 +7,16 @@ import { syncReduxAndRouter } from 'redux-simple-router';
 import { pushPath } from 'redux-simple-router';
 import routes from './routes';
 import configureStore from './store/configureStore';
-import LocalStorageAdapter from './LocalStorageAdapter';
-import { openProject } from './actions/project';
+import { syncProjectsToDisk } from './gettable/ProjectFileSynchronizer';
+import { upsertProject } from './actions/project';
 
 import './app.scss';
 
 const store = window.store = configureStore();
 const history = createHashHistory();
 
-const localStorageAdapter = new LocalStorageAdapter(store, localStorage);
-if (localStorageAdapter.getInitialState().project)
-  store.dispatch(openProject(localStorageAdapter.getInitialState().project));
-
 syncReduxAndRouter(history, store);
+syncProjectsToDisk(store);
 
 window.openProject = () => {
   const remote = require('electron').remote;
@@ -28,7 +25,7 @@ window.openProject = () => {
 
   const projectFile = dialog.showOpenDialog(browserWindow, {properties: ['openFile']})[0];
 
-  store.dispatch(openProject(projectFile));
+  store.dispatch(upsertProject(projectFile));
   store.dispatch(pushPath('/'));
 };
 

@@ -49,13 +49,6 @@ body {
 #main {
   display: flex;
   padding-top: $header-height;
-
-  .new-request {
-	position: absolute;
-	top: 0;
-	right: $default-padding;
-	font-size: 0.9em;
-  }
 }
 
 input[type=button], input[type=submit], button, a.btn {
