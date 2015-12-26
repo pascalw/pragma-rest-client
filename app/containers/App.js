@@ -12,7 +12,6 @@ export default class App extends Component {
       <div>
         <div id="header"><Link to="/">Gettable</Link></div>
         <div id="main">
-          <Link className="btn new-request" to='/new'>New request</Link>
           <RequestsList/>
           {this.props.children}
         </div>

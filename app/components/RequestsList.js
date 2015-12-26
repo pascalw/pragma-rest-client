@@ -8,10 +8,25 @@ class RequestListItem extends Component {
 
     return (
       <article className="request">
-        <Link to={`/requests/${request.id}`}>
+        <Link to={`/projects/${request.projectId}/requests/${request.id}`}>
           <span className={'method ' + request.method.toLowerCase() }>{ request.method }</span> { request.name }
         </Link>
       </article>
+    );
+  }
+}
+
+class ProjectListItem extends Component {
+  render() {
+    const { project } = this.props;
+    return (
+      <div className="project">
+        <Link className="new-request" to={`/projects/${project.id}/requests/new`}>New request</Link>
+        <span>{project.name}</span>
+        {project.requests.map((request, index) =>
+          <RequestListItem key={index} request={request}/>
+        )}
+      </div>
     );
   }
 }
@@ -22,11 +37,11 @@ class RequestsList extends Component {
   };
 
   render() {
-    const { dispatch, requests } = this.props
+    const { dispatch, projects } = this.props;
     return (
       <div id="requests">
-        {this.props.requests.map((request, index) =>
-          <RequestListItem key={index} request={request}/>
+        {this.props.projects.map((project, index) =>
+          <ProjectListItem key={index} project={project}/>
         )}
       </div>
     );
@@ -35,7 +50,7 @@ class RequestsList extends Component {
 
 function select(state) {
   return {
-    requests: state.requests
+    projects: state.projects
   }
 }
 
