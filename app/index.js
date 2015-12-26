@@ -7,7 +7,7 @@ import { syncReduxAndRouter } from 'redux-simple-router';
 import { pushPath } from 'redux-simple-router';
 import routes from './routes';
 import configureStore from './store/configureStore';
-import { syncProjectsToDisk } from './ProjectFileSynchronizer';
+import { syncProjectsToDisk } from './gettable/ProjectFileSynchronizer';
 import { upsertProject } from './actions/project';
 
 import './app.scss';
