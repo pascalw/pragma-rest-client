@@ -119,6 +119,7 @@
     "chokidar": "^1.4.1",
     "electron-debug": "^0.5.1",
     "history": "~1.13.0",
+    "immutable": "^3.7.6",
     "lodash-es": "^3.10.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",

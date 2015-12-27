@@ -1,12 +1,10 @@
 import { RECEIVE_RESPONSE } from '../actions/response';
+import { Map } from 'immutable';
 
-export default function responses(state = {}, action) {
+export default function responses(state = new Map(), action) {
   switch (action.type) {
     case RECEIVE_RESPONSE:
-      let projectResponses = state[action.request.projectId] || {};
-      projectResponses = Object.assign({}, projectResponses, {[action.request.id]: action.response});
-
-      return Object.assign({}, state, {[action.request.projectId]: projectResponses});
+      return state.updateIn([action.request.projectId, action.request.id], () => action.response);
     default:
       return state;
   }
