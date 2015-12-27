@@ -1,6 +1,9 @@
 {
   "presets": ["es2015", "stage-0", "react"],
   "env": {
+    "production": {
+      "plugins": ["syntax-flow", "transform-flow-strip-types"]
+    },
     "development": {
       "plugins": [
 		["react-transform", {
@@ -12,7 +15,7 @@
                 "transform": "react-transform-catch-errors",
                 "imports": ["react", "redbox-react"]
               }]
-      }]]
+      }], "typecheck", "syntax-flow", "transform-flow-strip-types"]
     }
   }
 }
