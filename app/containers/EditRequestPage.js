@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 
 class EditRequestPage extends Component {
   findRequest() {
-    const project = this.props.projects.filter(p => p.id == this.props.params.projectId)[0];
+    const project = this.props.projects.filter(p => p.id == this.props.params.projectId).get(0);
     if (!project)
       return null;
 
-    return project.requests.filter(r => r.id == this.props.params.id)[0];
+    return project.requests.filter(r => r.id == this.props.params.id).get(0);
   }
 
   render() {
@@ -25,7 +25,7 @@ class EditRequestPage extends Component {
                        onRequestDelete={this.props.deleteRequest}
                        onRequestExecute={this.props.executeRequest}/>
 
-        <ResponseViewer response={ (this.props.responses[request.projectId] || {})[request.id] }/>
+        <ResponseViewer response={ (this.props.responses.getIn([request.projectId, request.id])) }/>
       </div>
     );
   }

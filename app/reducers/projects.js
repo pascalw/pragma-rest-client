@@ -1,61 +1,47 @@
 import { UPSERT_PROJECT, ADD_REQUEST, UPDATE_REQUEST, DELETE_REQUEST } from '../actions/project';
 import { readProject } from '../utils/projectUtils';
+import { List, Record } from 'immutable';
 
 let findIndex = (state, id) => {
   return state.findIndex(p => p.id == id);
 };
 
-export default function projects(state = [], action) {
-  let idx, currentProject, newProject, requestIdx;
+let Project = Record({
+  id: undefined,
+  name: undefined,
+  path: undefined,
+  requests: new List()
+});
+
+export default function projects(state = new List(), action) {
+  let idx, currentProject;
 
   switch (action.type) {
     case UPSERT_PROJECT:
       idx = findIndex(state, action.project.id);
-      return [
-        ...state.slice(0, idx),
-        action.project,
-        ...state.slice(idx + 1)
-      ];
+      var project = new Project(action.project);
+      return idx === -1 ? state.push(project) : state.set(idx, project);
     case ADD_REQUEST:
       idx = findIndex(state, action.projectId);
-      currentProject = state[idx];
-      newProject = Object.assign({}, currentProject, {
-        requests: [...currentProject.requests, action.request]
+      return state.update(idx, project => {
+        return project.set('requests', project.requests.push(action.request));
       });
-
-      return [
-        ...state.slice(0, idx),
-        newProject,
-        ...state.slice(idx + 1)
-      ];
     case UPDATE_REQUEST:
       idx = findIndex(state, action.request.projectId);
       currentProject = state[idx];
-      requestIdx = currentProject.requests.findIndex(r => r.id === action.request.id);
 
-      newProject = Object.assign({}, currentProject, {
-        requests: [...currentProject.requests.slice(0, requestIdx), action.request, ...currentProject.requests.slice(requestIdx + 1)]
+      return state.update(idx, project => {
+        let requestIdx = project.requests.findIndex(r => r.id === action.request.id);
+        return project.set('requests', project.requests.set(requestIdx, action.request));
       });
-
-      return [
-        ...state.slice(0, idx),
-        newProject,
-        ...state.slice(idx + 1)
-      ];
     case DELETE_REQUEST:
       idx = findIndex(state, action.request.projectId);
       currentProject = state[idx];
-      requestIdx = currentProject.requests.findIndex(r => r.id === action.request.id);
 
-      newProject = Object.assign({}, state[idx], {
-        requests: [...currentProject.requests.slice(0, requestIdx), ...currentProject.requests.slice(requestIdx + 1)]
+      return state.update(idx, project => {
+        let requestIdx = project.requests.findIndex(r => r.id === action.request.id);
+        return project.set('requests', project.requests.delete(requestIdx));
       });
-
-      return [
-        ...state.slice(0, idx),
-        newProject,
-        ...state.slice(idx + 1)
-      ];
     default:
       return state;
   }

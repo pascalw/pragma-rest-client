@@ -1,6 +1,7 @@
 import RequestExecutor from '../gettable/RequestExecutor';
 import { receiveResponse } from './response';
 import { readProject } from '../utils/projectUtils';
+import { List } from 'immutable';
 
 export const UPSERT_PROJECT = 'UPSERT_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
@@ -27,7 +28,7 @@ export function upsertProject(projectPath) {
           path: projectPath,
           id: project.id,
           name: project.name,
-          requests: requests
+          requests: new List(requests)
         }
       });
     });
@@ -41,7 +42,7 @@ export function newProject(path, name) {
       id: randomId(),
       path: `${path}/${name}.json`,
       name: name,
-      requests: []
+      requests: new List()
     }
   }
 }

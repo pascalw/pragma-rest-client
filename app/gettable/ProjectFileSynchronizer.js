@@ -2,6 +2,7 @@ import { writeProject } from '../utils/projectUtils';
 import { upsertProject } from '../actions/project';
 import { map } from 'lodash/collection';
 import { flatten } from 'lodash/array';
+import { List } from 'immutable';
 var chokidar = require('chokidar');
 
 class Request {
@@ -22,7 +23,7 @@ class Project {
   id:string;
   name:string;
   path:string;
-  requests:Array<Request>;
+  requests:List<Request>;
 
   constructor(id, name, path, requests) {
     this.id = id;
