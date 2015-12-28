@@ -19,9 +19,9 @@ class RequestForm extends Component {
   setRequestState(request) {
     if (request && !List.isList(request.headers)) {
       // convert headers into a list of headers, so UI can have stable sorting
-      request.headers = request.headers.map((value, key) => {
+      request = request.set('headers', request.headers.map((value, key) => {
         return new List([key, value]);
-      }).toList();
+      }).toList());
     }
 
     this.setState({request: request});
@@ -36,21 +36,20 @@ class RequestForm extends Component {
   }
 
   onChange(e) {
-    this.setState({request: Object.assign({}, this.state.request, {[e.target.name]: e.target.value})})
+    this.setState({request: this.state.request.set(e.target.name, e.target.value)});
   }
 
   onHeadersChange(headers) {
-    this.setState({request: Object.assign({}, this.state.request, {headers: headers})});
+    this.setState({request: this.state.request.set('headers', headers)});
   }
 
   onSubmit(e) {
     e.preventDefault();
 
-    let request = {...this.state.request};
     // convert headers back into map
-    request.headers = request.headers.reduce((previousValue, currentValue) => {
+    const request = this.state.request.set('headers', this.state.request.headers.reduce((previousValue, currentValue) => {
       return previousValue.set(currentValue.get(0), currentValue.get(1));
-    }, new Map());
+    }, new Map()));
 
     this.props.onSave(request);
   }
