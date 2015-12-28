@@ -1,12 +1,10 @@
 var agent = require('superagent-promise')(require('superagent'), Promise);
 
-class RequestExecutor {
-  execute(request) {
-    var method = request.method;
-    var url = request.url;
+export default function execute({ method, url, headers, body}) {
+  let request = agent(method, url);
 
-    return agent(method, url);
-  }
-}
+  request.headers !== {} && request.set(headers);
+  body && request.send(body);
 
-export default RequestExecutor;
+  return request;
+};

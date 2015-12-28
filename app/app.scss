@@ -16,11 +16,15 @@ label {
   display: block;
 }
 
-body, input, option {
+body, input, textarea, option {
   font-family: 'Open Sans', serif;
 }
 
-input[type=text], input[type=url] {
+textarea {
+  -webkit-appearance: textfield;
+}
+
+input[type=text], input[type=url], textarea {
   padding: 5px;
   font-size: 1em;
 }
@@ -121,6 +125,10 @@ input[type=button], input[type=submit], button, a.btn {
 
   .delete {
 	float: right;
+  }
+
+  .headers {
+	width: 100%;
   }
 }
 

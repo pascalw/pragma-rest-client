@@ -10,12 +10,16 @@ class Request {
   name:string;
   method:string;
   url:string;
+  body:?string;
+  headers:Object;
 
-  constructor(id, name, method, url) {
+  constructor(id, name, method, url, body, headers = {}) {
     this.id = id;
     this.name = name;
     this.method = method;
     this.url = url;
+    this.body = body;
+    this.headers = headers;
   }
 }
 
@@ -138,7 +142,7 @@ class ProjectFileSynchronizer {
 
   serialize(project) {
     const requests = project.requests.map(r => {
-      return new Request(r.id, r.name, r.method, r.url);
+      return new Request(r.id, r.name, r.method, r.url, r.body, r.headers);
     });
 
     return new Project(project.id, project.name, project.path, requests);

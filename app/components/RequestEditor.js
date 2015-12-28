@@ -14,12 +14,20 @@ class RequestForm extends Component {
     this.state = {};
   }
 
+  setRequestState(request) {
+    if (request.headers)
+      request.headers = JSON.stringify(request.headers);
+    this.setState({request: request});
+  }
+
   componentDidMount() {
-    this.setState({request: this.props.request})
+    let request = {...this.state.request};
+    this.setRequestState(request);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({request: nextProps.request})
+    let request = {...nextProps.request};
+    this.setRequestState(request);
   }
 
   onChange(e) {
@@ -27,8 +35,14 @@ class RequestForm extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault()
-    this.props.onSave(this.state.request)
+    e.preventDefault();
+
+    let request = {...this.state.request};
+
+    if (request.headers)
+      request.headers = JSON.parse(request.headers);
+
+    this.props.onSave(request);
   }
 
   render() {
@@ -51,6 +65,14 @@ class RequestForm extends Component {
         <input type="text" name="name" placeholder="name" value={this.state.request.name}
                onChange={ this.onChange.bind(this)}
                required/>
+
+        <textarea className="headers" name="headers" placeholder="headers"
+                  value={this.state.request.headers }
+                  onChange={this.onChange.bind(this)}/>
+
+        <textarea className="body" name="body" placeholder="body"
+                  value={this.state.request.body}
+                  onChange={this.onChange.bind(this)}/>
 
         <input type="submit" value="Save"/>
       </form>
