@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Select from './Select';
+import HeaderEditor from './HeaderEditor';
+import { Map, List } from 'immutable';
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
 
@@ -15,33 +17,40 @@ class RequestForm extends Component {
   }
 
   setRequestState(request) {
-    if (request.headers)
-      request.headers = JSON.stringify(request.headers);
+    if (request && !List.isList(request.headers)) {
+      // convert headers into a list of headers, so UI can have stable sorting
+      request.headers = request.headers.map((value, key) => {
+        return new List([key, value]);
+      }).toList();
+    }
 
     this.setState({request: request});
   }
 
   componentDidMount() {
-    let request = {...this.state.request};
-    this.setRequestState(request);
+    this.setRequestState(this.props.request);
   }
 
   componentWillReceiveProps(nextProps) {
-    let request = {...nextProps.request};
-    this.setRequestState(request);
+    this.setRequestState(nextProps.request);
   }
 
   onChange(e) {
     this.setState({request: Object.assign({}, this.state.request, {[e.target.name]: e.target.value})})
   }
 
+  onHeadersChange(headers) {
+    this.setState({request: Object.assign({}, this.state.request, {headers: headers})});
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
     let request = {...this.state.request};
-
-    if (request.headers)
-      request.headers = JSON.parse(request.headers);
+    // convert headers back into map
+    request.headers = request.headers.reduce((previousValue, currentValue) => {
+      return previousValue.set(currentValue.get(0), currentValue.get(1));
+    }, new Map());
 
     this.props.onSave(request);
   }
@@ -67,9 +76,7 @@ class RequestForm extends Component {
                onChange={ this.onChange.bind(this)}
                required/>
 
-        <textarea className="headers" name="headers" placeholder="headers"
-                  value={this.state.request.headers }
-                  onChange={this.onChange.bind(this)}/>
+        <HeaderEditor headers={this.state.request.headers} onChange={this.onHeadersChange.bind(this)}/>
 
         <textarea className="body" name="body" placeholder="body"
                   value={this.state.request.body || ''}
@@ -86,7 +93,7 @@ class RequestEditor extends Component {
     request: PropTypes.object.isRequired,
     onRequestChange: PropTypes.func.isRequired,
     onRequestDelete: PropTypes.func,
-    onRequestExecute: PropTypes.func,
+    onRequestExecute: PropTypes.func
   };
 
   onDelete(e) {
