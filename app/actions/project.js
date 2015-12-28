@@ -1,4 +1,4 @@
-import RequestExecutor from '../gettable/RequestExecutor';
+import doExecuteRequest from '../gettable/RequestExecutor';
 import { receiveResponse } from './response';
 import { readProject } from '../utils/projectUtils';
 import { List } from 'immutable';
@@ -76,7 +76,7 @@ export function deleteRequest(request) {
 
 export function executeRequest(request) {
   return dispatch => {
-    new RequestExecutor().execute(request).then((result) => {
+    doExecuteRequest(request).then((result) => {
       dispatch(receiveResponse(result.text, request));
     });
   };
