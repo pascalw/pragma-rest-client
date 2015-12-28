@@ -79,7 +79,7 @@ export function executeRequest(request) {
   return dispatch => {
     dispatch(awaitingResponse(request));
 
-    doExecuteRequest(request).then((result) => {
+    doExecuteRequest(request.method, request.url, request.headers.toJS(), request.body).then((result) => {
       dispatch(receiveResponse(result.text, request));
     });
   };
