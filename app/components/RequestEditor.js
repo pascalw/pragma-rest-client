@@ -17,6 +17,7 @@ class RequestForm extends Component {
   setRequestState(request) {
     if (request.headers)
       request.headers = JSON.stringify(request.headers);
+
     this.setState({request: request});
   }
 
@@ -71,7 +72,7 @@ class RequestForm extends Component {
                   onChange={this.onChange.bind(this)}/>
 
         <textarea className="body" name="body" placeholder="body"
-                  value={this.state.request.body}
+                  value={this.state.request.body || ''}
                   onChange={this.onChange.bind(this)}/>
 
         <input type="submit" value="Save"/>
