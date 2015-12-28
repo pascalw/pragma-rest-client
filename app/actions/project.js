@@ -1,5 +1,5 @@
 import doExecuteRequest from '../gettable/RequestExecutor';
-import { receiveResponse } from './response';
+import { awaitingResponse, receiveResponse } from './response';
 import { readProject } from '../utils/projectUtils';
 import { List } from 'immutable';
 
@@ -76,6 +76,8 @@ export function deleteRequest(request) {
 
 export function executeRequest(request) {
   return dispatch => {
+    dispatch(awaitingResponse(request));
+
     doExecuteRequest(request).then((result) => {
       dispatch(receiveResponse(result.text, request));
     });
