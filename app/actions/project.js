@@ -1,7 +1,7 @@
 import doExecuteRequest from '../gettable/RequestExecutor';
 import { awaitingResponse, receiveResponse } from './response';
 import { readProject } from '../utils/projectUtils';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
 export const UPSERT_PROJECT = 'UPSERT_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
@@ -19,6 +19,7 @@ export function upsertProject(projectPath) {
     readProject(projectPath).then((project) => {
       const requests = project.requests.map(r => {
         r.projectId = project.id;
+        r.headers = new Map(r.headers);
         return r;
       });
 
