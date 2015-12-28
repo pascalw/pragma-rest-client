@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RequestEditor from '../components/RequestEditor';
 import { connect } from 'react-redux';
-import { addRequest } from '../actions/project';
+import { Request, addRequest } from '../actions/project';
 
 class NewRequestPage extends Component {
   addRequest(request) {
@@ -11,7 +11,7 @@ class NewRequestPage extends Component {
   render() {
     return (
       <div className="new-request-page">
-        <RequestEditor request={ { method: 'GET' } }
+        <RequestEditor request={ new Request({method: 'GET'}) }
                        onRequestChange={ this.addRequest.bind(this) }/>
       </div>
     );
