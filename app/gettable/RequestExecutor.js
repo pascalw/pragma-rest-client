@@ -1,10 +1,24 @@
-var agent = require('superagent-promise')(require('superagent'), Promise);
+var request = require('request');
+
+class Response {
+  body:?string;
+  headers:Object;
+  status:number;
+  statusText:string;
+
+  constructor(body:string, headers:Object, status:number, statusText:string) {
+    this.body = body;
+    this.headers = headers;
+    this.status = status;
+    this.statusText = statusText;
+  }
+}
 
 export default function execute(method, url, headers, body) {
-  let request = agent(method, url);
-
-  request.headers !== {} && request.set(headers);
-  body && request.send(body);
-
-  return request;
+  return new Promise((resolve, reject) => {
+    request({method, url, headers, body}, (error, response) => {
+      if (error) return reject(error);
+      resolve(new Response(response.body, response.headers, response.statusCode, response.statusMessage));
+    });
+  });
 };

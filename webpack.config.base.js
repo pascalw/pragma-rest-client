@@ -23,6 +23,6 @@ module.exports = {
   plugins: [],
   externals: [
     'chokidar',
-    'superagent'
+    'request'
   ]
 };

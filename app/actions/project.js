@@ -1,7 +1,7 @@
 import { List, Record, Map } from 'immutable';
 
 import doExecuteRequest from '../gettable/RequestExecutor';
-import { awaitingResponse, receiveResponse } from './response';
+import { awaitingResponse, receiveResponse, receiveError } from './response';
 import { readProject } from '../utils/projectUtils';
 
 export const UPSERT_PROJECT = 'UPSERT_PROJECT';
@@ -93,8 +93,10 @@ export function executeRequest(request) {
   return dispatch => {
     dispatch(awaitingResponse(request));
 
-    doExecuteRequest(request.method, request.url, request.headers.toJS(), request.body).then((result) => {
-      dispatch(receiveResponse(result.text, request));
+    doExecuteRequest(request.method, request.url, request.headers.toJS(), request.body).then((response) => {
+      dispatch(receiveResponse(response, request));
+    }).catch((error) => {
+      dispatch(receiveError(error, request));
     });
   };
 }
