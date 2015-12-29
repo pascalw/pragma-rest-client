@@ -1,6 +1,7 @@
 $header-height: 50px;
 $default-padding: 20px;
 $color-primary: #17212d;
+$border-color: #e6e6e6;
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
@@ -78,7 +79,7 @@ input[type=button], input[type=submit], button, a.btn {
 }
 
 #requests {
-  border-right: 1px solid #e6e6e6;
+  border-right: 1px solid $border-color;
   width: 25%;
   max-width: 250px;
   min-width: 150px;
@@ -138,10 +139,15 @@ input[type=button], input[type=submit], button, a.btn {
 }
 
 .response {
-  background: #fff;
-  width: 100%;
-  height: 500px;
-  margin-top: 10px;
+  border-top: 1px solid $border-color;
+  padding-top: $default-padding;
+
+  pre {
+	background: #fff;
+	width: 100%;
+	height: 500px;
+	margin-top: 10px;
+  }
 }
 
 .new-project-page {

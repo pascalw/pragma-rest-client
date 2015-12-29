@@ -1,4 +1,4 @@
-import { AWAITING_RESPONSE, RECEIVE_RESPONSE } from '../actions/response';
+import { AWAITING_RESPONSE, RECEIVE_RESPONSE, RECEIVE_ERROR } from '../actions/response';
 import { UPDATE_PATH } from 'redux-simple-router'
 import { Map } from 'immutable';
 
@@ -10,7 +10,11 @@ export default function responses(state = new Map(), action) {
       }));
     case RECEIVE_RESPONSE:
       return state.updateIn([action.request.projectId, action.request.id], () => ({
-        body: action.response
+        object: action.response
+      }));
+    case RECEIVE_ERROR:
+      return state.updateIn([action.request.projectId, action.request.id], () => ({
+        error: action.error
       }));
     case UPDATE_PATH:
       return state.clear();
