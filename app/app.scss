@@ -5,6 +5,14 @@ $border-color: #e6e6e6;
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
+html {
+  overflow: hidden;
+}
+
+body {
+  overflow: auto;
+}
+
 html, body, #app-view, #main {
   height: 100%;
 }
