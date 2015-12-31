@@ -29,7 +29,9 @@ class SingleHeaderEditor extends Component {
                value={this.props.value}
                onChange={this.onChange.bind(this)}/>
 
-        <a onClick={this.onRemove.bind(this)} href="#">-</a>
+        <button className="icon" onClick={this.onRemove.bind(this)}>
+          <i className="fa fa-minus-circle"></i>
+        </button>
       </div>
     );
   }
@@ -70,7 +72,9 @@ export default class HeaderEditor extends Component {
     return (
       <div className="header-editor">
         <span>Headers
-          <a onClick={this.addHeader.bind(this)} href="#">+</a>
+          <button className="icon" onClick={this.addHeader.bind(this)}>
+            <i className="fa fa-plus-circle"></i>
+          </button>
         </span>
 
         {this.props.headers.map(([header, value], index) => {
