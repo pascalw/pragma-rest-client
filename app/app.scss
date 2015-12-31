@@ -13,7 +13,7 @@ body {
   overflow: auto;
 }
 
-html, body, #app-view, #main {
+html, body, #root, #app, #main {
   height: 100%;
 }
 
@@ -91,6 +91,7 @@ input[type=button], input[type=submit], button, a.btn {
   width: 25%;
   max-width: 250px;
   min-width: 150px;
+  overflow-y: scroll;
 
   .request {
 	white-space: nowrap;
@@ -142,13 +143,20 @@ input[type=button], input[type=submit], button, a.btn {
 }
 
 .page, .edit-request-page, .new-request-page {
-  flex: 1;
   padding: $default-padding;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-self: flex-start;
+  height: 100%;
 }
 
 .response {
   border-top: 1px solid $border-color;
   padding-top: $default-padding;
+  overflow-y: scroll;
+  flex: 2;
 
   pre {
 	background: #fff;

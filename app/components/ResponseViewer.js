@@ -12,7 +12,7 @@ class ResponseViewer extends Component {
       return <div/>;
 
     if (this.props.response.pending) {
-      return <div>Loading...</div>;
+      return <div className="response">Loading...</div>;
     }
 
     const response = this.props.response.object;
