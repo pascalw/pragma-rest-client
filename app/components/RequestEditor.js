@@ -3,6 +3,8 @@ import Select from './Select';
 import HeaderEditor from './HeaderEditor';
 import { Map, List } from 'immutable';
 
+import styles from './RequestEditor.module.scss';
+
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
 
 class RequestForm extends Component {
@@ -111,7 +113,7 @@ class RequestEditor extends Component {
 
   render() {
     return (
-      <div className="request-editor">
+      <div className={styles.requestEditor}>
         <RequestForm request={this.props.request}
                      onSave={this.props.onRequestChange.bind(this)}
                      onExecute={this.onExecute.bind(this)}

@@ -1,0 +1,52 @@
+@import '../styles/variables';
+
+.requestsList {
+  border-right: 1px solid $border-color;
+  width: 25%;
+  max-width: 250px;
+  min-width: 150px;
+  overflow-y: scroll;
+
+  :global {
+	.project-details {
+	  padding: 5px;
+	}
+
+	.request {
+	  white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+
+	  a {
+		display: block;
+		padding: $default-padding / 2 $default-padding / 2;
+		color: #000;
+		text-decoration: none;
+	  }
+	}
+
+	.method {
+	  border-radius: 1px;
+	  padding: 3px;
+	  margin-right: 5px;
+	  font-size: 0.7em;
+	  background: lightgray;
+
+	  &.get {
+		background: lightgreen;
+	  }
+
+	  &.post {
+		background: lightyellow;
+	  }
+
+	  &.delete {
+		background: lightcoral;
+	  }
+
+	  &.put, &.patch {
+		background: lightblue;
+	  }
+	}
+  }
+}

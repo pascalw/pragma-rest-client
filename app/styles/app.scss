@@ -1,8 +1,4 @@
-$header-height: 35px;
-$default-padding: 20px;
-$color-primary: #0078e7;
-$border-color: #e6e6e6;
-
+@import './variables';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 html {
@@ -112,98 +108,6 @@ input[type=text], input[type=url], textarea {
   margin-bottom: 5px;
 }
 
-#requests {
-  border-right: 1px solid $border-color;
-  width: 25%;
-  max-width: 250px;
-  min-width: 150px;
-  overflow-y: scroll;
-
-  .project-details {
-	padding: 5px;
-  }
-
-  .request {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-
-	a {
-	  display: block;
-	  padding: $default-padding / 2 $default-padding / 2;
-	  color: #000;
-	  text-decoration: none;
-	}
-  }
-
-  .method {
-	border-radius: 1px;
-	padding: 3px;
-	margin-right: 5px;
-	font-size: 0.7em;
-	background: lightgray;
-
-	&.get {
-	  background: lightgreen;
-	}
-
-	&.post {
-	  background: lightyellow;
-	}
-
-	&.delete {
-	  background: lightcoral;
-	}
-
-	&.put, &.patch {
-	  background: lightblue;
-	}
-  }
-}
-
-.request-editor {
-  .name {
-	border: none;
-	background: none;
-	width: auto;
-
-	padding-top: 0;
-	border-bottom: 1px solid $border-color;
-  }
-
-  .delete {
-	float: right;
-	background-color: #E94F37;
-  }
-
-  .body {
-	font-size: 0.8em;
-	height: 100px;
-  }
-
-  .method-url-group {
-	display: flex;
-	margin-bottom: 5px;
-	background: #fff;
-
-	input, select {
-	  outline: none;
-	  border: none;
-	}
-
-	input {
-	  border-left: 1px solid $border-color;
-	  margin: 0;
-	}
-
-	.execute {
-	  margin: 0;
-	  border-radius: 0;
-	  border: none;
-	}
-  }
-}
-
 .page, .edit-request-page, .new-request-page {
   padding: $default-padding;
 
@@ -212,20 +116,6 @@ input[type=text], input[type=url], textarea {
   flex: 1;
   align-self: flex-start;
   height: 100%;
-}
-
-.response {
-  border-top: 1px solid $border-color;
-  padding-top: $default-padding;
-  overflow-y: scroll;
-  flex: 2;
-
-  pre {
-	background: #fff;
-	width: 100%;
-	height: 500px;
-	margin-top: 10px;
-  }
 }
 
 .new-project-page {

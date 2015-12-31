@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import styles from './RequestsList.module.scss';
+
 class RequestListItem extends Component {
   render() {
     const request = this.props.request;
@@ -42,7 +44,7 @@ class RequestsList extends Component {
   render() {
     const { dispatch, projects } = this.props;
     return (
-      <div id="requests">
+      <div className={styles.requestsList}>
         {this.props.projects.map((project, index) =>
           <ProjectListItem key={index} project={project}/>
         )}

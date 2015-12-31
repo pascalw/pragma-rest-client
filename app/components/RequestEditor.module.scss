@@ -1,0 +1,46 @@
+@import '../styles/variables';
+
+.requestEditor {
+  :global {
+	.name {
+	  border: none;
+	  background: none;
+	  width: auto;
+
+	  padding-top: 0;
+	  border-bottom: 1px solid $border-color;
+	}
+
+	.delete {
+	  float: right;
+	  background-color: #E94F37;
+	}
+
+	.body {
+	  font-size: 0.8em;
+	  height: 100px;
+	}
+
+	.method-url-group {
+	  display: flex;
+	  margin-bottom: 5px;
+	  background: #fff;
+
+	  input, select {
+		outline: none;
+		border: none;
+	  }
+
+	  input {
+		border-left: 1px solid $border-color;
+		margin: 0;
+	  }
+
+	  .execute {
+		margin: 0;
+		border-radius: 0;
+		border: none;
+	  }
+	}
+  }
+}
