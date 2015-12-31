@@ -10,7 +10,8 @@ import configureStore from './store/configureStore';
 import { syncProjectsToDisk } from './gettable/ProjectFileSynchronizer';
 import { upsertProject } from './actions/project';
 
-import './app.scss';
+import './styles/app.scss';
+import 'font-awesome/scss/font-awesome.scss';
 
 const store = window.store = configureStore();
 const history = createHashHistory();

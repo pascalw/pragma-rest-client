@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import styles from './RequestsList.module.scss';
+
 class RequestListItem extends Component {
   render() {
     const request = this.props.request;
@@ -9,7 +11,8 @@ class RequestListItem extends Component {
     return (
       <article className="request">
         <Link to={`/projects/${request.projectId}/requests/${request.id}`}>
-          <span className={'method ' + request.method.toLowerCase() }>{ request.method }</span> { request.name }
+          <span className={'method ' + request.method.toLowerCase() }>{ request.method }</span>
+          { request.name }
         </Link>
       </article>
     );
@@ -21,8 +24,13 @@ class ProjectListItem extends Component {
     const { project } = this.props;
     return (
       <div className="project">
-        <Link className="new-request" to={`/projects/${project.id}/requests/new`}>New request</Link>
-        <span>{project.name}</span>
+        <div className="project-details">
+          <span>{project.name}</span>
+
+          <Link className="new-request" title="Create new request" to={`/projects/${project.id}/requests/new`}>
+            <i className="fa small fa-plus-circle"/>
+          </Link>
+        </div>
         {project.requests.map((request, index) =>
           <RequestListItem key={index} request={request}/>
         )}
@@ -39,7 +47,7 @@ class RequestsList extends Component {
   render() {
     const { dispatch, projects } = this.props;
     return (
-      <div id="requests">
+      <div className={styles.requestsList}>
         {this.props.projects.map((project, index) =>
           <ProjectListItem key={index} project={project}/>
         )}

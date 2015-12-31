@@ -1,0 +1,125 @@
+@import './variables';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+html {
+  overflow: hidden;
+}
+
+body {
+  overflow: auto;
+}
+
+html, body, #root, #app, #main {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+label {
+  display: block;
+}
+
+body, input, textarea, option {
+  font-family: 'Open Sans', serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: $background-color;
+}
+
+#header {
+  position: fixed;
+  width: 100%;
+  height: $header-height;
+  background: $color-primary;
+  border-bottom: 1px solid darken($color-primary, 6%);
+  padding: 7px 8px;
+  box-sizing: border-box;
+  color: #fff;
+
+  a {
+	text-decoration: none;
+	color: #fff;
+  }
+}
+
+.fa.small {
+  font-size: 14px;
+}
+
+#main {
+  display: flex;
+  padding-top: $header-height;
+}
+
+select {
+  height: 2.25em;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin: .25em 0;
+  font-size: 0.8em;
+}
+
+input[type=button], input[type=submit], button, a.btn {
+  appearance: none;
+  border: none;
+  padding: 5px 10px;
+  font-family: 'Open Sans', serif;
+  font-size: 1em;
+  border-radius: 2px;
+  margin: 10px 0;
+  background-color: $color-primary;
+  color: #fff;
+  outline: none;
+  text-decoration: none;
+
+  &:hover {
+	cursor: pointer;
+	background-image: linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
+  }
+
+  &:active {
+	background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.2));
+  }
+
+  &.icon {
+	background: none;
+	color: #000;
+	margin: 0;
+	padding: 0;
+  }
+}
+
+textarea {
+  -webkit-appearance: textfield;
+  width: 100%;
+  display: block;
+}
+
+input[type=text], input[type=url], textarea {
+  padding: 5px;
+  font-size: 1em;
+  width: 100%;
+
+  margin-bottom: 5px;
+}
+
+.page, .edit-request-page, .new-request-page {
+  padding: $default-padding;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-self: flex-start;
+  height: 100%;
+}
+
+.new-project-page {
+  h2 {
+	margin: 0 0 10px 0;
+  }
+}

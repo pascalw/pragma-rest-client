@@ -3,6 +3,8 @@ import Select from './Select';
 import HeaderEditor from './HeaderEditor';
 import { Map, List } from 'immutable';
 
+import styles from './RequestEditor.module.scss';
+
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
 
 class RequestForm extends Component {
@@ -60,20 +62,21 @@ class RequestForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit.bind(this)}>
+        <input type="text" className="name" name="name" placeholder="name" value={this.state.request.name}
+               onChange={ this.onChange.bind(this)}
+               required/>
+
         <div className="method-url-group">
           <Select name="method"
                   onChange={ this.onChange.bind(this)}
                   selected={this.state.request.method}
                   options={ METHODS.map((m) => { return { value: m, label: m } } ) }/>
 
-          <input type="url" name="url" placeholder="url" value={ this.state.request.url }
+          <input type="url" className="url" name="url" placeholder="url" value={ this.state.request.url }
                  onChange={this.onChange.bind(this)}
                  required/>
+          <button className="execute" onClick={ this.props.onExecute }>Execute</button>
         </div>
-
-        <input type="text" name="name" placeholder="name" value={this.state.request.name}
-               onChange={ this.onChange.bind(this)}
-               required/>
 
         <HeaderEditor headers={this.state.request.headers} onChange={this.onHeadersChange.bind(this)}/>
 
@@ -82,6 +85,7 @@ class RequestForm extends Component {
                   onChange={this.onChange.bind(this)}/>
 
         <input type="submit" value="Save"/>
+        <button className="delete" onClick={this.props.onDelete}>Delete</button>
       </form>
     )
   }
@@ -109,12 +113,11 @@ class RequestEditor extends Component {
 
   render() {
     return (
-      <div className="request-editor">
-        <button className="delete" onClick={this.onDelete.bind(this)}>Delete</button>
-
-        <RequestForm request={this.props.request} onSave={this.props.onRequestChange.bind(this)}/>
-
-        <button onClick={ this.onExecute.bind(this) }>Execute</button>
+      <div className={styles.requestEditor}>
+        <RequestForm request={this.props.request}
+                     onSave={this.props.onRequestChange.bind(this)}
+                     onExecute={this.onExecute.bind(this)}
+                     onDelete={this.onDelete.bind(this)}/>
       </div>
     );
   }

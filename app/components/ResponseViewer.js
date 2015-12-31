@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import styles from './ResponseViewer.module.scss';
 
 function toTitleCase(str) {
   return str.replace(/\w*/g, function (txt) {
@@ -12,7 +13,7 @@ class ResponseViewer extends Component {
       return <div/>;
 
     if (this.props.response.pending) {
-      return <div>Loading...</div>;
+      return <div className={styles.response}>Loading...</div>;
     }
 
     const response = this.props.response.object;
@@ -20,14 +21,14 @@ class ResponseViewer extends Component {
 
     if (error)
       return (
-        <div className="response">
+        <div className={styles.response}>
           <h3>Request failed:</h3>
           { error.message }
         </div>
       );
 
     return (
-      <div className="response">
+      <div className={styles.response}>
         <span>
           <b>Status:&nbsp;</b>
           {response.status } { response.statusText }

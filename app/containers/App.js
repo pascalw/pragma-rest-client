@@ -9,8 +9,10 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <div id="header"><Link to="/">Gettable</Link></div>
+      <div id="app">
+        <div id="header">
+          <Link to="/">Gettable</Link>
+        </div>
         <div id="main">
           <RequestsList/>
           {this.props.children}

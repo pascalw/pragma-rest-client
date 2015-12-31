@@ -1,0 +1,17 @@
+@import '../styles/variables';
+
+.response {
+  border-top: 1px solid $border-color;
+  padding-top: $default-padding;
+  overflow-y: scroll;
+  flex: 2;
+
+  pre {
+	background: #fff;
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	margin-top: 10px;
+	overflow: scroll;
+  }
+}
