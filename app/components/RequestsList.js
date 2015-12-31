@@ -26,7 +26,10 @@ class ProjectListItem extends Component {
       <div className="project">
         <div className="project-details">
           <span>{project.name}</span>
-          <Link className="new-request" to={`/projects/${project.id}/requests/new`}>New request</Link>
+
+          <Link className="new-request" title="Create new request" to={`/projects/${project.id}/requests/new`}>
+            <i className="fa small fa-plus-circle"/>
+          </Link>
         </div>
         {project.requests.map((request, index) =>
           <RequestListItem key={index} request={request}/>

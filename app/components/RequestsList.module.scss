@@ -8,8 +8,22 @@
   overflow-y: scroll;
 
   :global {
+	.project:not(:last-child) {
+	  border-bottom: 1px solid $border-color;
+	}
+
 	.project-details {
-	  padding: 5px;
+	  padding: 5px 10px;
+	  border-bottom: 1px solid $border-color;
+	  background: lighten($background-color, 1%);
+	}
+
+	.new-request {
+	  display: block;
+	  width: 50px;
+	  text-align: right;
+	  float: right;
+	  color: #000;
 	}
 
 	.request {
