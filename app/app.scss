@@ -171,25 +171,6 @@ input[type=text], input[type=url], textarea {
 	border-bottom: 1px solid $border-color;
   }
 
-  .header-editor {
-	margin-bottom: 10px;
-	max-width: 500px;
-
-	button.icon {
-	  padding-left: 5px;
-	}
-  }
-
-  .header {
-	display: flex;
-	font-size: 0.85em;
-
-	input {
-	  margin-bottom: 0px;
-	  height: 28px;
-	}
-  }
-
   .delete {
 	float: right;
 	background-color: #E94F37;

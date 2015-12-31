@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { List, Map } from 'immutable';
+import styles from './HeaderEditor.module.scss';
 
 class SingleHeaderEditor extends Component {
   static propTypes = {
@@ -21,7 +22,7 @@ class SingleHeaderEditor extends Component {
 
   render() {
     return (
-      <div className="header">
+      <div className={styles.header}>
         <input type="text" placeholder="Header" ref="header"
                value={this.props.header}
                onChange={this.onChange.bind(this)}/>
@@ -30,7 +31,7 @@ class SingleHeaderEditor extends Component {
                onChange={this.onChange.bind(this)}/>
 
         <button className="icon" onClick={this.onRemove.bind(this)}>
-          <i className="fa small fa-minus-circle"></i>
+          <i className="fa small fa-minus-circle"/>
         </button>
       </div>
     );
@@ -70,10 +71,10 @@ export default class HeaderEditor extends Component {
 
   render() {
     return (
-      <div className="header-editor">
+      <div className={styles.headerEditor}>
         <span>Headers
           <button className="icon" onClick={this.addHeader.bind(this)}>
-            <i className="fa small fa-plus-circle"></i>
+            <i className="fa small fa-plus-circle"/>
           </button>
         </span>
 
