@@ -30,7 +30,7 @@ class SingleHeaderEditor extends Component {
                onChange={this.onChange.bind(this)}/>
 
         <button className="icon" onClick={this.onRemove.bind(this)}>
-          <i className="fa fa-minus-circle"></i>
+          <i className="fa small fa-minus-circle"></i>
         </button>
       </div>
     );
@@ -73,7 +73,7 @@ export default class HeaderEditor extends Component {
       <div className="header-editor">
         <span>Headers
           <button className="icon" onClick={this.addHeader.bind(this)}>
-            <i className="fa fa-plus-circle"></i>
+            <i className="fa small fa-plus-circle"></i>
           </button>
         </span>
 

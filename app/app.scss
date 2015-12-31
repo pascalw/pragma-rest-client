@@ -51,6 +51,10 @@ body {
   }
 }
 
+.fa.small {
+  font-size: 14px;
+}
+
 #main {
   display: flex;
   padding-top: $header-height;
