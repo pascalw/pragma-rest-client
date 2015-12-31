@@ -9,7 +9,8 @@ class RequestListItem extends Component {
     return (
       <article className="request">
         <Link to={`/projects/${request.projectId}/requests/${request.id}`}>
-          <span className={'method ' + request.method.toLowerCase() }>{ request.method }</span> { request.name }
+          <span className={'method ' + request.method.toLowerCase() }>{ request.method }</span>
+          { request.name }
         </Link>
       </article>
     );
@@ -21,8 +22,10 @@ class ProjectListItem extends Component {
     const { project } = this.props;
     return (
       <div className="project">
-        <Link className="new-request" to={`/projects/${project.id}/requests/new`}>New request</Link>
-        <span>{project.name}</span>
+        <div className="project-details">
+          <span>{project.name}</span>
+          <Link className="new-request" to={`/projects/${project.id}/requests/new`}>New request</Link>
+        </div>
         {project.requests.map((request, index) =>
           <RequestListItem key={index} request={request}/>
         )}
