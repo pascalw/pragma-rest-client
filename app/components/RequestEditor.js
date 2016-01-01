@@ -34,7 +34,8 @@ class RequestForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setRequestState(nextProps.request);
+    if (this.props.request !== nextProps.request)
+      this.setRequestState(nextProps.request);
   }
 
   onChange(e) {
@@ -56,6 +57,11 @@ class RequestForm extends Component {
     this.props.onSave(request);
   }
 
+  onExecute(e) {
+    e.preventDefault();
+    this.props.onExecute(this.state.request);
+  }
+
   render() {
     if (this.state.request === undefined)
       return (<form/>);
@@ -75,7 +81,7 @@ class RequestForm extends Component {
           <input type="url" className="url" name="url" placeholder="url" value={ this.state.request.url }
                  onChange={this.onChange.bind(this)}
                  required/>
-          <button className="execute" onClick={ this.props.onExecute }>Execute</button>
+          <button className="execute" onClick={ this.onExecute.bind(this) }>Execute</button>
         </div>
 
         <HeaderEditor headers={this.state.request.headers} onChange={this.onHeadersChange.bind(this)}/>
@@ -106,9 +112,8 @@ class RequestEditor extends Component {
       this.props.onRequestDelete && this.props.onRequestDelete(this.props.request);
   }
 
-  onExecute(e) {
-    e.preventDefault();
-    this.props.onRequestExecute(this.props.request);
+  onExecute(request) {
+    this.props.onRequestExecute(request);
   }
 
   render() {
