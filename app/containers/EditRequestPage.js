@@ -19,10 +19,7 @@ class EditRequestPage extends Component {
   }
 
   onExecuteRequest(request) {
-    const responseId = `${request.projectId}_${request.id}`;
-
-    this.props.executeRequest(responseId, request.method, request.url, request.headers.toJS(), request.body);
-    this.setState({responseId: responseId});
+    this.props.executeRequest(request.method, request.url, request.headers.toJS(), request.body);
   }
 
   render() {
@@ -37,7 +34,7 @@ class EditRequestPage extends Component {
                        onRequestDelete={this.props.deleteRequest}
                        onRequestExecute={this.onExecuteRequest.bind(this)}/>
 
-        <ResponseViewer response={ (this.props.responses.get(this.state.responseId)) }/>
+        <ResponseViewer response={ this.props.response }/>
       </div>
     );
   }
@@ -46,7 +43,7 @@ class EditRequestPage extends Component {
 function mapStateToProps(state) {
   return {
     projects: state.projects,
-    responses: state.responses
+    response: state.response
   }
 }
 

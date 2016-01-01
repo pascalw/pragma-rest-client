@@ -89,14 +89,14 @@ export function deleteRequest(request) {
   }
 }
 
-export function executeRequest(id, method:string, url:string, headers:Object, body:?string) {
+export function executeRequest(method:string, url:string, headers:Object, body:?string) {
   return dispatch => {
-    dispatch(awaitingResponse(id));
+    dispatch(awaitingResponse());
 
     doExecuteRequest(method, url, headers, body).then((response) => {
-      dispatch(receiveResponse(response, id));
+      dispatch(receiveResponse(response));
     }).catch((error) => {
-      dispatch(receiveError(error, id));
+      dispatch(receiveError(error));
     });
   };
 }

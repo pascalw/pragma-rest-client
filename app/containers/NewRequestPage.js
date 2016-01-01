@@ -4,8 +4,6 @@ import RequestEditor from '../components/RequestEditor';
 import ResponseViewer from '../components/ResponseViewer';
 import { Request, addRequest, executeRequest } from '../actions/project';
 
-const UNSAVED_RESPONSE_ID = '__unsaved__';
-
 class NewRequestPage extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +20,7 @@ class NewRequestPage extends Component {
 
   onRequestExecute(request) {
     this.setState({request: request});
-    this.props.dispatch(executeRequest(UNSAVED_RESPONSE_ID, request.method, request.url, request.headers.toJS(), request.body));
+    this.props.dispatch(executeRequest(request.method, request.url, request.headers.toJS(), request.body));
   }
 
   render() {
@@ -43,7 +41,7 @@ class NewRequestPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    response: state.responses.get(UNSAVED_RESPONSE_ID)
+    response: state.response
   }
 }
 

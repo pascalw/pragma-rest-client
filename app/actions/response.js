@@ -2,25 +2,22 @@ export const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 export const AWAITING_RESPONSE = 'AWAITING_RESPONSE';
 
-export function receiveResponse(response, id) {
+export function receiveResponse(response) {
   return {
     type: RECEIVE_RESPONSE,
-    response: response,
-    id: id
+    response: response
   };
 }
 
-export function receiveError(error, id) {
+export function receiveError(error) {
   return {
     type: RECEIVE_ERROR,
-    error: error,
-    id: id
+    error: error
   };
 }
 
-export function awaitingResponse(id) {
+export function awaitingResponse() {
   return {
-    type: AWAITING_RESPONSE,
-    id: id
+    type: AWAITING_RESPONSE
   };
 }

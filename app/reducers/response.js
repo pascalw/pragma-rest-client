@@ -2,16 +2,18 @@ import { AWAITING_RESPONSE, RECEIVE_RESPONSE, RECEIVE_ERROR } from '../actions/r
 import { UPDATE_PATH } from 'redux-simple-router'
 import { Map } from 'immutable';
 
-export default function responses(state = new Map(), action) {
+const defaultState = null;
+
+export default function response(state = defaultState, action) {
   switch (action.type) {
     case AWAITING_RESPONSE:
-      return state.set(action.id, {pending: true});
+      return {pending: true};
     case RECEIVE_RESPONSE:
-      return state.set(action.id, {object: action.response});
+      return {object: action.response};
     case RECEIVE_ERROR:
-      return state.set(action.id, {object: action.error});
+      return {object: action.error};
     case UPDATE_PATH:
-      return state.clear();
+      return defaultState;
     default:
       return state;
   }
