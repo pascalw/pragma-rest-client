@@ -14,7 +14,7 @@ class Response {
   }
 }
 
-export default function execute(method, url, headers, body) {
+export default function execute(method:string, url:string, headers:Object, body:?string) {
   return new Promise((resolve, reject) => {
     request({method, url, headers, body}, (error, response) => {
       if (error) return reject(error);

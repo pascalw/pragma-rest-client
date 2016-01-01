@@ -66,28 +66,30 @@ class RequestForm extends Component {
     if (this.state.request === undefined)
       return (<form/>);
 
+    const request = this.state.request;
+
     return (
       <form onSubmit={this.onSubmit.bind(this)}>
-        <input type="text" className="name" name="name" placeholder="name" value={this.state.request.name}
+        <input type="text" className="name" name="name" placeholder="name" value={request.name}
                onChange={ this.onChange.bind(this)}
                required/>
 
         <div className="method-url-group">
           <Select name="method"
                   onChange={ this.onChange.bind(this)}
-                  selected={this.state.request.method}
+                  selected={request.method}
                   options={ METHODS.map((m) => { return { value: m, label: m } } ) }/>
 
-          <input type="url" className="url" name="url" placeholder="url" value={ this.state.request.url }
+          <input type="url" className="url" name="url" placeholder="url" value={ request.url }
                  onChange={this.onChange.bind(this)}
                  required/>
           <button className="execute" onClick={ this.onExecute.bind(this) }>Execute</button>
         </div>
 
-        <HeaderEditor headers={this.state.request.headers} onChange={this.onHeadersChange.bind(this)}/>
+        <HeaderEditor headers={request.headers} onChange={this.onHeadersChange.bind(this)}/>
 
         <textarea className="body" name="body" placeholder="body"
-                  value={this.state.request.body || ''}
+                  value={request.body || ''}
                   onChange={this.onChange.bind(this)}/>
 
         <input type="submit" value="Save"/>

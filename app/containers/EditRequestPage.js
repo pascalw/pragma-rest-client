@@ -5,12 +5,24 @@ import * as actionCreators from '../actions/project';
 import { connect } from 'react-redux';
 
 class EditRequestPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   findRequest() {
     const project = this.props.projects.filter(p => p.id == this.props.params.projectId).get(0);
     if (!project)
       return null;
 
     return project.requests.filter(r => r.id == this.props.params.id).get(0);
+  }
+
+  onExecuteRequest(request) {
+    const responseId = `${request.projectId}_${request.id}`;
+
+    this.props.executeRequest(responseId, request.method, request.url, request.headers.toJS(), request.body);
+    this.setState({responseId: responseId});
   }
 
   render() {
@@ -23,9 +35,9 @@ class EditRequestPage extends Component {
         <RequestEditor request={ request }
                        onRequestChange={this.props.updateRequest}
                        onRequestDelete={this.props.deleteRequest}
-                       onRequestExecute={this.props.executeRequest}/>
+                       onRequestExecute={this.onExecuteRequest.bind(this)}/>
 
-        <ResponseViewer response={ (this.props.responses.getIn([request.projectId, request.id])) }/>
+        <ResponseViewer response={ (this.props.responses.get(this.state.responseId)) }/>
       </div>
     );
   }
