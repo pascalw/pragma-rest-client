@@ -93,7 +93,8 @@ class RequestForm extends Component {
                   onChange={this.onChange.bind(this)}/>
 
         <input type="submit" value="Save"/>
-        <button className="delete" onClick={this.props.onDelete}>Delete</button>
+
+        {request.id ? <button className="delete" onClick={this.props.onDelete}>Delete</button> : null}
       </form>
     )
   }
