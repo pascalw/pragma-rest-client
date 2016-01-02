@@ -47,8 +47,8 @@ body {
   color: #fff;
 
   a {
-	text-decoration: none;
-	color: #fff;
+    text-decoration: none;
+    color: #fff;
   }
 }
 
@@ -84,19 +84,19 @@ input[type=button], input[type=submit], button, a.btn {
   text-decoration: none;
 
   &:hover {
-	cursor: pointer;
-	background-image: linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
+    cursor: pointer;
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
   }
 
   &:active {
-	background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.2));
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.2));
   }
 
   &.icon {
-	background: none;
-	color: #000;
-	margin: 0;
-	padding: 0;
+    background: none;
+    color: #000;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -127,6 +127,6 @@ input[type=text], input[type=url], textarea {
 
 .new-project-page {
   h2 {
-	margin: 0 0 10px 0;
+    margin: 0 0 10px 0;
   }
 }

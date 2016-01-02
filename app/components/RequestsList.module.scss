@@ -8,63 +8,63 @@
   overflow-y: scroll;
 
   :global {
-	.project:not(:last-child) {
-	  border-bottom: 1px solid $border-color;
-	}
+    .project:not(:last-child) {
+      border-bottom: 1px solid $border-color;
+    }
 
-	.project-details {
-	  padding: 5px 10px;
-	  border-bottom: 1px solid $border-color;
-	  background: lighten($background-color, 1%);
-	}
+    .project-details {
+      padding: 5px 10px;
+      border-bottom: 1px solid $border-color;
+      background: lighten($background-color, 1%);
+    }
 
-	.new-request, .close-project {
-	  display: block;
-	  text-align: right;
-	  margin-left: 10px;
-	  float: right;
-	  color: #000;
-	}
+    .new-request, .close-project {
+      display: block;
+      text-align: right;
+      margin-left: 10px;
+      float: right;
+      color: #000;
+    }
 
-	.request {
-	  white-space: nowrap;
-	  overflow: hidden;
-	  text-overflow: ellipsis;
+    .request {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
-	  &.selected {
-		background: #E4E4E4;
-	  }
+      &.selected {
+        background: #E4E4E4;
+      }
 
-	  a {
-		display: block;
-		padding: $default-padding / 2 $default-padding / 2;
-		color: #000;
-		text-decoration: none;
-	  }
-	}
+      a {
+        display: block;
+        padding: $default-padding / 2 $default-padding / 2;
+        color: #000;
+        text-decoration: none;
+      }
+    }
 
-	.method {
-	  border-radius: 1px;
-	  padding: 3px;
-	  margin-right: 5px;
-	  font-size: 0.7em;
-	  background: lightgray;
+    .method {
+      border-radius: 1px;
+      padding: 3px;
+      margin-right: 5px;
+      font-size: 0.7em;
+      background: lightgray;
 
-	  &.get {
-		background: lightgreen;
-	  }
+      &.get {
+        background: lightgreen;
+      }
 
-	  &.post {
-		background: lightyellow;
-	  }
+      &.post {
+        background: lightyellow;
+      }
 
-	  &.delete {
-		background: lightcoral;
-	  }
+      &.delete {
+        background: lightcoral;
+      }
 
-	  &.put, &.patch {
-		background: lightblue;
-	  }
-	}
+      &.put, &.patch {
+        background: lightblue;
+      }
+    }
   }
 }

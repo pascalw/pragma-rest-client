@@ -3,9 +3,9 @@
   max-width: 500px;
 
   :global {
-	button.icon {
-	  padding-left: 5px;
-	}
+    button.icon {
+      padding-left: 5px;
+    }
   }
 }
 
@@ -14,13 +14,13 @@
   font-size: 0.85em;
 
   .input {
-	display: none;
+    display: none;
   }
 
   :global {
-	input {
-	  margin-bottom: 0 !important;
-	  height: 28px;
-	}
+    input {
+      margin-bottom: 0 !important;
+      height: 28px;
+    }
   }
 }

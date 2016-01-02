@@ -2,44 +2,44 @@
 
 .requestEditor {
   :global {
-	.name {
-	  border: none;
-	  background: none;
-	  width: auto;
+    .name {
+      border: none;
+      background: none;
+      width: auto;
 
-	  padding-top: 0;
-	  border-bottom: 1px solid $border-color;
-	}
+      padding-top: 0;
+      border-bottom: 1px solid $border-color;
+    }
 
-	.delete {
-	  float: right;
-	  background-color: #E94F37;
-	}
+    .delete {
+      float: right;
+      background-color: #E94F37;
+    }
 
-	.body {
-	  font-size: 0.8em;
-	  height: 100px;
-	}
+    .body {
+      font-size: 0.8em;
+      height: 100px;
+    }
 
-	.method-url-group {
-	  display: flex;
-	  margin-bottom: 5px;
-	  background: #fff;
+    .method-url-group {
+      display: flex;
+      margin-bottom: 5px;
+      background: #fff;
 
-	  input, select {
-		border: none;
-	  }
+      input, select {
+        border: none;
+      }
 
-	  input {
-		border-left: 1px solid $border-color;
-		margin: 0;
-	  }
+      input {
+        border-left: 1px solid $border-color;
+        margin: 0;
+      }
 
-	  .execute {
-		margin: 0;
-		border-radius: 0;
-		border: none;
-	  }
-	}
+      .execute {
+        margin: 0;
+        border-radius: 0;
+        border: none;
+      }
+    }
   }
 }

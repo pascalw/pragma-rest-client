@@ -1,28 +1,28 @@
 .react-tabs {
   [role=tablist] {
-	border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
   }
 
   [role=tab] {
-	color: lighten(#000, 40%);
+    color: lighten(#000, 40%);
 
-	&:hover {
-	  color: inherit;
-	}
+    &:hover {
+      color: inherit;
+    }
 
-	&:focus {
-	  box-shadow: none;
-	  border-color: transparent;
+    &:focus {
+      box-shadow: none;
+      border-color: transparent;
 
-	  &:after {
-		display: none;
-	  }
-	}
+      &:after {
+        display: none;
+      }
+    }
   }
 
   [role=tab][aria-selected=true] {
-	border-color: transparent;
-	background: $background-color;
-	border-bottom: 2px solid $color-primary;
+    border-color: transparent;
+    background: $background-color;
+    border-bottom: 2px solid $color-primary;
   }
 }
