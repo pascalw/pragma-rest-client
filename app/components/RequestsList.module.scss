@@ -31,6 +31,10 @@
 	  overflow: hidden;
 	  text-overflow: ellipsis;
 
+	  &.selected {
+		background: #E4E4E4;
+	  }
+
 	  a {
 		display: block;
 		padding: $default-padding / 2 $default-padding / 2;

@@ -1,19 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { selectRequest } from '../actions/ui';
 
 import styles from './RequestsList.module.scss';
 
 class RequestListItem extends Component {
+  onClick(e) {
+    e.preventDefault();
+    this.props.onSelected(this.props.request);
+  }
+
   render() {
     const request = this.props.request;
+    const className = this.props.selected ? 'request selected' : 'request';
 
     return (
-      <article className="request">
-        <Link to={`/projects/${request.projectId}/requests/${request.id}`}>
+      <article className={className}>
+        <a href="#" onClick={this.onClick.bind(this)}>
           <span className={'method ' + request.method.toLowerCase() }>{ request.method }</span>
           { request.name }
-        </Link>
+        </a>
       </article>
     );
   }
@@ -21,7 +28,7 @@ class RequestListItem extends Component {
 
 class ProjectListItem extends Component {
   render() {
-    const { project } = this.props;
+    const { project, selectedRequest } = this.props;
     return (
       <div className="project">
         <div className="project-details">
@@ -32,7 +39,10 @@ class ProjectListItem extends Component {
           </Link>
         </div>
         {project.requests.map((request, index) =>
-          <RequestListItem key={index} request={request}/>
+          <RequestListItem key={index}
+                           request={request}
+                           selected={ request === selectedRequest }
+                           onSelected={this.props.onRequestSelected}/>
         )}
       </div>
     );
@@ -44,12 +54,18 @@ class RequestsList extends Component {
     requests: PropTypes.array
   };
 
+  onRequestSelected(request) {
+    this.props.dispatch(selectRequest(request));
+  }
+
   render() {
-    const { dispatch, projects } = this.props;
+    const { dispatch, projects, selectedRequest } = this.props;
     return (
       <div className={styles.requestsList}>
         {this.props.projects.map((project, index) =>
-          <ProjectListItem key={index} project={project}/>
+          <ProjectListItem key={index} project={project}
+                           selectedRequest={selectedRequest}
+                           onRequestSelected={this.onRequestSelected.bind(this)}/>
         )}
       </div>
     );
@@ -58,7 +74,8 @@ class RequestsList extends Component {
 
 function select(state) {
   return {
-    projects: state.projects
+    projects: state.projects,
+    selectedRequest: state.ui.get('selectedRequest')
   }
 }
 

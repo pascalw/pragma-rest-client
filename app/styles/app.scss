@@ -57,6 +57,7 @@ body {
 }
 
 select {
+  outline: none;
   height: 2.25em;
   border: 1px solid #ccc;
   background-color: #fff;
@@ -106,6 +107,7 @@ input[type=text], input[type=url], textarea {
   width: 100%;
 
   margin-bottom: 5px;
+  outline: none;
 }
 
 .page, .edit-request-page, .new-request-page {
