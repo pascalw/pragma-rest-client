@@ -46,20 +46,21 @@ class RequestForm extends Component {
     this.setState({request: this.state.request.set('headers', headers)});
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-
+  getCurrentStateRequest() {
     // convert headers back into map
-    const request = this.state.request.set('headers', this.state.request.headers.reduce((previousValue, currentValue) => {
+    return this.state.request.set('headers', this.state.request.headers.reduce((previousValue, currentValue) => {
       return previousValue.set(currentValue.get(0), currentValue.get(1));
     }, new Map()));
+  }
 
-    this.props.onSave(request);
+  onSubmit(e) {
+    e.preventDefault();
+    this.props.onSave(this.getCurrentStateRequest());
   }
 
   onExecute(e) {
     e.preventDefault();
-    this.props.onExecute(this.state.request);
+    this.props.onExecute(this.getCurrentStateRequest());
   }
 
   render() {
