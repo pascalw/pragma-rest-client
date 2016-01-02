@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { createHashHistory } from 'history';
 import { syncReduxAndRouter } from 'redux-simple-router';
-import { pushPath } from 'redux-simple-router';
+import { pushPath } from './actions/ui';
 import routes from './routes';
 import configureStore from './store/configureStore';
 import { syncProjectsToDisk } from './gettable/ProjectFileSynchronizer';

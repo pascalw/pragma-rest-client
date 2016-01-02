@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import RequestEditor from '../components/RequestEditor';
 import ResponseViewer from '../components/ResponseViewer';
 import { Request, addRequest, executeRequest } from '../actions/project';
+import { selectRequest } from '../actions/ui';
 
 class NewRequestPage extends Component {
   constructor(props) {
@@ -15,7 +16,10 @@ class NewRequestPage extends Component {
   }
 
   addRequest(request) {
-    this.props.dispatch(addRequest(request, this.props.params.projectId));
+    const action = addRequest(request, this.props.params.projectId);
+
+    this.props.dispatch(action);
+    this.props.dispatch(selectRequest(action.request));
   }
 
   onRequestExecute(request) {
@@ -25,7 +29,7 @@ class NewRequestPage extends Component {
 
   render() {
     if (!this.state.request)
-      return <div className="new-request-page"/>;
+      return null;
 
     return (
       <div className="new-request-page">

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { newProject } from '../actions/project';
-import { pushPath } from 'redux-simple-router';
+import { pushPath } from '../actions/ui';
 
 const remote = require('electron').remote;
 const dialog = remote.require('electron').dialog;
@@ -30,7 +30,8 @@ class NewProjectPage extends Component {
         <h2>New project</h2>
 
         <form onSubmit={this.onSubmit.bind(this)}>
-          <input type="text" placeholder="name" ref="name" required/><br/>
+          <input type="text" placeholder="name" ref="name" required/>
+          <br/>
           <input type="text" placeholder="project path" ref="path" value={this.state.directory} required/>
           <button onClick={this.openDialog.bind(this)}>Choose project location</button>
 

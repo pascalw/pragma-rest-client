@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RequestEditor from '../components/RequestEditor';
 import ResponseViewer from '../components/ResponseViewer';
 import * as actionCreators from '../actions/project';
+import { pushPath } from '../actions/ui';
 import { connect } from 'react-redux';
 
 class EditRequestPage extends Component {
@@ -14,6 +15,11 @@ class EditRequestPage extends Component {
     this.props.executeRequest(request.method, request.url, request.headers.toJS(), request.body);
   }
 
+  onDeleteRequest(request) {
+    this.props.deleteRequest(request);
+    this.props.pushPath('/');
+  }
+
   render() {
     if (!this.props.request)
       return null;
@@ -22,7 +28,7 @@ class EditRequestPage extends Component {
       <div className="edit-request-page">
         <RequestEditor request={ this.props.request }
                        onRequestChange={this.props.updateRequest}
-                       onRequestDelete={this.props.deleteRequest}
+                       onRequestDelete={this.onDeleteRequest.bind(this)}
                        onRequestExecute={this.onExecuteRequest.bind(this)}/>
 
         <ResponseViewer response={ this.props.response }/>
@@ -41,4 +47,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps, actionCreators)(EditRequestPage);
+export default connect(mapStateToProps, {...actionCreators, pushPath})(EditRequestPage);
