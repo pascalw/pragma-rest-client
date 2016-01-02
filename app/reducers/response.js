@@ -11,7 +11,7 @@ export default function response(state = defaultState, action) {
     case RECEIVE_RESPONSE:
       return {object: action.response};
     case RECEIVE_ERROR:
-      return {object: action.error};
+      return {error: action.error};
     case UPDATE_PATH:
       return defaultState;
     default:
