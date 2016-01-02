@@ -1,8 +1,8 @@
 @import '../styles/variables';
 
 .response {
+  margin-top: $default-padding/2;
   border-top: 1px solid $border-color;
-  padding-top: $default-padding;
   overflow-y: scroll;
   flex: 2;
 

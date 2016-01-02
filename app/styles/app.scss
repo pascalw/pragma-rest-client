@@ -1,4 +1,5 @@
 @import './variables';
+@import './tabs';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 html {
@@ -7,6 +8,10 @@ html {
 
 body {
   overflow: auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 html, body, #root, #app, #main {

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styles from './ResponseViewer.module.scss';
 
 function toTitleCase(str) {
@@ -10,10 +11,12 @@ function toTitleCase(str) {
 class ResponseViewer extends Component {
   render() {
     if (!this.props.response)
-      return <div/>;
+      return null;
 
     if (this.props.response.pending) {
-      return <div className={styles.response}>Loading...</div>;
+      return <div className={styles.response}>
+        <p>Loading...</p>
+      </div>;
     }
 
     const response = this.props.response.object;
@@ -29,21 +32,32 @@ class ResponseViewer extends Component {
 
     return (
       <div className={styles.response}>
-        <span>
-          <b>Status:&nbsp;</b>
-          {response.status } { response.statusText }
-        </span>
-        <span>
-          <ul>
-            { Object.keys(response.headers).map(header =>
-              <li key={header}>
-                <b>{toTitleCase(header)}:</b>&nbsp;
+        <Tabs>
+          <TabList>
+            <Tab>Body</Tab>
+            <Tab>Headers</Tab>
+          </TabList>
+          <TabPanel>
+            <span>
+              <b>Status:&nbsp;</b>
+              {response.status } { response.statusText }
+            </span>
+            <pre>{ response.body } </pre>
+          </TabPanel>
+          <TabPanel>
+            <span>
+              <ul>
+                { Object.keys(response.headers).map(header =>
+                  <li key={header}>
+                    <b>{toTitleCase(header)}:</b>&nbsp;
                 {response.headers[header]}
-              </li>
-            )}
-          </ul>
-        </span>
-        <pre>{ response.body } </pre>
+                  </li>
+                )}
+              </ul>
+            </span>
+          </TabPanel>
+        </Tabs>
+
       </div>
     );
   }
