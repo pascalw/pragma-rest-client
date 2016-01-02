@@ -1,4 +1,4 @@
-import { Project, Request, UPSERT_PROJECT, ADD_REQUEST, UPDATE_REQUEST, DELETE_REQUEST } from '../actions/project';
+import { Project, Request, UPSERT_PROJECT, CLOSE_PROJECT, ADD_REQUEST, UPDATE_REQUEST, DELETE_REQUEST } from '../actions/project';
 import { readProject } from '../utils/projectUtils';
 import Immutable, { List, Record, Map } from 'immutable';
 
@@ -17,6 +17,9 @@ export default function projects(state = new List(), action) {
       var project = new Project({...action.project, requests: requests});
 
       return idx === -1 ? state.push(project) : state.set(idx, project);
+    case CLOSE_PROJECT:
+      idx = findIndex(state, action.project.id);
+      return state.delete(idx);
     case ADD_REQUEST:
       idx = findIndex(state, action.projectId);
       return state.update(idx, project => {

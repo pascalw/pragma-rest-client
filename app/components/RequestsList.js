@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { selectRequest } from '../actions/ui';
+import { closeProject } from '../actions/project';
 
 import styles from './RequestsList.module.scss';
 
@@ -27,6 +28,11 @@ class RequestListItem extends Component {
 }
 
 class ProjectListItem extends Component {
+  onProjectClose(e) {
+    e.preventDefault();
+    this.props.onProjectClose(this.props.project);
+  }
+
   render() {
     const { project, selectedRequest } = this.props;
     return (
@@ -36,6 +42,9 @@ class ProjectListItem extends Component {
 
           <Link className="new-request" title="Create new request" to={`/projects/${project.id}/requests/new`}>
             <i className="fa small fa-plus-circle"/>
+          </Link>
+          <Link className="close-project" title="Close project" to='#' onClick={this.onProjectClose.bind(this)}>
+            <i className="fa small fa-times-circle"/>
           </Link>
         </div>
         {project.requests.map((request, index) =>
@@ -58,6 +67,11 @@ class RequestsList extends Component {
     this.props.dispatch(selectRequest(request));
   }
 
+  onProjectClose(project) {
+    if (window.confirm('Are you sure you want to close this project?'))
+      this.props.dispatch(closeProject(project));
+  }
+
   render() {
     const { dispatch, projects, selectedRequest } = this.props;
     return (
@@ -65,7 +79,8 @@ class RequestsList extends Component {
         {this.props.projects.map((project, index) =>
           <ProjectListItem key={index} project={project}
                            selectedRequest={selectedRequest}
-                           onRequestSelected={this.onRequestSelected.bind(this)}/>
+                           onRequestSelected={this.onRequestSelected.bind(this)}
+                           onProjectClose={this.onProjectClose.bind(this)}/>
         )}
       </div>
     );

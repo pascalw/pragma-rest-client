@@ -18,10 +18,10 @@
 	  background: lighten($background-color, 1%);
 	}
 
-	.new-request {
+	.new-request, .close-project {
 	  display: block;
-	  width: 50px;
 	  text-align: right;
+	  margin-left: 10px;
 	  float: right;
 	  color: #000;
 	}

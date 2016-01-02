@@ -5,7 +5,7 @@ import { awaitingResponse, receiveResponse, receiveError } from './response';
 import { readProject } from '../utils/projectUtils';
 
 export const UPSERT_PROJECT = 'UPSERT_PROJECT';
-export const DELETE_PROJECT = 'DELETE_PROJECT';
+export const CLOSE_PROJECT = 'CLOSE_PROJECT';
 export const ADD_REQUEST = 'ADD_REQUEST';
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 export const DELETE_REQUEST = 'DELETE_REQUEST';
@@ -62,6 +62,13 @@ export function newProject(path, name) {
       name: name,
       requests: []
     }
+  }
+}
+
+export function closeProject(project) {
+  return {
+    type: CLOSE_PROJECT,
+    project: project
   }
 }
 
