@@ -74,6 +74,9 @@ class RequestsList extends Component {
 
   render() {
     const { dispatch, projects, selectedRequest } = this.props;
+    if (projects.count() == 0)
+      return null;
+
     return (
       <div className={styles.requestsList}>
         {this.props.projects.map((project, index) =>
