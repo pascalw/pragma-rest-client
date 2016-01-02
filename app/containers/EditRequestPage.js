@@ -10,26 +10,17 @@ class EditRequestPage extends Component {
     this.state = {};
   }
 
-  findRequest() {
-    const project = this.props.projects.filter(p => p.id == this.props.params.projectId).get(0);
-    if (!project)
-      return null;
-
-    return project.requests.filter(r => r.id == this.props.params.id).get(0);
-  }
-
   onExecuteRequest(request) {
     this.props.executeRequest(request.method, request.url, request.headers.toJS(), request.body);
   }
 
   render() {
-    const request = this.findRequest();
-    if (request == null)
-      return (<div/>);
+    if (!this.props.request)
+      return null;
 
     return (
       <div className="edit-request-page">
-        <RequestEditor request={ request }
+        <RequestEditor request={ this.props.request }
                        onRequestChange={this.props.updateRequest}
                        onRequestDelete={this.props.deleteRequest}
                        onRequestExecute={this.onExecuteRequest.bind(this)}/>
@@ -40,9 +31,12 @@ class EditRequestPage extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  const project = state.projects.filter(p => p.id == ownProps.params.projectId).get(0);
+  const request = project && project.requests.filter(r => r.id == ownProps.params.id).get(0);
+
   return {
-    projects: state.projects,
+    request: request,
     response: state.response
   }
 }
