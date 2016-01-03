@@ -1,6 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import './variables';
 @import './tabs';
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import './code_mirror';
 
 html {
   overflow: hidden;
@@ -128,3 +129,4 @@ input[type=text], input[type=url], textarea {
     margin: 0 0 10px 0;
   }
 }
+

@@ -1,11 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import Codemirror, { defaultOptions as globalDefaultCodeMirrorOptions } from './Codemirror';
 import styles from './ResponseViewer.module.scss';
 
 function toTitleCase(str) {
   return str.replace(/\w*/g, function (txt) {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
+}
+
+function extractMimeType(response) {
+  const contentType = response.headers['content-type'] || 'text/plain';
+  return contentType.split(';')[0];
+}
+
+function prettifyBody(response) {
+  const mimeType = extractMimeType(response);
+
+  if (mimeType === 'application/json')
+    return JSON.stringify(JSON.parse(response.body), null, 4);
+
+  return response.body;
+}
+
+const defaultCodeMirrorOptions = {
+  ...globalDefaultCodeMirrorOptions,
+  readOnly: true
+};
+
+function codeMirrorOptions(response) {
+  return {...defaultCodeMirrorOptions, mode: extractMimeType(response)};
 }
 
 class ResponseViewer extends Component {
@@ -42,7 +66,7 @@ class ResponseViewer extends Component {
               <b>Status:&nbsp;</b>
               {response.status } { response.statusText }
             </span>
-            <pre>{ response.body } </pre>
+            <Codemirror value={prettifyBody(response)} options={codeMirrorOptions(response)}/>
           </TabPanel>
           <TabPanel>
             <span>
