@@ -6,6 +6,11 @@
   overflow-y: scroll;
   flex: 2;
 
+  [role=tabpanel] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
   pre {
     background: #fff;
     width: 100%;
