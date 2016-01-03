@@ -1,4 +1,5 @@
 import { List, Record, Map } from 'immutable';
+const nodePath = require('path');
 
 import doExecuteRequest from '../gettable/RequestExecutor';
 import { awaitingResponse, receiveResponse, receiveError } from './response';
@@ -58,7 +59,7 @@ export function newProject(path, name) {
     type: UPSERT_PROJECT,
     project: {
       id: randomId(),
-      path: `${path}/${name}.json`,
+      path: nodePath.join(path, `${name}.json`),
       name: name,
       requests: []
     }
