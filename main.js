@@ -23,7 +23,13 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({width: 1024, height: 728});
+  mainWindow = new BrowserWindow({
+    width: 1024,
+    height: 728,
+    'min-width': 650,
+    'min-height': 500
+  });
+
   mainWindow.maximize();
 
   if (process.env.HOT) {
