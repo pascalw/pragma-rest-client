@@ -72,11 +72,10 @@ export default class HeaderEditor extends Component {
   render() {
     return (
       <div className={styles.headerEditor}>
-        <span>Headers
-          <button className="icon" onClick={this.addHeader.bind(this)}>
-            <i className="fa small fa-plus-circle"/>
-          </button>
-        </span>
+        <h1>Headers</h1>
+        <button className="icon" onClick={this.addHeader.bind(this)}>
+          <i className="fa small fa-plus-circle"/>
+        </button>
 
         {this.props.headers.map(([header, value], index) => {
           return <SingleHeaderEditor key={index}
