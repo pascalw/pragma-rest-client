@@ -14,7 +14,10 @@ function extractMimeType(request) {
 }
 
 function codeMirrorOptions(request) {
-  return {...defaultCodeMirrorOptions, mode: extractMimeType(request)};
+  return {
+    ...defaultCodeMirrorOptions,
+    mode: extractMimeType(request)
+  };
 }
 
 class RequestForm extends Component {
