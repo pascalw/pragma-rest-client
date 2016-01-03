@@ -18,24 +18,13 @@ class RequestForm extends Component {
     this.state = {};
   }
 
-  setRequestState(request) {
-    if (request && !List.isList(request.headers)) {
-      // convert headers into a list of headers, so UI can have stable sorting
-      request = request.set('headers', request.headers.map((value, key) => {
-        return new List([key, value]);
-      }).toList());
-    }
-
-    this.setState({request: request});
-  }
-
   componentDidMount() {
-    this.setRequestState(this.props.request);
+    this.setState({request: this.props.request});
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.request !== nextProps.request)
-      this.setRequestState(nextProps.request);
+      this.setState({request: nextProps.request});
   }
 
   onChange(e) {
@@ -43,24 +32,35 @@ class RequestForm extends Component {
   }
 
   onHeadersChange(headers) {
-    this.setState({request: this.state.request.set('headers', headers)});
-  }
-
-  getCurrentStateRequest() {
-    // convert headers back into map
-    return this.state.request.set('headers', this.state.request.headers.reduce((previousValue, currentValue) => {
-      return previousValue.set(currentValue.get(0), currentValue.get(1));
-    }, new Map()));
+    const request = this.state.request.set('headers', this.headersToMap(headers));
+    this.setState({request: request});
   }
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.onSave(this.getCurrentStateRequest());
+    this.props.onSave(this.state.request);
   }
 
   onExecute(e) {
     e.preventDefault();
-    this.props.onExecute(this.getCurrentStateRequest());
+    this.props.onExecute(this.state.request);
+  }
+
+  headersToMap(headers) {
+    return headers.reduce((previousValue, currentValue) => {
+      return previousValue.set(currentValue.get(0), currentValue.get(1));
+    }, new Map());
+  }
+
+  headersToList(headers) {
+    if (!List.isList(headers)) {
+      // convert headers into a list of headers, so UI can have stable sorting
+      return headers.map((value, key) => {
+        return new List([key, value]);
+      }).toList();
+    }
+
+    return headers;
   }
 
   render() {
@@ -87,7 +87,7 @@ class RequestForm extends Component {
           <button className="execute" onClick={ this.onExecute.bind(this) }>Execute</button>
         </div>
 
-        <HeaderEditor headers={request.headers} onChange={this.onHeadersChange.bind(this)}/>
+        <HeaderEditor headers={this.headersToList(request.headers)} onChange={this.onHeadersChange.bind(this)}/>
 
         <textarea className="body" name="body" placeholder="body"
                   value={request.body || ''}
