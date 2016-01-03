@@ -3,9 +3,31 @@ import Select from './Select';
 import HeaderEditor from './HeaderEditor';
 import { Map, List } from 'immutable';
 
+import Codemirror from 'react-codemirror';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/htmlmixed/htmlmixed';
+import 'codemirror/mode/xml/xml';
+
 import styles from './RequestEditor.module.scss';
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
+
+const defaultCodeMirrorOptions = {
+  lineNumbers: true,
+  matchBrackets: true,
+  autoCloseBrackets: true
+};
+
+function extractMimeType(request) {
+  const contentType = request.headers.get('content-type') || request.headers.get('Content-Type') || 'text/plain';
+  return contentType.split(';')[0];
+}
+
+function codeMirrorOptions(request) {
+  return {...defaultCodeMirrorOptions, mode: extractMimeType(request)};
+}
 
 class RequestForm extends Component {
   static propTypes = {
@@ -29,6 +51,10 @@ class RequestForm extends Component {
 
   onChange(e) {
     this.setState({request: this.state.request.set(e.target.name, e.target.value)});
+  }
+
+  onBodyChange(body) {
+    this.setState({request: this.state.request.set('body', body)});
   }
 
   onHeadersChange(headers) {
@@ -89,9 +115,9 @@ class RequestForm extends Component {
 
         <HeaderEditor headers={this.headersToList(request.headers)} onChange={this.onHeadersChange.bind(this)}/>
 
-        <textarea className="body" name="body" placeholder="body"
-                  value={request.body || ''}
-                  onChange={this.onChange.bind(this)}/>
+        <Codemirror value={request.body || ''}
+                    options={codeMirrorOptions(request)}
+                    onChange={this.onBodyChange.bind(this)}/>
 
         <input type="submit" value="Save"/>
 
