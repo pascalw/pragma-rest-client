@@ -32,7 +32,7 @@ class ResponseViewer extends Component {
 
     return (
       <div className={styles.response}>
-        <Tabs>
+        <Tabs className={styles.tabs}>
           <TabList>
             <Tab>Body</Tab>
             <Tab>Headers</Tab>
