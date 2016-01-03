@@ -126,7 +126,7 @@ class ProjectFileSynchronizer {
           this.setupWatchers();
 
           currentProjectsState.forEach((project, index) => {
-            if (project !== this.previousState[index] && this.writeNextChange) {
+            if (project !== this.previousState.get(index) && this.writeNextChange) {
               console.log('Writing change for ', project.path);
               const serializedProject = this.serialize(project);
               this.withWatcherPaused(project.path, writeProject(serializedProject));
