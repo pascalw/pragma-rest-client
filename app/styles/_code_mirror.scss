@@ -1,7 +1,15 @@
 @import '~codemirror/lib/codemirror';
 @import '~codemirror/addon/dialog/dialog.css';
 
-.CodeMirror .CodeMirror-matchingbracket {
-  color: $color-primary !important;
-  font-weight: bold;
+.CodeMirror {
+  .CodeMirror-matchingbracket {
+    color: #000 !important;
+  }
+
+  &.CodeMirror-focused {
+    .CodeMirror-matchingbracket {
+      color: $color-primary !important;
+      font-weight: bold;
+    }
+  }
 }
