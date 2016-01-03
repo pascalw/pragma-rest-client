@@ -1,5 +1,17 @@
 @import '../styles/variables';
 
+:global {
+  .CodeMirror {
+    margin-top: 10px;
+    height: auto !important;
+  }
+
+  .CodeMirror .CodeMirror-matchingbracket {
+    color: $color-primary !important;
+    font-weight: bold;
+  }
+}
+
 .tabs {
   flex: 1;
   display: flex;
@@ -26,7 +38,6 @@
     width: 100%;
     height: auto;
     padding: 10px;
-    margin-top: 10px;
     overflow: scroll;
   }
 
