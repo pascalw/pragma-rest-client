@@ -1,12 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Codemirror from 'react-codemirror';
-
-import 'codemirror/addon/edit/matchbrackets';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/mode/htmlmixed/htmlmixed';
-import 'codemirror/mode/xml/xml';
-
+import Codemirror, { defaultOptions as globalDefaultCodeMirrorOptions } from './Codemirror';
 import styles from './ResponseViewer.module.scss';
 
 function toTitleCase(str) {
@@ -30,9 +24,8 @@ function prettifyBody(response) {
 }
 
 const defaultCodeMirrorOptions = {
-  lineNumbers: true,
-  readOnly: true,
-  matchBrackets: true
+  ...globalDefaultCodeMirrorOptions,
+  readOnly: true
 };
 
 function codeMirrorOptions(response) {

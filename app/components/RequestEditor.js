@@ -3,22 +3,10 @@ import Select from './Select';
 import HeaderEditor from './HeaderEditor';
 import { Map, List } from 'immutable';
 
-import Codemirror from 'react-codemirror';
-import 'codemirror/addon/edit/matchbrackets';
-import 'codemirror/addon/edit/closebrackets';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/mode/htmlmixed/htmlmixed';
-import 'codemirror/mode/xml/xml';
-
+import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './Codemirror';
 import styles from './RequestEditor.module.scss';
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
-
-const defaultCodeMirrorOptions = {
-  lineNumbers: true,
-  matchBrackets: true,
-  autoCloseBrackets: true
-};
 
 function extractMimeType(request) {
   const contentType = request.headers.get('content-type') || request.headers.get('Content-Type') || 'text/plain';
