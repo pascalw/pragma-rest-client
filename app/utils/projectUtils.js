@@ -20,7 +20,7 @@ export function writeProject(project) {
     })
   });
 
-  const json = JSON.stringify(projectToSerialize, null, 4);
+  const json = JSON.stringify(projectToSerialize, null, 4) + "\n";
 
   return new Promise(
     (resolve, reject) => {
