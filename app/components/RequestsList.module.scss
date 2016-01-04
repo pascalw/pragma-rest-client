@@ -1,4 +1,5 @@
 @import '../styles/variables';
+@import '../styles/mixins';
 
 .requestsList {
   border-right: 1px solid $border-color;
@@ -13,24 +14,27 @@
     }
 
     .project-details {
+      display: flex;
       padding: 5px 10px;
       border-bottom: 1px solid $border-color;
       background: lighten($background-color, 1%);
+
+      .name {
+        width: 100%;
+
+        @include ellipsis;
+        display: block;
+      }
     }
 
     .new-request, .close-project {
       display: block;
       text-align: right;
       margin-left: 10px;
-      float: right;
       color: #000;
     }
 
     .request {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
       &.selected {
         background: #E4E4E4;
       }
@@ -40,6 +44,8 @@
         padding: $default-padding / 2 $default-padding / 2;
         color: #000;
         text-decoration: none;
+
+        @include ellipsis;
       }
     }
 
