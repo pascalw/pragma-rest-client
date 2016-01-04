@@ -1,12 +1,5 @@
 @import '../styles/variables';
 
-:global {
-  .CodeMirror {
-    margin-top: 10px;
-    height: auto !important;
-  }
-}
-
 .tabs {
   flex: 1;
   display: flex;
@@ -19,6 +12,12 @@
   overflow-y: scroll;
   flex: 2;
   display: flex;
+
+  :global {
+    .CodeMirror {
+      margin-top: 10px;
+    }
+  }
 
   [role=tabpanel] {
     -webkit-user-select: text;

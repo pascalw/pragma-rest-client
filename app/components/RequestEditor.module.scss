@@ -21,8 +21,12 @@
       height: 100px;
     }
 
-    .CodeMirror {
-      height: 100px !important;
+    .CodeMirror-scroll {
+      min-height: 100px;
+      max-height: 300px;
+      height: auto;
+      overflow-y: hidden;
+      overflow-x: auto;
     }
 
     .method-url-group {

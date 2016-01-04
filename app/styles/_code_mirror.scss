@@ -2,6 +2,8 @@
 @import '~codemirror/addon/dialog/dialog.css';
 
 .CodeMirror {
+  height: auto !important;
+
   .CodeMirror-matchingbracket {
     color: #000 !important;
   }
