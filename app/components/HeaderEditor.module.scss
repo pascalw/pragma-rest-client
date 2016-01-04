@@ -1,3 +1,5 @@
+@import '../styles/variables';
+
 .headerEditor {
   margin: 10px 0;
   max-width: 500px;
@@ -20,14 +22,14 @@
   display: flex;
   font-size: 0.85em;
 
-  .input {
-    display: none;
-  }
-
   :global {
-    input {
-      margin-bottom: 0 !important;
+    input[type=text] {
       height: 28px;
+      margin-bottom: 1px;
+
+      &:not(:last-of-type) {
+        margin-right: 1px;
+      }
     }
   }
 }
