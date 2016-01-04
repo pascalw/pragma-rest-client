@@ -62,6 +62,7 @@ class ResponseViewer extends Component {
             <span>
               <b>Status:&nbsp;</b>
               {response.status } { response.statusText }
+              <span className="responseTime">{ response.responseTimeMs }&nbsp;ms</span>
             </span>
             <Codemirror value={prettifyBody(response)} options={codeMirrorOptions(response)}/>
           </TabPanel>

@@ -75,7 +75,7 @@ input[type=button], input[type=submit], button, a.btn {
   padding: 5px 10px;
   font-family: 'Open Sans', serif;
   font-size: 1em;
-  border-radius: 2px;
+  border-radius: $default-border-radius;
   margin: 10px 0;
   background-color: $color-primary;
   color: #fff;

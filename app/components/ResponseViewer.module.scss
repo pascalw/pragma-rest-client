@@ -17,6 +17,17 @@
     .CodeMirror {
       margin-top: 10px;
     }
+
+    .responseTime {
+      float: right;
+      font-size: 0.7em;
+
+      background: $color-primary;
+      color: white;
+      border-radius: $default-border-radius;
+      padding: 0 5px;
+      margin-top: 5px;
+    }
   }
 
   [role=tabpanel] {
