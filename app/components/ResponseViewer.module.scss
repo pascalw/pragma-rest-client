@@ -18,15 +18,32 @@
       margin-top: 10px;
     }
 
-    .responseTime {
-      float: right;
+    .status, .responseTime {
       font-size: 0.7em;
 
-      background: $color-primary;
       color: white;
       border-radius: $default-border-radius;
       padding: 0 5px;
       margin-top: 5px;
+      margin-right: 10px;
+    }
+
+    .status {
+      &.ok {
+        background: $color-green;
+      }
+
+      &.warning {
+        background: $color-orange;
+      }
+
+      &.error {
+        background: $color-red;
+      }
+    }
+
+    .responseTime {
+      background: $color-primary;
     }
   }
 

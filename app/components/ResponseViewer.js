@@ -29,6 +29,16 @@ function codeMirrorOptions(response) {
   return {...defaultCodeMirrorOptions, mode: extractMimeType(response.headers)};
 }
 
+function responseStatusClassification(status) {
+  if (status >= 500)
+    return 'error';
+
+  if (status >= 400 && status < 500)
+    return 'warning';
+
+  return 'ok';
+}
+
 class ResponseViewer extends Component {
   render() {
     if (!this.props.response)
@@ -59,11 +69,10 @@ class ResponseViewer extends Component {
             <Tab>Headers</Tab>
           </TabList>
           <TabPanel>
-            <span>
-              <b>Status:&nbsp;</b>
+            <span className={'status ' + responseStatusClassification(response.status)}>
               {response.status } { response.statusText }
-              <span className="responseTime">{ response.responseTimeMs }&nbsp;ms</span>
             </span>
+            <span className="responseTime">{ response.responseTimeMs }&nbsp;ms</span>
             <Codemirror value={prettifyBody(response)} options={codeMirrorOptions(response)}/>
           </TabPanel>
           <TabPanel>
