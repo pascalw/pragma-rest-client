@@ -1,22 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import Select from './Select';
-import HeaderEditor from './HeaderEditor';
 import { Map, List } from 'immutable';
 
 import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './Codemirror';
+import Select from './Select';
+import HeaderEditor from './HeaderEditor';
+
+import { extractMimeType } from '../utils/headers';
 import styles from './RequestEditor.module.scss';
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
 
-function extractMimeType(request) {
-  const contentType = request.headers.get('content-type') || request.headers.get('Content-Type') || 'text/plain';
-  return contentType.split(';')[0];
-}
-
 function codeMirrorOptions(request) {
   return {
     ...defaultCodeMirrorOptions,
-    mode: extractMimeType(request)
+    mode: extractMimeType(request.headers) || 'text/plain'
   };
 }
 

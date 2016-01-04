@@ -1,14 +1,15 @@
-var request = require('request');
+import { Map } from 'immutable';
+const request = require('request');
 
 class Response {
   body:?string;
-  headers:Object;
+  headers:Map;
   status:number;
   statusText:string;
 
   constructor(body:string, headers:Object, status:number, statusText:string) {
     this.body = body;
-    this.headers = headers;
+    this.headers = new Map(headers);
     this.status = status;
     this.statusText = statusText;
   }

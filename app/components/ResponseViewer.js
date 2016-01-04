@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Codemirror, { defaultOptions as globalDefaultCodeMirrorOptions } from './Codemirror';
+
+import { extractMimeType } from '../utils/headers';
 import styles from './ResponseViewer.module.scss';
 
 function toTitleCase(str) {
@@ -9,13 +11,8 @@ function toTitleCase(str) {
   });
 }
 
-function extractMimeType(response) {
-  const contentType = response.headers['content-type'] || 'text/plain';
-  return contentType.split(';')[0];
-}
-
 function prettifyBody(response) {
-  const mimeType = extractMimeType(response);
+  const mimeType = extractMimeType(response.headers);
 
   if (mimeType === 'application/json')
     return JSON.stringify(JSON.parse(response.body), null, 4);
@@ -29,7 +26,7 @@ const defaultCodeMirrorOptions = {
 };
 
 function codeMirrorOptions(response) {
-  return {...defaultCodeMirrorOptions, mode: extractMimeType(response)};
+  return {...defaultCodeMirrorOptions, mode: extractMimeType(response.headers)};
 }
 
 class ResponseViewer extends Component {
@@ -71,10 +68,10 @@ class ResponseViewer extends Component {
           <TabPanel>
             <span>
               <ul>
-                { Object.keys(response.headers).map(header =>
+                { [...response.headers.keys()].map(header =>
                   <li key={header}>
                     <b>{toTitleCase(header)}:</b>&nbsp;
-                {response.headers[header]}
+                {response.headers.get(header)}
                   </li>
                 )}
               </ul>
