@@ -4,6 +4,10 @@
 .CodeMirror {
   height: auto !important;
 
+  .CodeMirror-scroll {
+    min-height: 100px;
+  }
+
   .CodeMirror-matchingbracket {
     color: #000 !important;
   }
