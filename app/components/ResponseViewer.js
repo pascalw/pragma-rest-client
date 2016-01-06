@@ -14,8 +14,13 @@ function toTitleCase(str) {
 function prettifyBody(response) {
   const mimeType = extractMimeType(response.headers);
 
-  if (mimeType === 'application/json')
-    return JSON.stringify(JSON.parse(response.body), null, 4);
+  if (mimeType === 'application/json' && response.body.length > 0) {
+    try {
+      return JSON.stringify(JSON.parse(response.body), null, 4);
+    } catch (e) {
+      return response.body;
+    }
+  }
 
   return response.body;
 }
