@@ -3,7 +3,7 @@ import { Map, List } from 'immutable';
 
 import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './Codemirror';
 import Select from './Select';
-import HeaderEditor from './HeaderEditor';
+import KeyValuePairEditor from './KeyValuePairEditor';
 
 import { extractMimeType } from '../utils/headers';
 import styles from './RequestEditor.module.scss';
@@ -110,7 +110,10 @@ class RequestForm extends Component {
           <button className="execute" onClick={ this.onExecute.bind(this) }>Execute</button>
         </div>
 
-        <HeaderEditor headers={this.headersToList(request.headers)} onChange={this.onHeadersChange.bind(this)}/>
+        <KeyValuePairEditor
+          name={{ singular: 'Header', plural: 'Headers'}}
+          pairs={this.headersToList(request.headers)}
+          onChange={this.onHeadersChange.bind(this)}/>
 
         <Codemirror value={request.body || ''}
                     options={codeMirrorOptions(request)}
