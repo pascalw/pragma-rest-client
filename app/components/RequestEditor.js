@@ -50,14 +50,23 @@ class RequestForm extends Component {
     this.setState({request: request});
   }
 
+  /**
+   * Gets current request, skipping any empty headers.
+   */
+  prepareRequest() {
+    return this.state.request.set('headers', this.state.request.headers.filter(header => {
+      return header.length != 0;
+    }));
+  }
+
   onSubmit(e) {
     e.preventDefault();
-    this.props.onSave(this.state.request);
+    this.props.onSave(this.prepareRequest());
   }
 
   onExecute(e) {
     e.preventDefault();
-    this.props.onExecute(this.state.request);
+    this.props.onExecute(this.prepareRequest());
   }
 
   headersToMap(headers) {
