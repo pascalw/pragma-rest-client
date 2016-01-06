@@ -2,6 +2,23 @@ import React, { Component, PropTypes } from 'react';
 import { List, Map } from 'immutable';
 import styles from './KeyValuePairEditor.module.scss';
 
+function listToMap(list) {
+  return list.reduce((previousValue, currentValue) => {
+    return previousValue.set(currentValue.get(0), currentValue.get(1));
+  }, new Map());
+}
+
+function mapToList(map) {
+  if (!List.isList(map)) {
+    // convert map into a list of map, so UI can have stable sorting
+    return map.map((value, key) => {
+      return new List([key, value]);
+    }).toList();
+  }
+
+  return map;
+}
+
 class SinglePairEditor extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -40,34 +57,52 @@ class SinglePairEditor extends Component {
 }
 
 export default class KeyValuePairEditor extends Component {
-  static defaultProps = {
-    pairs: new List()
-  };
-
   static propTypes = {
     name: PropTypes.object.isRequired,
-    pairs: React.PropTypes.instanceOf(List),
+    pairs: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = this.stateForPairs(props.pairs);
+  }
+
+  componentDidMount() {
+    this.setState(this.stateForPairs(this.props.pairs));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.pairs !== nextProps.pairs)
+      this.setState(this.stateForPairs(nextProps.pairs));
+  }
+
+  stateForPairs(pairs) {
+    return {pairs: mapToList(pairs)};
+  }
+
+  notifyOnChange(pairs) {
+    this.props.onChange(listToMap(pairs));
+  }
+
   onChange(index) {
     return (newKey, newValue) => {
-      let pairs = this.props.pairs.set(index, new List([newKey, newValue]));
-      this.props.onChange(pairs);
+      let pairs = this.state.pairs.set(index, new List([newKey, newValue]));
+      this.notifyOnChange(pairs);
     };
   }
 
   addEmpty(e) {
     e.preventDefault();
 
-    let pairs = this.props.pairs.push(new List(['', '']));
-    this.props.onChange(pairs);
+    let pairs = this.state.pairs.push(new List(['', '']));
+    this.notifyOnChange(pairs);
   }
 
   removePair(index) {
     return () => {
-      let pairs = this.props.pairs.remove(index);
-      this.props.onChange(pairs);
+      let pairs = this.state.pairs.remove(index);
+      this.notifyOnChange(pairs);
     };
   }
 
@@ -79,7 +114,7 @@ export default class KeyValuePairEditor extends Component {
           <i className="fa small fa-plus-circle"/>
         </button>
 
-        {this.props.pairs.map(([key, value], index) => {
+        {this.state.pairs.map(([key, value], index) => {
           return <SinglePairEditor key={index}
                                    pairType={this.props.name.singular}
                                    name={key}
@@ -87,7 +122,6 @@ export default class KeyValuePairEditor extends Component {
                                    onChange={this.onChange(index)}
                                    onRemove={this.removePair(index)}/>
         })}
-
       </div>
     );
   }

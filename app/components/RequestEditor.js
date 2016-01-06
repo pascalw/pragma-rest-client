@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Map, List } from 'immutable';
 
 import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './Codemirror';
 import Select from './Select';
@@ -46,8 +45,7 @@ class RequestForm extends Component {
   }
 
   onHeadersChange(headers) {
-    const request = this.state.request.set('headers', this.headersToMap(headers));
-    this.setState({request: request});
+    this.setState({request: this.state.request.set('headers', headers)});
   }
 
   /**
@@ -67,23 +65,6 @@ class RequestForm extends Component {
   onExecute(e) {
     e.preventDefault();
     this.props.onExecute(this.prepareRequest());
-  }
-
-  headersToMap(headers) {
-    return headers.reduce((previousValue, currentValue) => {
-      return previousValue.set(currentValue.get(0), currentValue.get(1));
-    }, new Map());
-  }
-
-  headersToList(headers) {
-    if (!List.isList(headers)) {
-      // convert headers into a list of headers, so UI can have stable sorting
-      return headers.map((value, key) => {
-        return new List([key, value]);
-      }).toList();
-    }
-
-    return headers;
   }
 
   render() {
@@ -112,7 +93,7 @@ class RequestForm extends Component {
 
         <KeyValuePairEditor
           name={{ singular: 'Header', plural: 'Headers'}}
-          pairs={this.headersToList(request.headers)}
+          pairs={request.headers}
           onChange={this.onHeadersChange.bind(this)}/>
 
         <Codemirror value={request.body || ''}
