@@ -1,7 +1,8 @@
 import { List, Record, Map } from 'immutable';
 const nodePath = require('path');
 
-import doExecuteRequest from '../gettable/RequestExecutor';
+import { execute as doExecuteRequest } from '../gettable/RequestExecutor';
+import prepareRequest from '../gettable/prepareRequest';
 import { awaitingResponse, receiveResponse, receiveError } from './response';
 import { readProject } from '../utils/projectUtils';
 
@@ -98,13 +99,26 @@ export function deleteRequest(request) {
 }
 
 export function executeRequest(method:string, url:string, headers:Object, body:?string) {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(awaitingResponse());
 
-    doExecuteRequest(method, url, headers, body).then((response) => {
+    const state = getState();
+    const activeEnvironmentId = state.ui.get('activeEnvironment');
+    const activeEnvironment = state.environments.find(e => e.get('id') === activeEnvironmentId);
+
+    let request;
+    try {
+      request = prepareRequest(method, url, headers, body, activeEnvironment);
+    } catch (e) {
+      dispatch(receiveError(e));
+      return;
+    }
+
+    doExecuteRequest(request).then((response) => {
       dispatch(receiveResponse(response));
     }).catch((error) => {
       dispatch(receiveError(error));
     });
   };
 }
+
