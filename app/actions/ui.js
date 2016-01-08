@@ -1,6 +1,8 @@
 import { pushPath as routerPushPath } from 'redux-simple-router';
 
 export const SELECT_REQUEST = 'SELECT_REQUEST';
+export const SELECT_ENVIRONMENT = 'SELECT_ENVIRONMENT';
+export const UNSET_ENVIRONMENT = 'UNSET_ENVIRONMENT';
 export const PUSH_PATH = 'PUSH_PATH';
 
 export function selectRequest(request) {
@@ -12,6 +14,19 @@ export function selectRequest(request) {
       request: request
     });
   };
+}
+
+export function selectEnvironment(environment) {
+  return {
+    type: SELECT_ENVIRONMENT,
+    id: environment.id
+  }
+}
+
+export function unsetEnvironment() {
+  return {
+    type: UNSET_ENVIRONMENT
+  }
 }
 
 export function pushPath(path) {

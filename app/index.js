@@ -9,6 +9,7 @@ import routes from './routes';
 import configureStore from './store/configureStore';
 import { syncProjectsToDisk } from './gettable/ProjectFileSynchronizer';
 import { upsertProject } from './actions/project';
+import { Map } from 'immutable';
 
 import './styles/app.scss';
 import 'font-awesome/scss/font-awesome.scss';
@@ -29,6 +30,24 @@ window.openProject = () => {
   store.dispatch(upsertProject(projectFile));
   store.dispatch(pushPath('/'));
 };
+
+import { upsertEnvironment } from './actions/environments';
+store.dispatch(upsertEnvironment({
+  id: 1,
+  name: 'Moonshotdev',
+  variables: {
+    host: 'https://mds-moonshotdev.cloud.pcftest.com',
+    token: 'abc'
+  }
+}));
+store.dispatch(upsertEnvironment({
+  id: 2,
+  name: 'Dev',
+  variables: {
+    host: 'https://mds-dev.cloud.pcftest.com',
+    token: 'abc'
+  }
+}));
 
 render(
   <Provider store={store}>

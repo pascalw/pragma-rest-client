@@ -1,0 +1,33 @@
+@import '../styles/variables';
+
+.header {
+  margin: 0;
+  font-size: 1.3em;
+}
+
+.environmentsList {
+  max-width: 500px;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      border-bottom: 1px solid $border-color;
+
+      a {
+        display: block;
+        color: #000;
+        text-decoration: none;
+        padding: $default-padding / 2;
+        padding-left: 0;
+
+        i {
+          float: right;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}

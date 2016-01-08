@@ -10,9 +10,14 @@ export default function response(state = new List(), action) {
   switch (action.type) {
     case UPSERT_ENVIRONMENT:
       idx = findIndex(state, action.environment);
+      let environment;
 
-      const variables = new Map(action.environment.variables);
-      const environment = new Environment({...action.environment, variables});
+      if (action.environment.toJS)
+        environment = action.environment;
+      else {
+        const variables = new Map(action.environment.variables);
+        environment = new Environment({...action.environment, variables});
+      }
 
       return idx === -1 ? state.push(environment) : state.set(idx, environment);
     case DELETE_ENVIRONMENT:

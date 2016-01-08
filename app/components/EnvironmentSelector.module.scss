@@ -1,0 +1,27 @@
+@import '../styles/variables';
+
+.select {
+  border: 1px solid $border-color;
+  border-radius: 2px;
+  -webkit-appearance: none;
+  background: none;
+  color: white;
+  padding: 0 25px 0 10px;
+  height: 1.55em;
+}
+
+:global {
+  .environmentSelector {
+    margin-top: -5px;
+  }
+
+  .environmentSelector:after {
+    display: block;
+    font-family: FontAwesome;
+    content: "\f107";
+    position: absolute;
+    top: 23%;
+    right: 18px;
+    pointer-events: none;
+  }
+}
