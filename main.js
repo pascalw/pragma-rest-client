@@ -13,6 +13,10 @@ let shouldQuit = false;
 let appName = require('./package.json').productName;
 
 if (process.env.NODE_ENV === 'development') {
+  crashReporter.start();
+}
+
+if (process.env.NODE_ENV !== 'production') {
   require('electron-debug')();
 }
 
