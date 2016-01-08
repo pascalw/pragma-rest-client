@@ -20,6 +20,26 @@ npm run hot-server
 npm run start-hot
 ```
 
+## Run end-to-end tests
+
+Build the app once
+
+```sh
+npm run build
+```
+
+or continuously to help tighten your feedback loop
+
+```sh
+npm run build:watch
+```
+
+Then run:
+
+```sh
+npm run test-e2e
+```
+
 
 ## Package
 
