@@ -85,7 +85,7 @@ class RequestForm extends Component {
                   selected={request.method}
                   options={ METHODS.map((m) => { return { value: m, label: m } } ) }/>
 
-          <input type="url" className="url" name="url" placeholder="url" value={ request.url }
+          <input type="text" className="url" name="url" placeholder="url" value={ request.url }
                  onChange={this.onChange.bind(this)}
                  required/>
           <button className="execute" onClick={ this.onExecute.bind(this) }>Execute</button>
