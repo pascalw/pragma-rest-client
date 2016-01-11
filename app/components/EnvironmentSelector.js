@@ -24,7 +24,7 @@ export default class EnvironmentSelector extends Component {
     } else {
       const environmentId = e.target.value;
       const environment = this.props.environments.find(e => e.id == environmentId);
-      this.props.dispatch(selectEnvironment(environment));
+      this.props.dispatch(selectEnvironment(environmentId));
     }
   }
 

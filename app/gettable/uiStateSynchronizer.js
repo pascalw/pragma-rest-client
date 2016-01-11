@@ -8,7 +8,7 @@ const initialState = (() => {
 
 export default function syncUiState(store) {
   if (initialState !== null) {
-    store.dispatch(selectEnvironment({id: initialState.activeEnvironment}));
+    store.dispatch(selectEnvironment(initialState.activeEnvironment));
   }
 
   let previousState = null;

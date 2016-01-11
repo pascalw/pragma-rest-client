@@ -16,10 +16,10 @@ export function selectRequest(request) {
   };
 }
 
-export function selectEnvironment(environment) {
+export function selectEnvironment(id) {
   return {
     type: SELECT_ENVIRONMENT,
-    id: environment.id
+    id: id
   }
 }
 
