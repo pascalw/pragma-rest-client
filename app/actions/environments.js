@@ -1,5 +1,6 @@
 import { Record, Map } from 'immutable';
 
+import randomId from '../utils/randomId';
 export const UPSERT_ENVIRONMENT = 'UPSERT_ENVIRONMENT';
 export const DELETE_ENVIRONMENT = 'DELETE_ENVIRONMENT';
 
@@ -24,8 +25,4 @@ export function deleteEnvironment(environment) {
     type: DELETE_ENVIRONMENT,
     environment: environment
   };
-}
-
-function randomId() {
-  return Math.random().toString(32).slice(2).substr(0, 5);
 }

@@ -1,6 +1,7 @@
 import { List, Record, Map } from 'immutable';
 const nodePath = require('path');
 
+import randomId from '../utils/randomId';
 import { execute as doExecuteRequest } from '../gettable/RequestExecutor';
 import prepareRequest from '../gettable/prepareRequest';
 import { awaitingResponse, receiveResponse, receiveError } from './response';
@@ -29,10 +30,6 @@ export const Project = Record({
   path: undefined,
   requests: new List()
 });
-
-function randomId() {
-  return Math.random().toString(32).slice(2).substr(0, 5);
-}
 
 export function upsertProject(projectPath) {
   return dispatch => {
