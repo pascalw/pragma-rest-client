@@ -9,6 +9,7 @@ import routes from './routes';
 import configureStore from './store/configureStore';
 import { syncProjectsToDisk } from './gettable/ProjectFileSynchronizer';
 import syncEnvironments from './gettable/environmentsSynchronizer';
+import syncUiState from './gettable/uiStateSynchronizer';
 import { upsertProject } from './actions/project';
 import { Map } from 'immutable';
 
@@ -21,6 +22,7 @@ const history = createHashHistory();
 syncReduxAndRouter(history, store);
 syncProjectsToDisk(store);
 syncEnvironments(store);
+syncUiState(store);
 
 window.openProject = () => {
   const remote = require('electron').remote;
