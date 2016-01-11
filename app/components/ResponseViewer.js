@@ -61,8 +61,10 @@ class ResponseViewer extends Component {
     if (error)
       return (
         <div className={styles.response}>
-          <h3>Request failed:</h3>
-          { error.message }
+          <div>
+            <h3>Request failed</h3>
+            { error.message }
+          </div>
         </div>
       );
 

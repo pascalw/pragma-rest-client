@@ -27,11 +27,10 @@ app.on('ready', () => {
     width: 1024,
     height: 728,
     'min-width': 650,
-    'min-height': 500
+    'min-height': 500,
+    'title-bar-style': 'hidden'
   });
-
-  mainWindow.maximize();
-
+ 
   if (process.env.HOT) {
     mainWindow.loadURL(`file://${__dirname}/app/hot-dev-app.html`);
   } else {
@@ -44,6 +43,7 @@ app.on('ready', () => {
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools();
+    mainWindow.maximize();
   }
 
   if (process.platform === 'darwin') {

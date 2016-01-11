@@ -10,7 +10,7 @@ export default class Select extends Component {
 
   render() {
     return (
-      <select name={this.props.name} onChange={this.props.onChange} value={ this.props.selected }>
+      <select {...this.props} name={this.props.name} onChange={this.props.onChange} value={ this.props.selected }>
         {this.props.options.map((option, i) =>
           <option key={ i } value={option.value}>{option.label}</option>
         )}

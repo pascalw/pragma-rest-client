@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+
 import RequestsList from '../components/RequestsList';
+import EnvironmentSelector from '../components/EnvironmentSelector';
 
 export default class App extends Component {
   static propTypes = {
@@ -11,7 +13,7 @@ export default class App extends Component {
     return (
       <div id="app">
         <div id="header">
-          <Link to="/">Gettable</Link>
+          <EnvironmentSelector/>
         </div>
         <div id="main">
           <RequestsList/>

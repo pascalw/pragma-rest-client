@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Map, List } from 'immutable';
 
 import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './Codemirror';
 import Select from './Select';
-import HeaderEditor from './HeaderEditor';
+import KeyValuePairEditor from './KeyValuePairEditor';
 
 import { extractMimeType } from '../utils/headers';
 import styles from './RequestEditor.module.scss';
@@ -46,8 +45,7 @@ class RequestForm extends Component {
   }
 
   onHeadersChange(headers) {
-    const request = this.state.request.set('headers', this.headersToMap(headers));
-    this.setState({request: request});
+    this.setState({request: this.state.request.set('headers', headers)});
   }
 
   /**
@@ -69,23 +67,6 @@ class RequestForm extends Component {
     this.props.onExecute(this.prepareRequest());
   }
 
-  headersToMap(headers) {
-    return headers.reduce((previousValue, currentValue) => {
-      return previousValue.set(currentValue.get(0), currentValue.get(1));
-    }, new Map());
-  }
-
-  headersToList(headers) {
-    if (!List.isList(headers)) {
-      // convert headers into a list of headers, so UI can have stable sorting
-      return headers.map((value, key) => {
-        return new List([key, value]);
-      }).toList();
-    }
-
-    return headers;
-  }
-
   render() {
     if (this.state.request === undefined)
       return (<form/>);
@@ -104,13 +85,16 @@ class RequestForm extends Component {
                   selected={request.method}
                   options={ METHODS.map((m) => { return { value: m, label: m } } ) }/>
 
-          <input type="url" className="url" name="url" placeholder="url" value={ request.url }
+          <input type="text" className="url" name="url" placeholder="url" value={ request.url }
                  onChange={this.onChange.bind(this)}
                  required/>
           <button className="execute" onClick={ this.onExecute.bind(this) }>Execute</button>
         </div>
 
-        <HeaderEditor headers={this.headersToList(request.headers)} onChange={this.onHeadersChange.bind(this)}/>
+        <KeyValuePairEditor
+          name={{ singular: 'Header', plural: 'Headers'}}
+          pairs={request.headers}
+          onChange={this.onHeadersChange.bind(this)}/>
 
         <Codemirror value={request.body || ''}
                     options={codeMirrorOptions(request)}
