@@ -17,19 +17,21 @@ const DEFAULT_OPTIONS = new List([
 
 export default class EnvironmentSelector extends Component {
   onChange(e) {
-    if (e.target.value === MANAGE_SELECT_ID) {
-      this.props.dispatch(pushPath('/environments'));
-    } else if (e.target.value == NO_ENVIRONMENT_ID) {
-      this.props.dispatch(unsetEnvironment());
-    } else {
-      const environmentId = e.target.value;
-      const environment = this.props.environments.find(e => e.id == environmentId);
-      this.props.dispatch(selectEnvironment(environmentId));
+    switch (e.target.value) {
+      case MANAGE_SELECT_ID:
+        this.props.dispatch(pushPath('/environments'));
+        break;
+      case NO_ENVIRONMENT_ID:
+        this.props.dispatch(unsetEnvironment());
+        break;
+      default:
+        const environmentId = e.target.value;
+        this.props.dispatch(selectEnvironment(environmentId));
     }
   }
 
   render() {
-    const selected = this.props.activeEnvironment || NO_ENVIRONMENT_ID;
+    const selected = this.props.activeEnvironment;
     const options = DEFAULT_OPTIONS.concat(this.props.environments.map((e) => {
       return {value: e.id, label: e.name}
     })).toJS();
@@ -48,7 +50,7 @@ export default class EnvironmentSelector extends Component {
 function mapStateToProps(state) {
   return {
     environments: state.environments,
-    activeEnvironment: state.ui.get('activeEnvironment')
+    activeEnvironment: state.ui.get('activeEnvironment') || NO_ENVIRONMENT_ID
   }
 }
 
