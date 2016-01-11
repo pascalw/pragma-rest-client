@@ -11,7 +11,7 @@ export const Environment = Record({
 
 export function upsertEnvironment(environment) {
   if (!environment.id)
-    environment = {...environment, id: randomId()};
+    environment = environment.set('id', randomId());
 
   return {
     type: UPSERT_ENVIRONMENT,

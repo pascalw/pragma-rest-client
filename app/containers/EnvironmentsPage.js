@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import EnvironmentEditor from '../components/EnvironmentEditor';
-import { upsertEnvironment } from '../actions/environments';
+import { upsertEnvironment, deleteEnvironment, Environment } from '../actions/environments';
 
 import styles from './EnvironmentsPage.module.scss';
 
@@ -20,7 +20,9 @@ class EnvironmentsPage extends Component {
   startEditing(id) {
     return e => {
       e.preventDefault();
-      this.setState({selectedEnvironment: id});
+
+      const environment = this.props.environments.find(e => e.id === id);
+      this.setState({selectedEnvironment: environment});
     };
   }
 
@@ -28,21 +30,40 @@ class EnvironmentsPage extends Component {
     this.setState({selectedEnvironment: null});
   }
 
+  addNewEnvironment(e) {
+    e.preventDefault();
+
+    const newEnvironment = new Environment();
+    this.setState({selectedEnvironment: newEnvironment});
+  }
+
+  onDeleteEnvironment(environment) {
+    if (window.confirm('Are you sure you want to remove this environment?')) {
+      this.props.dispatch(deleteEnvironment(environment));
+      this.stopEditing();
+    }
+  }
+
   render() {
     if (this.state.selectedEnvironment) {
-      const environment = this.props.environments.find(e => e.id === this.state.selectedEnvironment);
       return (
         <div className="page">
-          <EnvironmentEditor environment={environment}
+          <EnvironmentEditor environment={this.state.selectedEnvironment}
                              onChange={this.onEnvironmentChange.bind(this)}
-                             onBack={this.stopEditing.bind(this)}/>
+                             onBack={this.stopEditing.bind(this)}
+                             onDelete={this.onDeleteEnvironment.bind(this)}/>
         </div>
       );
     }
 
     return (
       <div className="page">
-        <h1 className={styles.header}>Environments</h1>
+        <h1 className={styles.header}>Environments
+          <button className={ 'icon ' + styles.newEnvironment} href="#" onClick={this.addNewEnvironment.bind(this)}>
+            <i className="fa small fa-plus-circle"/>
+          </button>
+        </h1>
+
         <div className={styles.environmentsList}>
           <ul>
             {this.props.environments.map((environment, index) =>

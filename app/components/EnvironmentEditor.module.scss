@@ -1,7 +1,14 @@
+@import '../styles/variables';
+
 .backButton {
   margin-right: 10px;
 
   i {
     margin-right: 5px;
   }
+}
+
+.deleteButton {
+  float: right;
+  background-color: $color-red;
 }

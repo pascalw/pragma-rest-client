@@ -31,6 +31,11 @@ export default class EnvironmentEditor extends Component {
     this.setState({environment: this.state.environment.set('name', e.target.value)});
   }
 
+  onDelete(e) {
+    e.preventDefault();
+    this.props.onDelete(this.state.environment);
+  }
+
   onBack(e) {
     e.preventDefault();
     this.props.onBack();
@@ -41,22 +46,26 @@ export default class EnvironmentEditor extends Component {
     if (environment == null)
       return null;
 
-    return <div className="environmentEditor">
-      <form onSubmit={this.onSubmit.bind(this)}>
-        <input type="text" className="name" name="name" placeholder="name" value={environment.name}
-               onChange={this.onNameChange.bind(this)}
-               required/>
+    return (
+      <div className="environmentEditor">
+        <form onSubmit={this.onSubmit.bind(this)}>
+          <input type="text" className="name" name="name" placeholder="name" value={environment.name}
+                 onChange={this.onNameChange.bind(this)}
+                 required/>
 
-        <KeyValuePairEditor name={{ singular: 'Variable', plural: "Variables" }}
-                            pairs={environment.variables}
-                            onChange={this.onVariablesChange.bind(this)}/>
+          <KeyValuePairEditor name={{ singular: 'Variable', plural: "Variables" }}
+                              pairs={environment.variables}
+                              onChange={this.onVariablesChange.bind(this)}/>
 
-        <button className={styles.backButton} onClick={this.onBack.bind(this)}>
-          <i className="fa fa-angle-left"/>
-          Back
-        </button>
-        <input type="submit" value="Save"/>
-      </form>
-    </div>
+          <button className={styles.backButton} onClick={this.onBack.bind(this)}>
+            <i className="fa fa-angle-left"/>
+            Back
+          </button>
+          <input type="submit" value="Save"/>
+
+          {environment.id ?
+            <button className={styles.deleteButton} onClick={this.onDelete.bind(this)}>Delete</button> : null}
+        </form>
+      </div>);
   }
 }
