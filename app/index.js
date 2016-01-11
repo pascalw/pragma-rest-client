@@ -8,6 +8,7 @@ import { pushPath } from './actions/ui';
 import routes from './routes';
 import configureStore from './store/configureStore';
 import { syncProjectsToDisk } from './gettable/ProjectFileSynchronizer';
+import syncEnvironments from './gettable/environmentsSynchronizer';
 import { upsertProject } from './actions/project';
 import { Map } from 'immutable';
 
@@ -19,6 +20,7 @@ const history = createHashHistory();
 
 syncReduxAndRouter(history, store);
 syncProjectsToDisk(store);
+syncEnvironments(store);
 
 window.openProject = () => {
   const remote = require('electron').remote;
@@ -30,24 +32,6 @@ window.openProject = () => {
   store.dispatch(upsertProject(projectFile));
   store.dispatch(pushPath('/'));
 };
-
-import { upsertEnvironment } from './actions/environments';
-store.dispatch(upsertEnvironment({
-  id: 1,
-  name: 'Moonshotdev',
-  variables: {
-    host: 'https://mds-moonshotdev.cloud.pcftest.com',
-    token: 'abc'
-  }
-}));
-store.dispatch(upsertEnvironment({
-  id: 2,
-  name: 'Dev',
-  variables: {
-    host: 'https://mds-dev.cloud.pcftest.com',
-    token: 'abc'
-  }
-}));
 
 render(
   <Provider store={store}>
