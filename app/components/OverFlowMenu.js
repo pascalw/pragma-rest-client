@@ -23,7 +23,15 @@ export default class OverFlowMenu extends Component {
   }
 
   toggle() {
-    this.setState({open: !this.state.open});
+    this.setOpen(!this.isOpen());
+  }
+
+  isOpen() {
+    return this.state.open;
+  }
+
+  setOpen(openOrClosed) {
+    this.setState({open: openOrClosed});
   }
 
   onItemClicked() {
@@ -31,7 +39,7 @@ export default class OverFlowMenu extends Component {
   }
 
   onMouseLeave() {
-    this.toggle();
+    this.setOpen(false);
   }
 
   render() {
