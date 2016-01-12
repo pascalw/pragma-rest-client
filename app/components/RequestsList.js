@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { selectRequest } from '../actions/ui';
+
+import { selectRequest, pushPath } from '../actions/ui';
 import { closeProject } from '../actions/project';
+import OverFlowMenu, { OverflowItem } from './OverFlowMenu';
 
 import styles from './RequestsList.module.scss';
 
@@ -29,8 +31,11 @@ class RequestListItem extends Component {
 
 class ProjectListItem extends Component {
   onProjectClose(e) {
-    e.preventDefault();
     this.props.onProjectClose(this.props.project);
+  }
+
+  onNewRequest(e) {
+    this.props.onNewRequest(this.props.project);
   }
 
   render() {
@@ -40,19 +45,25 @@ class ProjectListItem extends Component {
         <div className="project-details">
           <span className="name">{project.name}</span>
 
-          <Link className="close-project" title="Close project" to='#' onClick={this.onProjectClose.bind(this)}>
-            <i className="fa small fa-times-circle"/>
-          </Link>
-          <Link className="new-request" title="Create new request" to={`/projects/${project.id}/requests/new`}>
-            <i className="fa small fa-plus-circle"/>
-          </Link>
+          <OverFlowMenu className="menu">
+            <OverflowItem title="Create new request" onClick={this.onNewRequest.bind(this)}>
+              Add request
+              <i className="fa small fa-plus-circle"/>
+            </OverflowItem>
+            <OverflowItem title="Close project" onClick={this.onProjectClose.bind(this)}>
+              Close project
+              <i className="fa small fa-times-circle"/>
+            </OverflowItem>
+          </OverFlowMenu>
         </div>
-        {project.requests.map((request, index) =>
-          <RequestListItem key={index}
-                           request={request}
-                           selected={ request === selectedRequest }
-                           onSelected={this.props.onRequestSelected}/>
-        )}
+        {
+          project.requests.map((request, index) =>
+            <RequestListItem key={index}
+                             request={request}
+                             selected={ request === selectedRequest }
+                             onSelected={this.props.onRequestSelected}/>
+          )
+        }
       </div>
     );
   }
@@ -72,6 +83,10 @@ class RequestsList extends Component {
       this.props.dispatch(closeProject(project));
   }
 
+  onNewRequest(project) {
+    this.props.dispatch(pushPath(`/projects/${project.id}/requests/new`));
+  }
+
   render() {
     const { dispatch, projects, selectedRequest } = this.props;
     if (projects.count() == 0)
@@ -83,6 +98,7 @@ class RequestsList extends Component {
           <ProjectListItem key={index} project={project}
                            selectedRequest={selectedRequest}
                            onRequestSelected={this.onRequestSelected.bind(this)}
+                           onNewRequest={this.onNewRequest.bind(this)}
                            onProjectClose={this.onProjectClose.bind(this)}/>
         )}
       </div>

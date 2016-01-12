@@ -25,13 +25,10 @@
         @include ellipsis;
         display: block;
       }
-    }
 
-    .new-request, .close-project {
-      display: block;
-      text-align: right;
-      margin-left: 10px;
-      color: #000;
+      .menu {
+        margin: -5px;
+      }
     }
 
     .request {

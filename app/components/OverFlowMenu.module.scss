@@ -1,0 +1,58 @@
+@import '../styles/variables';
+
+.btn {
+  border: none;
+  padding: 5px 10px;
+  font-family: 'Open Sans', serif;
+  border-radius: $default-border-radius;
+  margin: 0;
+  background: none;
+  color: #000;
+
+  &:hover {
+    background: none;
+  }
+}
+
+.overflowMenu {
+  :global {
+    .items {
+      display: none;
+    }
+  }
+}
+
+.overflowMenuOpen {
+  position: relative;
+
+  :global {
+    .items {
+      display: block;
+      position: absolute;
+      z-index: 1;
+
+      box-shadow: -1px 1px 8px 0 rgba(0, 0, 0, 0.1);
+      background: lighten($background-color, 2%);
+      border-radius: $default-border-radius;
+      right: 0px;
+      top: 25px;
+      border: 1px solid $border-color;
+      width: 150px;
+    }
+  }
+}
+
+.item {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background: darken($background-color, 2%);
+  }
+
+  span {
+    flex: 1;
+  }
+}
