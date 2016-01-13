@@ -44,9 +44,9 @@
       }
     },
     "build:watch": {
-      "command": "webpack --config webpack.config.production.js --progress --profile --colors --watch",
+      "command": "webpack --config webpack.config.development.js --progress --profile --colors --watch",
       "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "development"
       }
     },
     "test": {
