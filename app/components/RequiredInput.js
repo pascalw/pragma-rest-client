@@ -34,7 +34,11 @@ export default class extends Component {
   }
 
   checkValidity() {
-    return this.refs.input.checkValidity();
+    const valid = this.refs.input.checkValidity();
+    if (!valid)
+      this.refs.input.focus();
+
+    return valid;
   }
 
   render() {

@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import bindKey from 'keymaster';
+bindKey.filter = () => true; // allows trigger always, including when inputs are focused
 
 import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './Codemirror';
 import Select from './Select';
@@ -9,6 +11,7 @@ import { extractMimeType } from '../utils/headers';
 import styles from './RequestEditor.module.scss';
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
+const REQUEST_TRIGGER_KEYS = '⌘+enter, ctrl+enter';
 
 function codeMirrorOptions(request) {
   return {
@@ -30,6 +33,11 @@ class RequestForm extends Component {
 
   componentDidMount() {
     this.setState({request: this.props.request});
+    bindKey(REQUEST_TRIGGER_KEYS, this.onExecute.bind(this));
+  }
+
+  componentWillUnmount() {
+    bindKey.unbind(REQUEST_TRIGGER_KEYS);
   }
 
   componentWillReceiveProps(nextProps) {
