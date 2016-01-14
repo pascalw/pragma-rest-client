@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import RequestEditor from '../components/RequestEditor';
 import ResponseViewer from '../components/ResponseViewer';
 import { Request, addRequest, executeRequest } from '../actions/project';
+import { cancel } from '../actions/response';
 import { selectRequest } from '../actions/ui';
 
 class NewRequestPage extends Component {
@@ -37,7 +38,7 @@ class NewRequestPage extends Component {
                        onRequestChange={ this.addRequest.bind(this) }
                        onRequestExecute={ this.onRequestExecute.bind(this) }/>
 
-        <ResponseViewer response={ this.props.response }/>
+        <ResponseViewer response={ this.props.response } onCancel={() => this.props.dispatch(cancel())}/>
       </div>
     );
   }
