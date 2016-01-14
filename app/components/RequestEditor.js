@@ -65,7 +65,9 @@ class RequestForm extends Component {
 
   onExecute(e) {
     e.preventDefault();
-    this.props.onExecute(this.prepareRequest());
+
+    if (this.refs.url.checkValidity())
+      this.props.onExecute(this.prepareRequest());
   }
 
   render() {
@@ -85,7 +87,7 @@ class RequestForm extends Component {
                   selected={request.method}
                   options={ METHODS.map((m) => { return { value: m, label: m } } ) }/>
 
-          <RequiredInput type="text" className="url" name="url" placeholder="url" value={ request.url }
+          <RequiredInput ref="url" type="text" className="url" name="url" placeholder="url" value={ request.url }
                          onChange={this.onChange.bind(this)}/>
           <button className="execute" onClick={ this.onExecute.bind(this) }>Execute</button>
         </div>

@@ -33,6 +33,10 @@ export default class extends Component {
     this.props.onChange && this.props.onChange(e);
   }
 
+  checkValidity() {
+    return this.refs.input.checkValidity();
+  }
+
   render() {
     const className = classNames(this.props.className, this.state.valid ? '' : 'invalid');
 
