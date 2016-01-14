@@ -69,3 +69,11 @@
     margin: 0;
   }
 }
+
+.responseLoading {
+  composes: response;
+
+  p {
+    margin-bottom: 0;
+  }
+}
