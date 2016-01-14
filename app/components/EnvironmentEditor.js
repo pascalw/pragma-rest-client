@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import KeyValuePairEditor from '../components/KeyValuePairEditor';
+
+import KeyValuePairEditor from './KeyValuePairEditor';
+import RequiredInput from './RequiredInput';
 
 import styles from './EnvironmentEditor.module.scss';
 
@@ -49,9 +51,8 @@ export default class EnvironmentEditor extends Component {
     return (
       <div className="environmentEditor">
         <form onSubmit={this.onSubmit.bind(this)}>
-          <input type="text" className="name" name="name" placeholder="name" value={environment.name}
-                 onChange={this.onNameChange.bind(this)}
-                 required/>
+          <RequiredInput type="text" className="name" name="name" placeholder="name" value={environment.name}
+                         onChange={this.onNameChange.bind(this)}/>
 
           <KeyValuePairEditor name={{ singular: 'Variable', plural: "Variables" }}
                               pairs={environment.variables}

@@ -113,6 +113,10 @@ input[type=text], input[type=url], textarea {
   margin-bottom: 5px;
   outline: none;
   border: none;
+
+  &.invalid {
+    box-shadow: inset 0px -1px 0px 0px $color-red;
+  }
 }
 
 .page, .edit-request-page, .new-request-page {

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './Codemirror';
 import Select from './Select';
+import RequiredInput from './RequiredInput';
 import KeyValuePairEditor from './KeyValuePairEditor';
 
 import { extractMimeType } from '../utils/headers';
@@ -75,9 +76,8 @@ class RequestForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit.bind(this)}>
-        <input type="text" className="name" name="name" placeholder="name" value={request.name}
-               onChange={ this.onChange.bind(this)}
-               required/>
+        <RequiredInput type="text" className="name" name="name" placeholder="name" value={request.name}
+                       onChange={ this.onChange.bind(this)}/>
 
         <div className="method-url-group">
           <Select name="method"
@@ -85,9 +85,8 @@ class RequestForm extends Component {
                   selected={request.method}
                   options={ METHODS.map((m) => { return { value: m, label: m } } ) }/>
 
-          <input type="text" className="url" name="url" placeholder="url" value={ request.url }
-                 onChange={this.onChange.bind(this)}
-                 required/>
+          <RequiredInput type="text" className="url" name="url" placeholder="url" value={ request.url }
+                         onChange={this.onChange.bind(this)}/>
           <button className="execute" onClick={ this.onExecute.bind(this) }>Execute</button>
         </div>
 

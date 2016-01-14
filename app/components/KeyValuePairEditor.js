@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { List, Map } from 'immutable';
+
+import RequiredInput from './RequiredInput';
+
 import styles from './KeyValuePairEditor.module.scss';
 
 function listToMap(list) {
