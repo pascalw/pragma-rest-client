@@ -97,8 +97,6 @@ export function deleteRequest(request) {
 
 export function executeRequest(method:string, url:string, headers:Object, body:?string) {
   return (dispatch, getState) => {
-    dispatch(awaitingResponse());
-
     const state = getState();
     const activeEnvironmentId = state.ui.get('activeEnvironment');
     const activeEnvironment = state.environments.find(e => e.get('id') === activeEnvironmentId);
@@ -111,11 +109,14 @@ export function executeRequest(method:string, url:string, headers:Object, body:?
       return;
     }
 
-    doExecuteRequest(request).then((response) => {
-      dispatch(receiveResponse(response));
-    }).catch((error) => {
-      dispatch(receiveError(error));
+    const cancelRequest = doExecuteRequest(request, (error, response) => {
+      if (error)
+        dispatch(receiveError(error));
+      else
+        dispatch(receiveResponse(response));
     });
-  };
+
+    dispatch(awaitingResponse({cancel: cancelRequest}));
+  }
 }
 

@@ -1,6 +1,7 @@
 export const RECEIVE_RESPONSE = 'RECEIVE_RESPONSE';
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 export const AWAITING_RESPONSE = 'AWAITING_RESPONSE';
+export const CANCEL_RESPONSE = 'CANCEL_RESPONSE';
 
 export function receiveResponse(response) {
   return {
@@ -16,8 +17,15 @@ export function receiveError(error) {
   };
 }
 
-export function awaitingResponse() {
+export function awaitingResponse({ cancel }) {
   return {
-    type: AWAITING_RESPONSE
+    type: AWAITING_RESPONSE,
+    cancel: cancel
+  };
+}
+
+export function cancel() {
+  return {
+    type: CANCEL_RESPONSE
   };
 }

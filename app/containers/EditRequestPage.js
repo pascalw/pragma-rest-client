@@ -3,6 +3,7 @@ import RequestEditor from '../components/RequestEditor';
 import ResponseViewer from '../components/ResponseViewer';
 import * as actionCreators from '../actions/project';
 import { pushPath } from '../actions/ui';
+import { cancel as cancelRequest } from '../actions/response';
 import { connect } from 'react-redux';
 
 class EditRequestPage extends Component {
@@ -20,6 +21,10 @@ class EditRequestPage extends Component {
     this.props.pushPath('/');
   }
 
+  onCancel() {
+    this.props.cancelRequest();
+  }
+
   render() {
     if (!this.props.request)
       return null;
@@ -31,7 +36,7 @@ class EditRequestPage extends Component {
                        onRequestDelete={this.onDeleteRequest.bind(this)}
                        onRequestExecute={this.onExecuteRequest.bind(this)}/>
 
-        <ResponseViewer response={ this.props.response }/>
+        <ResponseViewer response={ this.props.response } onCancel={this.onCancel.bind(this)}/>
       </div>
     );
   }
@@ -47,4 +52,4 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps, {...actionCreators, pushPath})(EditRequestPage);
+export default connect(mapStateToProps, {...actionCreators, pushPath, cancelRequest})(EditRequestPage);

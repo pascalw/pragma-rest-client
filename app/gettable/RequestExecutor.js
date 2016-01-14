@@ -31,22 +31,24 @@ export class Request {
   }
 }
 
-export function execute(request:Request) {
+export function execute(request:Request, callback) {
   const requestStart = performance.now();
 
-  return new Promise((resolve, reject) => {
-    httpClient.request({
-      method: request.method,
-      url: request.url,
-      headers: request.headers,
-      body: request.body
-    }, (error, response) => {
-      if (error) return reject(error);
+  const sentRequest = httpClient.request({
+    method: request.method,
+    url: request.url,
+    headers: request.headers,
+    body: request.body
+  }, (error, response) => {
+    if (error) return callback(error, null);
 
-      const requestEnd = performance.now();
-      const responseTimeMs = Math.round(requestEnd - requestStart);
+    const requestEnd = performance.now();
+    const responseTimeMs = Math.round(requestEnd - requestStart);
 
-      resolve(new Response(response.body, response.headers, response.statusCode, response.statusMessage, responseTimeMs));
-    });
+    callback(null, new Response(response.body, response.headers, response.statusCode, response.statusMessage, responseTimeMs));
   });
-};
+
+  return function cancel() {
+    sentRequest.abort();
+  };
+}

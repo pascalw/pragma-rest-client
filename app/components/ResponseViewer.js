@@ -51,7 +51,10 @@ class ResponseViewer extends Component {
 
     if (this.props.response.pending) {
       return <div className={styles.response}>
-        <p>Loading...</p>
+        <div>
+          <p>Loading...</p>
+          <button onClick={this.props.onCancel}>Cancel</button>
+        </div>
       </div>;
     }
 
