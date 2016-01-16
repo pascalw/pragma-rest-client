@@ -4,12 +4,14 @@ import response from './response';
 import projects from './projects';
 import environments from './environments';
 import ui from './ui';
+import history from './history'
 
 const rootReducer = combineReducers({
   projects,
   response,
   ui,
   environments,
+  history,
   routing: routeReducer
 });
 

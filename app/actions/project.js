@@ -13,6 +13,7 @@ export const ADD_REQUEST = 'ADD_REQUEST';
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 export const DELETE_REQUEST = 'DELETE_REQUEST';
 export const EXECUTE_REQUEST = 'EXECUTE_REQUEST';
+export const LOG_REQUEST = 'LOG_REQUEST';
 
 export const Request = Record({
   id: undefined,
@@ -105,6 +106,13 @@ export function deleteRequest(request) {
   }
 }
 
+export function logRequest(request) {
+  return {
+    type: LOG_REQUEST,
+    request: request
+  }
+}
+
 export function executeRequest(method:string, url:string, headers:Object, body:?string) {
   return (dispatch, getState) => {
     const state = getState();
@@ -126,7 +134,7 @@ export function executeRequest(method:string, url:string, headers:Object, body:?
         dispatch(receiveResponse(response));
     });
 
+    dispatch(logRequest(request));
     dispatch(awaitingResponse({cancel: cancelRequest}));
   }
 }
-

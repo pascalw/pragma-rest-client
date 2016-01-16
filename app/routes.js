@@ -12,5 +12,6 @@ export default (
     <Route path="/projects/:projectId/requests/new" component={NewRequestPage}/>
     <Route path="/projects/:projectId/requests/:id" component={EditRequestPage}/>
     <Route path="/project/new" component={NewProjectPage}/>
+    <Route path="/requests/:id" component={EditRequestPage}/>
   </Route>
 );
