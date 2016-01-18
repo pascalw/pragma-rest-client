@@ -16,16 +16,23 @@
   :global {
     .CodeMirror {
       margin-top: 10px;
+
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 20px;
     }
 
     .status, .responseTime {
+      float: right;
       font-size: 0.7em;
 
       color: white;
       border-radius: $default-border-radius;
       padding: 0 5px;
       margin-top: 5px;
-      margin-right: 10px;
+      margin-left: 10px;
     }
 
     .status {
@@ -53,6 +60,7 @@
 
     flex: 1;
     overflow: scroll;
+    position: relative;
   }
 
   pre {
@@ -75,5 +83,29 @@
 
   p {
     margin-bottom: 0;
+  }
+}
+
+.bodyDisplayPicker {
+  display: inline-block;
+
+  label {
+    display: inline-block;
+
+    text-shadow: white;
+    color: #666666;
+    padding: 2px 5px;
+    vertical-align: top;
+    cursor: pointer;
+
+    font-size: 0.8em;
+  }
+
+  input:checked + label {
+    border-bottom: 2px solid $color-primary;
+  }
+
+  input {
+    display: none;
   }
 }

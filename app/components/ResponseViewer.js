@@ -45,6 +45,22 @@ function responseStatusClassification(status) {
 }
 
 class ResponseViewer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {prettifyBody: true};
+  }
+
+  body(response) {
+    if (!this.state.prettifyBody)
+      return response.body;
+
+    return prettifyBody(response);
+  }
+
+  toggleBodyDisplay(e) {
+    this.setState({prettifyBody: e.target.id === 'prettify-body'});
+  }
+
   render() {
     if (!this.props.response)
       return null;
@@ -79,11 +95,23 @@ class ResponseViewer extends Component {
             <Tab>Headers</Tab>
           </TabList>
           <TabPanel>
+            <span className="responseTime">{ response.responseTimeMs }&nbsp;ms</span>
             <span className={'status ' + responseStatusClassification(response.status)}>
               {response.status } { response.statusText }
             </span>
-            <span className="responseTime">{ response.responseTimeMs }&nbsp;ms</span>
-            <Codemirror value={prettifyBody(response)} options={codeMirrorOptions(response)}/>
+
+            <nav className={styles.bodyDisplayPicker}>
+              <input id="prettify-body" type="radio" name="body"
+                     checked={this.state.prettifyBody}
+                     onChange={this.toggleBodyDisplay.bind(this)}/>
+              <label htmlFor="prettify-body">Pretty</label>
+              <input id="raw-body" type="radio" name="body"
+                     checked={!this.state.prettifyBody}
+                     onChange={this.toggleBodyDisplay.bind(this)}/>
+              <label htmlFor="raw-body">Raw</label>
+            </nav>
+
+            <Codemirror value={this.body(response)} options={codeMirrorOptions(response)}/>
           </TabPanel>
           <TabPanel>
             <span>
