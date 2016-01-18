@@ -20,6 +20,7 @@ export default class EnvironmentSelector extends Component {
     switch (e.target.value) {
       case MANAGE_SELECT_ID:
         this.props.dispatch(pushPath('/environments'));
+        this.forceUpdate(); //ensure we rerender to select previously selected option again
         break;
       case NO_ENVIRONMENT_ID:
         this.props.dispatch(unsetEnvironment());
