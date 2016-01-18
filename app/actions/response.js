@@ -11,6 +11,9 @@ export function receiveResponse(response) {
 }
 
 export function receiveError(error) {
+
+  console.error(error);
+
   return {
     type: RECEIVE_ERROR,
     error: error
