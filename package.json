@@ -127,7 +127,6 @@
     "immutable": "^3.7.6",
     "keymaster": "^1.6.2",
     "lodash-es": "^3.10.1",
-    "open-sans-fontface": "^1.4.0",
     "react": "^0.14.3",
     "react-codemirror": "^0.2.3",
     "react-dom": "^0.14.3",
