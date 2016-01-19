@@ -10,6 +10,7 @@ const crashReporter = electron.crashReporter;
 let menu;
 let template;
 let mainWindow = null;
+let shouldQuit = false;
 let appName = require('./package.json').productName;
 
 crashReporter.start();
@@ -22,6 +23,14 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
+app.on('before-quit', () => {
+  shouldQuit = true;
+});
+
+app.on('activate', () => {
+  mainWindow.show();
+});
+
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 1024,
@@ -30,12 +39,19 @@ app.on('ready', () => {
     'min-height': 500,
     'title-bar-style': 'hidden'
   });
- 
+
   if (process.env.HOT) {
     mainWindow.loadURL(`file://${__dirname}/app/hot-dev-app.html`);
   } else {
     mainWindow.loadURL(`file://${__dirname}/app/app.html`);
   }
+
+  mainWindow.on('close', (e) => {
+    if (!shouldQuit) {
+      e.preventDefault();
+      mainWindow.hide();
+    }
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
