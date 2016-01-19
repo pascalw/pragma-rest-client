@@ -1,18 +1,20 @@
 @import '../styles/variables';
 
 .select {
-  border: 1px solid $border-color;
-  border-radius: 2px;
+  border: 1px solid darken($color-primary, 10%);
+  border-radius: 0 0 2px 2px;
   -webkit-appearance: none;
   background: none;
   color: white;
-  padding: 0 25px 0 10px;
+  padding: 0 28px 0 6px;
   height: 1.55em;
+  font-size: 0.75em;
 }
 
 :global {
   .environmentSelector {
-    margin-top: -5px;
+    margin-top: -12px;
+    margin-right: -3px;
   }
 
   .environmentSelector:after {
@@ -20,7 +22,7 @@
     font-family: FontAwesome;
     content: "\f107";
     position: absolute;
-    top: 23%;
+    top: 4%;
     right: 18px;
     pointer-events: none;
   }
