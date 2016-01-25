@@ -5,15 +5,12 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
-const crashReporter = electron.crashReporter;
 
 let menu;
 let template;
 let mainWindow = null;
 let shouldQuit = false;
 let appName = require('./package.json').productName;
-
-crashReporter.start();
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')();
@@ -33,8 +30,8 @@ app.on('activate', () => {
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 728,
+    width: 1200,
+    height: 660,
     'min-width': 650,
     'min-height': 500,
     'title-bar-style': 'hidden'
