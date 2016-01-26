@@ -8,13 +8,17 @@ export class HomePage extends Component {
   render() {
     if (this.props.projects.size == 0)
       return (<div className="page">
+        Welcome to Pragma!
         <span>
           <a href="#" onClick={ () => window.openProject() }>Open</a>
-          &nbsp;a project to get started
+          &nbsp;a project to get started.
         </span>
       </div>);
 
-    return <div className="page">Select a request on the left</div>;
+    return <div className="page">
+      Welcome to Pragma!
+      Select a request on the left.
+    </div>;
   }
 }
 

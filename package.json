@@ -1,7 +1,7 @@
 {
-  "name": "gettable-rest-client",
+  "name": "pragma-rest-client",
   "version": "0.0.1",
-  "productName": "Gettable",
+  "productName": "Pragma",
   "main": "main.js",
   "scripts": {
     "test": "better-npm-run test",

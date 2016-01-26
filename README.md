@@ -1,4 +1,4 @@
-# Gettable Rest client
+# Pragma HTTP/REST GUI client
 
 This is my weekend hack project that I'm using to learn React and related tools.
 Hopefully, in the process I can come up with a replacement for the Postman REST client.
