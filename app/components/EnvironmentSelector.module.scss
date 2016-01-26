@@ -2,7 +2,7 @@
 
 .select {
   border: 1px solid #fff;
-  border-radius: 0 0 2px 2px;
+  border-radius: 2px;
   -webkit-appearance: none;
   background: none;
   color: white;
@@ -13,7 +13,7 @@
 
 :global {
   .environmentSelector {
-    margin-top: -12px;
+    margin-top: -8px;
     margin-right: -3px;
   }
 
@@ -22,7 +22,7 @@
     font-family: FontAwesome;
     content: "\f107";
     position: absolute;
-    top: 4%;
+    top: 18%;
     right: 18px;
     pointer-events: none;
   }
