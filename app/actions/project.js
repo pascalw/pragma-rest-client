@@ -48,6 +48,9 @@ export function upsertProject(projectPath) {
           requests: requests
         }
       });
+    }).catch((err) => {
+      console.log(err); //TODO communicate in UI
+      dispatch(closeProjectByPath(projectPath));
     });
   };
 }
@@ -68,6 +71,13 @@ export function closeProject(project) {
   return {
     type: CLOSE_PROJECT,
     project: project
+  }
+}
+
+export function closeProjectByPath(path) {
+  return {
+    type: CLOSE_PROJECT,
+    path: path
   }
 }
 

@@ -45,7 +45,10 @@ class ProjectFileSynchronizer {
     this.previousState = null;
   }
 
-  onFileChange(_, path) {
+  onFileChange(event, path) {
+    if (event === 'unlink')
+      this.stopWatcher(path);
+
     console.log(`detected change for ${path}`);
     this.writeNextChange = false;
     this.store.dispatch(upsertProject(path));
