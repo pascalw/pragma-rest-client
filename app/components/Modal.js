@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-
 import ReactModal from 'react-modal';
 
 import styles from './Modal.module.scss';
