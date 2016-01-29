@@ -1,0 +1,35 @@
+@import '../styles/variables';
+
+:export {
+  contentBackground: $background-color;
+  overlayBackground: rgba(0, 0, 0, 0.40);
+  borderRadius: $default-border-radius;
+  padding: $default-padding * 2 $default-padding $default-padding;
+}
+
+.header {
+  height: 25px;
+  border-bottom: 1px solid $border-color;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.closeButton {
+  position: absolute;
+  top: -2px;
+  right: 0;
+
+  margin: 0;
+  background: none;
+  color: #000;
+
+  font-weight: bolder;
+  font-size: 0.8em;
+
+  &:hover {
+    background: none;
+  }
+}
