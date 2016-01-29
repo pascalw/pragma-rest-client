@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { List } from 'immutable';
 
 import { pushPath, selectEnvironment, unsetEnvironment } from '../actions/ui';
+
 import Select from './Select';
+import Modal from './Modal';
+import EnvironmentsContainer from '../containers/EnvironmentsContainer';
 
 import styles from './EnvironmentSelector.module.scss';
 
@@ -16,10 +19,15 @@ const DEFAULT_OPTIONS = new List([
 ]);
 
 export default class EnvironmentSelector extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {editorOpen: false};
+  }
+
   onChange(e) {
     switch (e.target.value) {
       case MANAGE_SELECT_ID:
-        this.props.dispatch(pushPath('/environments'));
+        this.setState({editorOpen: true});
         this.forceUpdate(); //ensure we rerender to select previously selected option again
         break;
       case NO_ENVIRONMENT_ID:
@@ -31,6 +39,10 @@ export default class EnvironmentSelector extends Component {
     }
   }
 
+  onModalClose() {
+    this.setState({editorOpen: false});
+  }
+
   render() {
     const selected = this.props.activeEnvironment;
     const options = DEFAULT_OPTIONS.concat(this.props.environments.map((e) => {
@@ -39,6 +51,10 @@ export default class EnvironmentSelector extends Component {
 
     return (
       <div className="environmentSelector">
+        <Modal isOpen={this.state.editorOpen} onRequestClose={this.onModalClose.bind(this)}>
+          <EnvironmentsContainer/>
+        </Modal>
+
         <Select className={styles.select} name="environment"
                 onChange={ this.onChange.bind(this)}
                 selected={selected.toString()}

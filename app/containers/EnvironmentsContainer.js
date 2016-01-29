@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import EnvironmentEditor from '../components/EnvironmentEditor';
 import { upsertEnvironment, deleteEnvironment, Environment } from '../actions/environments';
 
-import styles from './EnvironmentsPage.module.scss';
+import styles from './EnvironmentsContainer.module.scss';
 
 class EnvironmentsPage extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class EnvironmentsPage extends Component {
   render() {
     if (this.state.selectedEnvironment) {
       return (
-        <div className="page">
+        <div className={styles.container}>
           <EnvironmentEditor environment={this.state.selectedEnvironment}
                              onChange={this.onEnvironmentChange.bind(this)}
                              onBack={this.stopEditing.bind(this)}
@@ -57,7 +57,7 @@ class EnvironmentsPage extends Component {
     }
 
     return (
-      <div className="page">
+      <div className={styles.container}>
         <h1 className={styles.header}>Environments
           <button className={ 'icon ' + styles.newEnvironment} href="#" onClick={this.addNewEnvironment.bind(this)}>
             <i className="fa small fa-plus-circle"/>
