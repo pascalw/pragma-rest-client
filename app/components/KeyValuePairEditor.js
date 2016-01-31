@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { List, Map } from 'immutable';
 
-import RequiredInput from './RequiredInput';
-
+import AutocompleteField from './AutocompleteField';
 import styles from './KeyValuePairEditor.module.scss';
 
 function listToMap(list) {
@@ -28,12 +27,13 @@ class SinglePairEditor extends Component {
     pairType: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired
+    onRemove: PropTypes.func.isRequired,
+    keyOptions: PropTypes.arrayOf(React.PropTypes.string),
+    valueOptions: PropTypes.arrayOf(React.PropTypes.string)
   };
 
   onChange(e) {
-    e.preventDefault();
-    this.props.onChange(this.refs.name.value, this.refs.value.value);
+    this.props.onChange(this.refs.name.value(), this.refs.value.value());
   }
 
   onRemove(e) {
@@ -44,12 +44,14 @@ class SinglePairEditor extends Component {
   render() {
     return (
       <div className={styles.singleItem}>
-        <input type="text" placeholder={this.props.pairType} ref="name"
-               value={this.props.name}
-               onChange={this.onChange.bind(this)}/>
-        <input type="text" placeholder="Value" ref="value"
-               value={this.props.value}
-               onChange={this.onChange.bind(this)}/>
+        <AutocompleteField placeholder={this.props.pairType} ref="name"
+                           value={this.props.name}
+                           options={this.props.keyOptions}
+                           onChange={this.onChange.bind(this)}/>
+        <AutocompleteField placeholder="Value" ref="value"
+                           value={this.props.value}
+                           options={this.props.valueOptions}
+                           onChange={this.onChange.bind(this)}/>
 
         <button className="icon" onClick={this.onRemove.bind(this)}>
           <i className="fa small fa-minus-circle"/>
@@ -63,7 +65,9 @@ export default class KeyValuePairEditor extends Component {
   static propTypes = {
     name: PropTypes.object.isRequired,
     pairs: PropTypes.object.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    keyOptions: PropTypes.arrayOf(React.PropTypes.string),
+    valueOptions: PropTypes.arrayOf(React.PropTypes.string)
   };
 
   constructor(props) {
@@ -123,7 +127,9 @@ export default class KeyValuePairEditor extends Component {
                                    name={key}
                                    value={value}
                                    onChange={this.onChange(index)}
-                                   onRemove={this.removePair(index)}/>
+                                   onRemove={this.removePair(index)}
+                                   keyOptions={this.props.keyOptions}
+                                   valueOptions={this.props.valueOptions}/>
         })}
       </div>
     );
