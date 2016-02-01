@@ -7,7 +7,7 @@ import Select from './Select';
 import RequiredInput from './RequiredInput';
 import KeyValuePairEditor from './KeyValuePairEditor';
 
-import { extractMimeType } from '../utils/headers';
+import { extractMimeType, HEADERS } from '../utils/headers';
 import styles from './RequestEditor.module.scss';
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
@@ -103,7 +103,8 @@ class RequestForm extends Component {
         <KeyValuePairEditor
           name={{ singular: 'Header', plural: 'Headers'}}
           pairs={request.headers}
-          onChange={this.onHeadersChange.bind(this)}/>
+          onChange={this.onHeadersChange.bind(this)}
+          keyOptions={HEADERS}/>
 
         <Codemirror value={request.body || ''}
                     options={codeMirrorOptions(request)}
