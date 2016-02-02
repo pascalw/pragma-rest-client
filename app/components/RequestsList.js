@@ -79,8 +79,10 @@ class RequestsList extends Component {
   }
 
   onProjectClose(project) {
-    if (window.confirm('Are you sure you want to close this project?'))
+    if (window.confirm('Are you sure you want to close this project?')) {
+      this.props.dispatch(pushPath('/'));
       this.props.dispatch(closeProject(project));
+    }
   }
 
   onNewRequest(project) {
