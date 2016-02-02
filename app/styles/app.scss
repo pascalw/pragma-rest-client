@@ -21,6 +21,10 @@ h1, h2, h3 {
   font-weight: 600;
 }
 
+a:active, a:focus {
+  outline: none;
+}
+
 * {
   box-sizing: border-box;
 }

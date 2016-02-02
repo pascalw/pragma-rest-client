@@ -4,16 +4,44 @@ import { connect } from 'react-redux';
 import RequestsList from '../components/RequestsList';
 import RequestEditor from '../components/RequestEditor';
 
-export class HomePage extends Component {
+import Modal from '../components/Modal';
+import ProjectCreator from '../components/ProjectCreator';
+
+class HomePageNoProjects extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {openCreateProjectModal: false};
+  }
+
+  openCreateProjectModal() {
+    this.setState({openCreateProjectModal: true});
+  }
+
+  closeCreateProjectModal() {
+    this.setState({openCreateProjectModal: false});
+  }
+
   render() {
-    if (this.props.projects.size == 0)
-      return (<div className="page">
+    return (<div className="page">
         Welcome to Pragma!
         <span>
           <a href="#" onClick={ () => window.openProject() }>Open</a>
+          &nbsp;or&nbsp;
+          <a href="#" onClick={() => this.openCreateProjectModal()}>create</a>
           &nbsp;a project to get started.
         </span>
-      </div>);
+        <Modal isOpen={this.state.openCreateProjectModal} onRequestClose={this.closeCreateProjectModal.bind(this)}>
+          <ProjectCreator/>
+        </Modal>
+      </div>
+    );
+  }
+}
+
+export class HomePage extends Component {
+  render() {
+    if (this.props.projects.size == 0)
+      return <HomePageNoProjects/>;
 
     return <div className="page">
       Welcome to Pragma!

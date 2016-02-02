@@ -24,7 +24,7 @@ const modalStyle = {
 
 export default class Modal extends Component {
   static propTypes = {
-    isOpen: PropTypes.bool,
+    isOpen: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func
   };
 
