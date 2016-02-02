@@ -38,7 +38,8 @@ export function execute(request:Request, callback) {
     method: request.method,
     url: request.url,
     headers: request.headers,
-    body: request.body
+    body: request.body,
+    followRedirect: false
   }, (error, response) => {
     if (error) return callback(error, null);
 
