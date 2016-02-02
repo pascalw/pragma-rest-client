@@ -12,7 +12,7 @@ const modalStyle = {
     width: '50%',
     left: '25%',
     top: '20%',
-    minHeight: '30%',
+    minHeight: '25%',
     right: 'auto',
     bottom: 'auto',
     border: 'none',

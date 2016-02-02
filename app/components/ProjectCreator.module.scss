@@ -2,3 +2,20 @@
   margin-top: 0;
   margin-bottom: 10px;
 }
+
+.inputAddon {
+  align-items: baseline;
+  display: flex;
+
+  input {
+    flex: 1;
+  }
+
+  button {
+    margin: 0;
+  }
+}
+
+.submit {
+  margin-bottom: 0 !important;
+}

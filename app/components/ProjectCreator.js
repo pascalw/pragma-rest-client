@@ -35,11 +35,13 @@ class ProjectCreator extends Component {
         <form onSubmit={this.onSubmit.bind(this)}>
           <input type="text" placeholder="name" ref="name" required/>
           <br/>
-          <input type="text" placeholder="project path" ref="path" value={this.state.directory} required/>
-          <button onClick={this.openDialog.bind(this)}>Choose project location</button>
 
-          <br/>
-          <input type="submit" value="Create"/>
+          <div className={styles.inputAddon}>
+            <input type="text" placeholder="project path" ref="path" value={this.state.directory} required/>
+            <button onClick={this.openDialog.bind(this)}>Choose</button>
+          </div>
+
+          <input className={styles.submit} type="submit" value="Create"/>
         </form>
       </div>
     );
