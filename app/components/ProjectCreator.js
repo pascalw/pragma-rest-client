@@ -5,6 +5,7 @@ const remote = require('electron').remote;
 const dialog = remote.require('electron').dialog;
 const browserWindow = require('electron').remote.BrowserWindow.getFocusedWindow();
 
+import RequiredInput from '../components/RequiredInput';
 import { newProject } from '../actions/project';
 import { pushPath } from '../actions/ui';
 
@@ -23,7 +24,7 @@ class ProjectCreator extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(newProject(this.refs.path.value, this.refs.name.value));
+    this.props.dispatch(newProject(this.refs.path.value(), this.refs.name.value()));
     this.props.dispatch(pushPath('/'));
   }
 
@@ -33,11 +34,11 @@ class ProjectCreator extends Component {
         <h2 className={styles.title}>New project</h2>
 
         <form onSubmit={this.onSubmit.bind(this)}>
-          <input type="text" placeholder="name" ref="name" required/>
+          <RequiredInput type="text" placeholder="name" ref="name"/>
           <br/>
 
           <div className={styles.inputAddon}>
-            <input type="text" placeholder="project path" ref="path" value={this.state.directory} required/>
+            <RequiredInput type="text" placeholder="project path" ref="path" value={this.state.directory}/>
             <button onClick={this.openDialog.bind(this)}>Choose</button>
           </div>
 

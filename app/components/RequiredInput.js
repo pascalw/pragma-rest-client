@@ -2,12 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
-export default class extends Component {
+export default class RequiredInput extends Component {
   constructor(props) {
     super(props);
     this.boundOnInvalid = this.onInvalid.bind(this);
 
     this.state = {valid: true};
+  }
+
+  value() {
+    return this.findDOMNode().value;
   }
 
   findDOMNode() {
