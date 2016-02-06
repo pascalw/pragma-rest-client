@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Codemirror, { defaultOptions as globalDefaultCodeMirrorOptions } from './Codemirror';
+import Codemirror, { defaultOptions as globalDefaultCodeMirrorOptions } from './codeMirror';
 
 import { extractMimeType } from '../utils/headers';
 import styles from './ResponseViewer.module.scss';

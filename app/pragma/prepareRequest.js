@@ -1,5 +1,5 @@
 import { Request } from './RequestExecutor';
-import transform from 'lodash/object/transform';
+import { transform } from 'lodash/object';
 
 export default function prepareRequest(method, url, headers, body, environment) {
   url = resolveVariables(url, environment);
