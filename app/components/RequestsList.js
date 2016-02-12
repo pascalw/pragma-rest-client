@@ -69,6 +69,28 @@ class ProjectListItem extends Component {
   }
 }
 
+class HistoryListItem extends Component {
+
+  render() {
+    const { history, selectedRequest } = this.props;
+    return (
+      <div className="project">
+        <div className="project-details">
+          <span className="name">History</span>
+        </div>
+        {
+          history.sort((a, b) => a.id < b.id).map((request, index) =>
+            <RequestListItem key={index}
+                             request={request}
+                             selected={ request === selectedRequest }
+                             onSelected={this.props.onRequestSelected}/>
+          )
+        }
+      </div>
+    );
+  }
+}
+
 class RequestsList extends Component {
   static propTypes = {
     requests: PropTypes.array
@@ -90,7 +112,7 @@ class RequestsList extends Component {
   }
 
   render() {
-    const { dispatch, projects, selectedRequest } = this.props;
+    const { dispatch, projects, history, selectedRequest } = this.props;
     if (projects.count() == 0)
       return null;
 
@@ -103,6 +125,9 @@ class RequestsList extends Component {
                            onNewRequest={this.onNewRequest.bind(this)}
                            onProjectClose={this.onProjectClose.bind(this)}/>
         )}
+        <HistoryListItem history={history}
+                         selectedRequest={selectedRequest}
+                         onRequestSelected={this.onRequestSelected.bind(this)}/>
       </div>
     );
   }
@@ -111,6 +136,7 @@ class RequestsList extends Component {
 function select(state) {
   return {
     projects: state.projects,
+    history: state.history,
     selectedRequest: state.ui.get('selectedRequest')
   }
 }

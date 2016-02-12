@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import RequestsList from '../components/RequestsList';
-import RequestEditor from '../components/RequestEditor';
 
 import Modal from '../components/Modal';
 import ProjectCreator from '../components/ProjectCreator';

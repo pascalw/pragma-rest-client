@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RequestEditor from '../components/RequestEditor';
 import ResponseViewer from '../components/ResponseViewer';
-import { Request, addRequest, executeRequest } from '../actions/project';
+import { Request, addRequest, executeRequest, logRequest } from '../actions/project';
 import { cancel } from '../actions/response';
 import { selectRequest } from '../actions/ui';
 
@@ -13,7 +13,12 @@ class NewRequestPage extends Component {
   }
 
   componentDidMount() {
-    this.setState({request: new Request({method: 'GET'})});
+    const newRequest = new Request({
+      method: 'GET',
+      projectId: this.props.params.projectId
+    });
+
+    this.setState({request: newRequest});
   }
 
   addRequest(request) {
@@ -26,6 +31,7 @@ class NewRequestPage extends Component {
   onRequestExecute(request) {
     this.setState({request: request});
     this.props.dispatch(executeRequest(request.method, request.url, request.headers.toJS(), request.body));
+    this.props.dispatch(logRequest(request));
   }
 
   render() {

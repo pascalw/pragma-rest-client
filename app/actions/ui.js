@@ -7,7 +7,10 @@ export const PUSH_PATH = 'PUSH_PATH';
 
 export function selectRequest(request) {
   return dispatch => {
-    dispatch(pushPath(`/projects/${request.projectId}/requests/${request.id}`));
+    if (request.projectId)
+      dispatch(pushPath(`/projects/${request.projectId}/requests/${request.id}`));
+    else
+      dispatch(pushPath(`/requests/${request.id}`));
 
     dispatch({
       type: SELECT_REQUEST,

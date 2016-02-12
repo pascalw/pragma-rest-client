@@ -110,9 +110,9 @@ class RequestForm extends Component {
                     options={codeMirrorOptions(request)}
                     onChange={this.onBodyChange.bind(this)}/>
 
-        <input type="submit" value="Save"/>
+        {request.projectId && <input type="submit" value="Save"/>}
 
-        {request.id ? <button className="delete" onClick={this.props.onDelete}>Delete</button> : null}
+        {request.projectId && request.id && <button className="delete" onClick={this.props.onDelete}>Delete</button>}
       </form>
     )
   }

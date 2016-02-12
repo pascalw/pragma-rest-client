@@ -14,6 +14,7 @@ class EditRequestPage extends Component {
 
   onExecuteRequest(request) {
     this.props.executeRequest(request.method, request.url, request.headers.toJS(), request.body);
+    this.props.logRequest(request);
   }
 
   onDeleteRequest(request) {
@@ -42,9 +43,22 @@ class EditRequestPage extends Component {
   }
 }
 
+function requestFromProjects(state, projectId, requestId) {
+  const project = state.projects.filter(p => p.id == projectId).get(0);
+  return project && project.requests.filter(r => r.id == requestId).get(0);
+}
+
+function requestFromHistory(state, requestId) {
+  return state.history.filter(r => r.id == requestId).get(0);
+}
+
 function mapStateToProps(state, ownProps) {
-  const project = state.projects.filter(p => p.id == ownProps.params.projectId).get(0);
-  const request = project && project.requests.filter(r => r.id == ownProps.params.id).get(0);
+  let request;
+
+  if (ownProps.params.projectId)
+    request = requestFromProjects(state, ownProps.params.projectId, ownProps.params.id);
+  else
+    request = requestFromHistory(state, ownProps.params.id);
 
   return {
     request: request,
