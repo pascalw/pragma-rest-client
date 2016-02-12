@@ -134,7 +134,6 @@ export function executeRequest(method:string, url:string, headers:Object, body:?
         dispatch(receiveResponse(response));
     });
 
-    dispatch(logRequest(request));
     dispatch(awaitingResponse({cancel: cancelRequest}));
   }
 }
