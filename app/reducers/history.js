@@ -5,11 +5,10 @@ export default function history(state = new List(), action) {
 
   switch (action.type) {
     case LOG_REQUEST:
-      debugger;
-
-      const loggedRequest = new Request(Immutable.fromJS(action.request))
-        .set('name', action.request.url)
-        .set('id', state.size);
+      const loggedRequest = new Request(action.request)
+        .remove('projectId')
+        .set('id', state.size)
+        .set('name', action.request.url);
 
       return state.push(loggedRequest);
     default:

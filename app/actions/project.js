@@ -1,11 +1,11 @@
 import { List, Record, Map } from 'immutable';
 const nodePath = require('path');
 
-import randomId from '../utils/randomId';
 import { execute as doExecuteRequest } from '../pragma/RequestExecutor';
 import prepareRequest from '../pragma/prepareRequest';
 import { awaitingResponse, receiveResponse, receiveError } from './response';
 import { readProject } from '../utils/projectUtils';
+import randomId from '../utils/randomId';
 
 export const UPSERT_PROJECT = 'UPSERT_PROJECT';
 export const CLOSE_PROJECT = 'CLOSE_PROJECT';
@@ -16,7 +16,7 @@ export const EXECUTE_REQUEST = 'EXECUTE_REQUEST';
 export const LOG_REQUEST = 'LOG_REQUEST';
 
 export const Request = Record({
-  id: undefined,
+  id: randomId(),
   projectId: undefined,
   name: undefined,
   method: undefined,
@@ -83,12 +83,10 @@ export function closeProjectByPath(path) {
 }
 
 export function addRequest(request, projectId) {
-  const newRequest = request.set('id', randomId()).set('projectId', projectId);
-
   return {
     type: ADD_REQUEST,
     projectId: projectId,
-    request: newRequest
+    request: request
   }
 }
 

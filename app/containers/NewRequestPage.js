@@ -13,7 +13,12 @@ class NewRequestPage extends Component {
   }
 
   componentDidMount() {
-    this.setState({request: new Request({method: 'GET'})});
+    const newRequest = new Request({
+      method: 'GET',
+      projectId: this.props.params.projectId
+    });
+
+    this.setState({request: newRequest});
   }
 
   addRequest(request) {
