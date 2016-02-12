@@ -79,7 +79,7 @@ class HistoryListItem extends Component {
           <span className="name">History</span>
         </div>
         {
-          history.map((request, index) =>
+          history.sort((a, b) => a.id < b.id).map((request, index) =>
             <RequestListItem key={index}
                              request={request}
                              selected={ request === selectedRequest }
