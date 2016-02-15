@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import bindKey from 'keymaster';
 bindKey.filter = () => true; // allows trigger always, including when inputs are focused
 
-import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './Codemirror';
+import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './codeMirror';
 import Select from './Select';
 import RequiredInput from './RequiredInput';
 import KeyValuePairEditor from './KeyValuePairEditor';
