@@ -2,7 +2,7 @@ import { List, Record, Map } from 'immutable';
 const nodePath = require('path');
 
 import randomId from '../utils/randomId';
-import { execute as doExecuteRequest } from '../pragma/RequestExecutor';
+import { execute as doExecuteRequest } from '../pragma/requestExecutor';
 import prepareRequest from '../pragma/prepareRequest';
 import { awaitingResponse, receiveResponse, receiveError } from './response';
 import { readProject } from '../utils/projectUtils';

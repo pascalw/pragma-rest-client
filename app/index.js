@@ -7,7 +7,7 @@ import { syncReduxAndRouter } from 'redux-simple-router';
 import { pushPath } from './actions/ui';
 import routes from './routes';
 import configureStore from './store/configureStore';
-import { syncProjectsToDisk } from './pragma/ProjectFileSynchronizer';
+import { syncProjectsToDisk } from './pragma/projectFileSynchronizer';
 import syncEnvironments from './pragma/environmentsSynchronizer';
 import syncUiState from './pragma/uiStateSynchronizer';
 import { upsertProject } from './actions/project';

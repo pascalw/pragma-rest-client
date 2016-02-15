@@ -1,4 +1,4 @@
-import { Request } from './RequestExecutor';
+import { Request } from './requestExecutor';
 import { transform } from 'lodash/object';
 
 export default function prepareRequest(method, url, headers, body, environment) {
