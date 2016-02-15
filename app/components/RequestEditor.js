@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import bindKey from 'keymaster';
 bindKey.filter = () => true; // allows trigger always, including when inputs are focused
 
-import Codemirror, { defaultOptions as defaultCodeMirrorOptions } from './Codemirror';
+import CodeMirror, { defaultOptions as defaultCodeMirrorOptions } from './CodeMirror';
 import Select from './Select';
 import RequiredInput from './RequiredInput';
 import KeyValuePairEditor from './KeyValuePairEditor';
@@ -106,7 +106,7 @@ class RequestForm extends Component {
           onChange={this.onHeadersChange.bind(this)}
           keyOptions={HEADERS}/>
 
-        <Codemirror value={request.body || ''}
+        <CodeMirror value={request.body || ''}
                     options={codeMirrorOptions(request)}
                     onChange={this.onBodyChange.bind(this)}/>
 

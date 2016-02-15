@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Codemirror, { defaultOptions as globalDefaultCodeMirrorOptions } from './Codemirror';
+import CodeMirror, { defaultOptions as globalDefaultCodeMirrorOptions } from './CodeMirror';
 
 import { extractMimeType } from '../utils/headers';
 import styles from './ResponseViewer.module.scss';
@@ -111,7 +111,7 @@ class ResponseViewer extends Component {
               <label htmlFor="raw-body">Raw</label>
             </nav>
 
-            <Codemirror value={this.body(response)} options={codeMirrorOptions(response)}/>
+            <CodeMirror value={this.body(response)} options={codeMirrorOptions(response)}/>
           </TabPanel>
           <TabPanel>
             <span>
