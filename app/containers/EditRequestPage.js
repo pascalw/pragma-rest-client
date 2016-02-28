@@ -13,8 +13,7 @@ class EditRequestPage extends Component {
   }
 
   onExecuteRequest(request) {
-    this.props.executeRequest(request.method, request.url, request.headers.toJS(), request.body);
-    this.props.logRequest(request);
+    this.props.executeRequest(request);
   }
 
   onDeleteRequest(request) {

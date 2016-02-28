@@ -30,8 +30,7 @@ class NewRequestPage extends Component {
 
   onRequestExecute(request) {
     this.setState({request: request});
-    this.props.dispatch(executeRequest(request.method, request.url, request.headers.toJS(), request.body));
-    this.props.dispatch(logRequest(request));
+    this.props.dispatch(executeRequest(request));
   }
 
   render() {

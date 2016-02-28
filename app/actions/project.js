@@ -111,21 +111,22 @@ export function logRequest(request) {
   }
 }
 
-export function executeRequest(method:string, url:string, headers:Object, body:?string) {
+export function executeRequest(request:Request) {
   return (dispatch, getState) => {
     const state = getState();
     const activeEnvironmentId = state.ui.get('activeEnvironment');
     const activeEnvironment = state.environments.find(e => e.get('id') === activeEnvironmentId);
 
-    let request;
+    let preparedRequest;
     try {
-      request = prepareRequest(method, url, headers, body, activeEnvironment);
+      preparedRequest = prepareRequest(request.method, request.url, request.headers.toJS(), request.body, activeEnvironment);
+      dispatch(logRequest(request));
     } catch (e) {
       dispatch(receiveError(e));
       return;
     }
 
-    const cancelRequest = doExecuteRequest(request, (error, response) => {
+    const cancelRequest = doExecuteRequest(preparedRequest, (error, response) => {
       if (error)
         dispatch(receiveError(error));
       else
