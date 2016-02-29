@@ -3,7 +3,7 @@
 This is my weekend hack project that I'm using to learn React and related tools.
 Hopefully, in the process I can come up with a replacement for the Postman REST client.
 
-This project is based on [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate).
+![Pragma](./screenshots/Pragma-request.png)
 
 ## Getting started
 
