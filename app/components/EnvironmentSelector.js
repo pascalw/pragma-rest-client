@@ -18,7 +18,7 @@ const DEFAULT_OPTIONS = new List([
   {value: NO_ENVIRONMENT_ID, label: 'No environment'}
 ]);
 
-export default class EnvironmentSelector extends Component {
+class EnvironmentSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {editorOpen: false};
