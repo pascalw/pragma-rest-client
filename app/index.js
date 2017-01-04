@@ -50,4 +50,5 @@ if (process.env.NODE_ENV !== 'production') {
   // is envified so that Uglify can eliminate this
   // module and its dependencies as dead code.
   // require('./createDevToolsWindow')(store);
+  window.bridge = require('./electron/Bridge');
 }
